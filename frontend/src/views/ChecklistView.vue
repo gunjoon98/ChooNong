@@ -1,11 +1,11 @@
 <template>
   <div>
-    <checklist-component />
+    <check-list-component />
   </div>
 </template>
 
 <script setup>
-import ChecklistComponent from '@/components/checklist/ChecklistComponents.vue';
+import CheckListComponent from '@/components/checklist/CheckListComponent.vue';
 
 </script>
 

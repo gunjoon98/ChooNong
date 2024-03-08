@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import SurveyComponent from '@/components/survey/SurveyComponents.vue';
+import SurveyComponent from '@/components/survey/SurveyComponent.vue';
 
 </script>
 
