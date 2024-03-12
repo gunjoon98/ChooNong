@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainView from "../views/MainView.vue";
 import CalculatorView from "../views/CalculatorView.vue";
-import CheckListView from "../views/CheckListView.vue"
+import CheckListView from "../views/CheckListView.vue";
 import RegionView from "../views/RegionView.vue";
 import SurveyView from "../views/SurveyView.vue";
 import MainComponent from "../components/main/MainComponent.vue";
