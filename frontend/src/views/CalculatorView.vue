@@ -1,12 +1,12 @@
 <template>
   <div class="router-container">
-    <router-view />
+    <RouterView />
     <img src="../assets/chicken.png" class="bottom-picture">
   </div>
 </template>
 
 <script setup>
-import CalculatorComponent from '@/components/calculator/CalculatorComponent.vue';
+import { RouterView } from 'vue-router';
 
 </script>
 

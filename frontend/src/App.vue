@@ -1,7 +1,7 @@
 <template>
   <div class="body-container">
     <the-header-nav class="the-header-nav"/>
-    <router-view class="main-container" />
+    <RouterView class="main-container" />
     <!-- <img src="C:\Users\SSAFY\Desktop\S10P22B210\frontend\src\assets\chicken.png" class="bottom-picture"> -->
     <the-footer class="the-footer" />
   </div>
@@ -10,6 +10,7 @@
 <script setup>
 import TheHeaderNav from '@/components/common/TheHeaderNav.vue';
 import TheFooter from '@/components/common/TheFooter.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <style>

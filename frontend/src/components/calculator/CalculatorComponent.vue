@@ -67,11 +67,15 @@
 							<li class="one-added-crop">
 								<button type="button" class="delete-button" @click="deleteCrop(index)">X</button>
 								<div>
-									<div>작물&nbsp&nbsp{{ crop.cropName }}</div>
-									<div>수익률&nbsp&nbsp{{ crop.profitRate }}</div>
+									<div class="property-name">작물</div>
+									<div>{{ crop.cropName }}</div>
 								</div>
 								<div>
-									<div>재배 면적 비율</div>
+									<div class="property-name">수익률</div>
+									<div>{{ crop.profitRate }}</div>
+								</div>
+								<div>
+									<div class="property-name">재배 면적 비율</div>
 									<div>
 										<div>
 											<InputText v-model.number="crop.cropExtentValue" />%&nbsp&nbsp
@@ -79,7 +83,7 @@
 										<div>({{ totalExtentP*crop.cropExtentValue/100 }}평={{ totalExtentM*crop.cropExtentValue/100 }}㎡)</div>
 									</div>
 								</div>
-								<Slider v-model="crop.cropExtentValue" :min="0" :max="100" :step="1" />
+								<Slider v-model="crop.cropExtentValue" :min="0" :max="100" :step="5" />
 							</li>
 						</ul>
 					</div>
@@ -370,6 +374,12 @@ const deleteCrop = function (index) {
 	position: absolute;
 	top: 5px;
 	right: 5px;
+}
+
+.property-name {
+	font-weight: bold;
+	color: #333;
+	margin-right: 5px; 
 }
 
 .added-crop-list-container ul li div {

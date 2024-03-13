@@ -1,7 +1,6 @@
 <template>
   <div class="footer-container">
-    Footer<br>
-    Footer
+    &copy; 개발쉽죠
   </div>
 </template>
 
@@ -13,6 +12,8 @@
 .footer-container {
   border-top: 1px solid #4BAF47;
   background-color: #CBBB85;
-  padding: 0 2vw;
+  padding: 30px 2vw;
+  color: #42494C;
+  text-align: center;
 }
 </style>
