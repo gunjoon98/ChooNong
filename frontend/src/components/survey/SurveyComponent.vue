@@ -209,7 +209,7 @@ const setStep = function(step) {
   color: black;
 }
 
-button {
+.button {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
