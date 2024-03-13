@@ -209,7 +209,14 @@ const setStep = function(step) {
   color: black;
 }
 
-.button {
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.buttons-container button {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
@@ -218,13 +225,6 @@ const setStep = function(step) {
   cursor: pointer;
   font-size: 1em;
   transition: background-color 0.3s;
-}
-
-.buttons-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
 }
 
 .buttons-container button:hover {
