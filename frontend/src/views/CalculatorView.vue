@@ -1,7 +1,7 @@
 <template>
   <div class="router-container">
     <router-view />
-    <img src="C:\Users\SSAFY\Desktop\S10P22B210\frontend\src\assets\chicken.png" class="bottom-picture">
+    <img src="../assets/chicken.png" class="bottom-picture">
   </div>
 </template>
 

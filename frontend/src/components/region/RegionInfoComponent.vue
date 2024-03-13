@@ -1,22 +1,20 @@
 <template>
-  <div>
-    <h3>info</h3>
-    <div v-for="regionDetail in regionStore.dummyRegion">
-    <a href="">지역 URL 링크</a>
+  <div class="info-chart-container">
+    <div class="region-info">
+      <h3>info</h3>
+      <div v-for="regionDetail in regionStore.dummyRegion" :key="regionDetail.region_id" class="region-info-detail">
+        <a :href="regionDetail.homepage_url">지역 URL 링크</a>
 
-    <p>세대수 : {{ regionDetail.household }}</p>
-    <p>귀농인 : {{ regionDetail.returners }}</p>
-    <p>행정면적 : {{ regionDetail.area }}</p>
-    </div>
-
-    <div>
-      <h3>지역 작물</h3>
-
-      <div>
-      <region-chart-component/>
+        <p>세대수 : {{ regionDetail.household }}</p>
+        <p>귀농인 : {{ regionDetail.returners }}</p>
+        <p>행정면적 : {{ regionDetail.area }}</p>
       </div>
     </div>
 
+    <div class="region-chart">
+      <h3>지역 작물</h3>
+      <region-chart-component/>
+    </div>
   </div>
 </template>
 
@@ -32,10 +30,38 @@ const cropStore = useCropStore()
 const regionName = ref('')
 const regionURL = ref('')
 
-
 </script>
 
 <style scoped>
-  
+.info-chart-container {
+  display: flex;
+  border: 1px solid #4BAF47;
+  border-radius: 1rem;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.region-info, .region-chart {
+  flex: 1; 
+  margin-bottom: 20px;
+}
+
+.region-info h3, .region-chart h3 {
+  margin: 10px;
+}
+
+.region-info {
+  margin-right: 20px; 
+  margin: 10px;
+}
+
+.region-chart {
+  margin-right: 20px; 
+  margin-bottom: 10px;
+}
+
+.region-info-detail {
+  margin-left: 10px;
+}
 
 </style>

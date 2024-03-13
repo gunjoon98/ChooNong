@@ -40,6 +40,7 @@ const router = createRouter({
         {
           path: "/survey/result",
           name: "surveyResult",
+          props: true,
           component: SurveyResultComponent,
         }
       ]

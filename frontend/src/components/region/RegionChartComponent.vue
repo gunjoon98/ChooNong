@@ -39,21 +39,20 @@ onMounted(() => {
                 borderWidth: 1
             }]
         },
-        // 뒤의 실선 제거
-        // options: {
-        //     scales: {
-        //         y: {
-        //             beginAtZero: true
-        //         }
-        //     }
-        // }
     });
 });
 </script>
 
 <style scoped>
 .card {
-  max-width: 300px;
+  max-width: 330px;
   margin: auto;
 }
+
+canvas {
+  height: fit-content;
+  width: fit-content;
+  margin-bottom: 5px;
+}
+
 </style>

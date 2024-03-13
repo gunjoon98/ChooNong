@@ -1,11 +1,11 @@
 <template>
   <div>
-    <router-view />
+    <RouterView/>
   </div>
 </template>
 
 <script setup>
-import CheckListComponent from '@/components/checklist/CheckListComponent.vue';
+import { RouterView } from 'vue-router';
 
 </script>
 
