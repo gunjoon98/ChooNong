@@ -1,6 +1,6 @@
 <template>
   <div>
-    <survey-component />
+    <router-view />
   </div>
 </template>
 

@@ -5,15 +5,19 @@ import CheckListView from "../views/CheckListView.vue"
 import RegionView from "../views/RegionView.vue";
 import SurveyView from "../views/SurveyView.vue";
 import MainComponent from "../components/main/MainComponent.vue";
-import CalculatorComponent from "../components/calculator/CalculatorResultComponent.vue";
+import CalculatorComponent from "@/components/calculator/CalculatorComponent.vue";
+import CalculatorResultComponent from "../components/calculator/CalculatorResultComponent.vue";
+import CheckListComponent from "@/components/checklist/CheckListComponent.vue";
 import CheckListResultComponent from "../components/checklist/CheckListResultComponent.vue";
+import SurveyComponent from "@/components/survey/SurveyComponent.vue";
+import SurveyResultComponent from "@/components/survey/SurveyResultComponent.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "mainview",
+      name: "main",
       component: MainView,
       children: [
         {
@@ -27,6 +31,18 @@ const router = createRouter({
       path: "/survey",
       name: "survey",
       component: SurveyView,
+      children: [
+        {
+          path: "/survey",
+          name: "survey",
+          component: SurveyComponent,
+        },
+        {
+          path: "/survey/result",
+          name: "surveyResult",
+          component: SurveyResultComponent,
+        }
+      ]
     },
     // {
     //   path: "/region/:regionId",
@@ -43,21 +59,37 @@ const router = createRouter({
       path: "/calculator",
       name: "calculator",
       component: CalculatorView,
-    },
-    {
-      path: "/calculator/result",
-      name: "calculatorresult",
-      component: CalculatorComponent,
+      children: [
+        {
+          path: "/calculator",
+          name: "calculator",
+          props: true,
+          component: CalculatorComponent,
+        },
+        {
+          path: "/calculator/result",
+          name: "calculatorResult",
+          props: true,
+          component: CalculatorResultComponent,
+        },
+      ]
     },
     {
       path: "/checklist",
       name: "checklist",
       component: CheckListView,
-    },
-    {
-      path: "/checklist/result",
-      name: "checklistresult",
-      component: CheckListResultComponent,
+      children: [
+        {
+          path: "/checklist",
+          name: "checklist",
+          component: CheckListComponent,
+        },
+        {
+          path: "/checklist/result",
+          name: "checklistResult",
+          component: CheckListResultComponent,
+        },
+      ]
     },
   ],
 });

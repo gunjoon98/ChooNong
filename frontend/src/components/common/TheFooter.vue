@@ -13,5 +13,6 @@
 .footer-container {
   border-top: 1px solid #4BAF47;
   background-color: #CBBB85;
+  padding: 0 2vw;
 }
 </style>

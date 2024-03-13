@@ -1,39 +1,83 @@
 <template>
   <div class="header-container">
     <div class="logo-wrapper">
-      <router-link to="/">
-        <!-- <img src=""> -->
-        <h1>로고</h1>
+      <router-link to="/" @click="clickMenu(0)">
+        <img src="@/assets/logo.png" class="logo-image">
       </router-link>
     </div>
+    <!-- <img src="@/assets/cloud.png" /> -->
     <div class="menu-container">
-      <div><router-link to="/survey">귀농지 추천 설문</router-link></div>
-      |
-      <div>귀농지 검색</div>
-      |
-      <div><router-link to="/calculator">작물 수익 계산기</router-link></div>
-      |
-      <div><router-link to="/checklist">귀농 준비 체크리스트</router-link></div>
-      |
-      <div><router-link to="/region">지역 정보</router-link></div>
+      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 1 }"><router-link to="/survey" @click="clickMenu(1)">귀농지 추천 설문</router-link></div>
+      <div class="one-menu">귀농지 검색</div>
+      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 3 }"><router-link to="/calculator" @click="clickMenu(3)">작물 수익 계산기</router-link></div>
+      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 4 }"><router-link to="/checklist" @click="clickMenu(4)">귀농 준비 체크리스트</router-link></div>
+      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 5 }"><router-link to="/region" @click="clickMenu(5)">지역 정보</router-link></div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
+const clickedMenu = ref(0);
+const clickMenu = function (menuNum) {
+  clickedMenu.value = menuNum;
+}
 
 </script>
 
 <style scoped>
 .header-container {
+  padding: 0 2vw;
   background-image: linear-gradient(to bottom, #ADE6F9, #ffffff);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+}
+
+.logo-image {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  left: 2vw;
+  top: 20px;
 }
 
 .menu-container {
+  width: 830px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+
+.one-menu {
+  /* background-image: url("@/assets/cloud.png");
+  background-size: cover; */
+  width: 200px;
+  height: 90px;
+  text-align: center;
+  line-height: 130px;
+  position: relative;
+}
+
+.clicked-menu {
+  background-image: url("@/assets/cloud.png");
+  background-size: cover;
+  /* width: 200px;
+  height: 90px;
+  text-align: center; */
+  font-weight: bold;
+  line-height: 130px;
+  /* position: relative; */
+}
+
+.one-menu a:hover {
+  font-weight: bold;
+}
+
+.one-menu a{
+  /* transform: translate(-50%, -50%); */
+  color: #000000; /* 텍스트 색상 */
+  text-decoration: none; /* 밑줄 제거 */
 }
 </style>

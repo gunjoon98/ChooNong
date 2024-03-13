@@ -63,9 +63,22 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import Chart from 'chart.js/auto';
 
+const route = useRoute();
+
+// const addedCropList = route.params.addedCropList;
+const totalExtent = route.params.totalExtent;
+
+const calculateResult = function () {
+
+}
+
 onMounted(() => {
+  const totalExtent = route.params.totalExtent;
+  console.log(totalExtent);
+  // console.log(route.params.totalExtent)
   const ctx = document.getElementById('myChart');
   const myChart = new Chart(ctx, {
     type: 'bar',

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <check-list-component />
+    <router-view />
   </div>
 </template>
 
