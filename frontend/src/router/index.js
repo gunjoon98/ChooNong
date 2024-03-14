@@ -12,6 +12,7 @@ import CheckListResultComponent from "../components/checklist/CheckListResultCom
 import SurveyComponent from "@/components/survey/SurveyComponent.vue";
 import SurveyResultComponent from "@/components/survey/SurveyResultComponent.vue";
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -42,7 +43,7 @@ const router = createRouter({
           name: "surveyResult",
           props: true,
           component: SurveyResultComponent,
-        }
+        },
       ]
     },
     // {
