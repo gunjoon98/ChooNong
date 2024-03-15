@@ -10,7 +10,7 @@
     slideShadows: false, // 슬라이드 그림자 제거
   }" :space-between="30" :slides-per-group="1" :loop="true" :loop-fill-group-with-blank="true" :navigation="true"
     :pagination="{ clickable: true }">
-
+    
     <swiper-slide v-for="(region, index) in regionStore.dummyRegionList" :key="region.region_id">
   <div class="content-container">
     <div class="upper-container">
