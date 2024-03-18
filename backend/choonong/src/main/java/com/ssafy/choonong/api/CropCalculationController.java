@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api1/cropcalculation")
 @AllArgsConstructor
-public class CropCalculationController {//계산기용으로 쓰일 예정입니다. 전체 작물 조회
+public class CropCalculationController {//계산기용으로 쓰일 예정입니다. 전체 작물 조회.
     private final CropCalculationService cropcalculationservice;
 
 
