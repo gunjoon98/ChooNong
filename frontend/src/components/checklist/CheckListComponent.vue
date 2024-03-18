@@ -6,26 +6,68 @@
 
       <div v-for="(option, oIndex) in check.options" :key="oIndex" class="option">
         <div>{{ option }}</div>
-        <!-- 각 체크박스를 checkedAnswers에 바인딩합니다 -->
-        <Checkbox v-model="checkedAnswers[cIndex][oIndex]" :binary="true" />
+        <RadioButton v-model="checkedAnswers[cIndex]" :value="oIndex" />
       </div>
     </div>
+    <button @click="goToResult">결과보기</button>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useCheckStore } from '@/stores/checkStore';
-import Checkbox from 'primevue/checkbox';
+import { useRouter } from 'vue-router';
+import RadioButton from 'primevue/radiobutton';
+
 
 const checkStore = useCheckStore();
+const router = useRouter();
+const checkedAnswers = ref(checkStore.checkList.map(() => null));
 
-// 각 체크박스의 상태를 저장할 구조를 초기화합니다.
-const checkedAnswers = ref(checkStore.checkList.map(check => 
-  check.options.map(() => false)
-));
+function calculateWeight(answerIndex, optionCount) {
+  if (answerIndex === null) return 0;
+  return Math.round((answerIndex / (optionCount - 1)) * 100);
+}
+
+const categoryWeights = computed(() => {
+  const weightSums = {};
+  
+  checkStore.checkList.forEach((check, cIndex) => {
+    const category = check.category;
+    const optionCount = check.options.length;
+    const answerIndex = checkedAnswers.value[cIndex];
+    const weight = calculateWeight(answerIndex, optionCount);
+    
+    if (!weightSums[category]) {
+      weightSums[category] = 0;
+    }
+    weightSums[category] += weight;
+  });
+
+  // '생활' 카테고리의 가중치 합을 조정
+  if (weightSums['생활'] !== undefined) {
+    // 예를 들어, 총합이 200일 경우, 이를 100으로 조정하기 위해 2로 나눕니다.
+    // 이 조정 비율은 필요에 따라 조정할 수 있습니다.
+    weightSums['생활'] = Math.round(weightSums['생활'] / 2);
+  }
+  
+  return weightSums;
+});
+
+
+watch(checkedAnswers, (newVal, oldVal) => {
+  // 계산된 categoryWeights를 store에 업데이트
+  checkStore.setCategoryWeights(categoryWeights.value);
+  console.log(checkStore.categoryWeights)
+}, { deep: true });
+
+const goToResult = function() {
+  router.push('/checklist/result');
+}
 
 </script>
+
+
 
 <style scoped>
   .container {
