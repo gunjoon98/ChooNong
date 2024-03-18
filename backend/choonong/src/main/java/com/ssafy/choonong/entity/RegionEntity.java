@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
-// 엔티티는 데이터베이스와 직접적으로 상호작용하는 모델 클래스
+// 엔티티는 데이터베이스와 직접적으로 상호작용하는 모델 클래스...
 @Entity(name = "region")
 @Data
 
