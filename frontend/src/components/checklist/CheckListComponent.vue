@@ -5,8 +5,9 @@
       <div>{{ check.check_title }}</div>
 
       <div v-for="(option, oIndex) in check.options" :key="oIndex" class="option">
-        <div>{{ option }}</div>
         <RadioButton v-model="checkedAnswers[cIndex]" :value="oIndex" />
+        <div>{{ option }}</div>
+        
       </div>
     </div>
     <button @click="goToResult">결과보기</button>
@@ -19,25 +20,24 @@ import { useCheckStore } from '@/stores/checkStore';
 import { useRouter } from 'vue-router';
 import RadioButton from 'primevue/radiobutton';
 
-
 const checkStore = useCheckStore();
 const router = useRouter();
 const checkedAnswers = ref(checkStore.checkList.map(() => null));
 
-function calculateWeight(answerIndex, optionCount) {
+const calculateWeight = function(answerIndex, optionCount) {
   if (answerIndex === null) return 0;
   return Math.round((answerIndex / (optionCount - 1)) * 100);
 }
 
 const categoryWeights = computed(() => {
   const weightSums = {};
-  
+
   checkStore.checkList.forEach((check, cIndex) => {
     const category = check.category;
     const optionCount = check.options.length;
     const answerIndex = checkedAnswers.value[cIndex];
     const weight = calculateWeight(answerIndex, optionCount);
-    
+
     if (!weightSums[category]) {
       weightSums[category] = 0;
     }
@@ -50,30 +50,45 @@ const categoryWeights = computed(() => {
     // 이 조정 비율은 필요에 따라 조정할 수 있습니다.
     weightSums['생활'] = Math.round(weightSums['생활'] / 2);
   }
-  
+
   return weightSums;
 });
 
 
 watch(checkedAnswers, (newVal, oldVal) => {
-  // 계산된 categoryWeights를 store에 업데이트
   checkStore.setCategoryWeights(categoryWeights.value);
   console.log(checkStore.categoryWeights)
 }, { deep: true });
 
-const goToResult = function() {
-  router.push('/checklist/result');
+const goToResult = function () {
+  const isAllChecked = checkedAnswers.value.every(answer => answer !== null);
+
+  if (isAllChecked) {
+    router.push('/checklist/result');
+  } else {
+    alert('모든 문항에 답해주세요.');
+  }
 }
+
+const allChecked = computed(() => {
+  return checkedAnswers.value.every(answer => answer !== null);
+});
 
 </script>
 
 
 
 <style scoped>
-  .container {
-    border: 1px solid black;
-  }
-  .option {
-    margin: 5px;
-  }
+.container {
+  border: 1px solid black;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+.option > div {
+  margin-right: 10px; /* 텍스트와 라디오 버튼 사이에 약간의 여백을 추가합니다. */
+}
 </style>
