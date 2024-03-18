@@ -11,5 +11,4 @@ public class ChoonongApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ChoonongApplication.class, args);
 	}
-
 }

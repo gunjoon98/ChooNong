@@ -1,6 +1,5 @@
 package com.ssafy.choonong.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,8 +7,7 @@ import java.math.BigInteger;
 
 @Entity
 @Data
-public class CropCalculationEntity { //계산기용으로 쓰일 예정입니다. 전체 작물 조회
-
+public class CropCalculationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cropId; //작물 ID

@@ -1,13 +1,16 @@
 package com.ssafy.choonong.entity;
 
-
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @Entity(name = "region")
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class RegionEntity {
 
     @Id
@@ -41,5 +44,4 @@ public class RegionEntity {
 
     @OneToMany
     private List<PolicyEntity> policyList;
-
 }

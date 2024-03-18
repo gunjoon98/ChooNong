@@ -1,27 +1,67 @@
 package com.ssafy.choonong.service;
 
-
+import com.ssafy.choonong.dto.Response.CropResponse;
+import com.ssafy.choonong.dto.Response.PolicyResponse;
+import com.ssafy.choonong.dto.Response.RegionItemResponse;
+import com.ssafy.choonong.dto.Response.RegionResponse;
 import com.ssafy.choonong.entity.RegionEntity;
 import com.ssafy.choonong.repository.RegionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
-public class RegionService { //DTO를 사용하지 않고 엔티티를 그대로 반환
+public class RegionService {
 
     private final RegionRepository regionRepository;
 
-
-
-    /** 주어진 regionId에 해당하는 지역 정보와 그 지역의 작물 및 정책 정보를 한 번에 가져옵니다. */
-    public RegionEntity getRegionWithCropsAndPoliciesById(int regionId) {
-        return regionRepository.findRegionEntityWithCropsAndPoliciesByRegionId(regionId);
+    public List<RegionItemResponse> getResionList() {
+        return regionRepository.findAll().stream()
+                .map(regionEntity -> RegionItemResponse.builder()
+                        .regionId(regionEntity.getRegionId())
+                        .regionName(regionEntity.getRegionName())
+                        .build()).toList();
     }
 
-    //만약 지역 정보만 필요한 경우에는 getRegionById 메서드를 사용하고,
-    // 지역 정보와 함께 작물 및 정책 정보도 필요한 경우에는 getRegionWithCropsAndPoliciesById 메서드를 사용하면 됩니다.
+    /* regionId 지역 정보, 작물, 정책 정보 가져옴 */
+    public RegionResponse getRegionWithCropsAndPoliciesById(int regionId) {
+        RegionEntity regionEntity =
+                regionRepository.findRegionEntityWithCropsAndPoliciesByRegionId(regionId)
+                        .orElseThrow();
 
+        List<CropResponse> cropResponseList = regionEntity.getCropList().stream()
+                .map(cropEntity -> CropResponse.builder()
+                        .cropId(cropEntity.getCropId())
+                        .cropName(cropEntity.getCropName())
+                        .areaRate(cropEntity.getAreaRate())
+                        .build()).toList();
+
+        List<PolicyResponse> policyResponseList = regionEntity.getPolicyList().stream()
+                .map(policyEntity -> PolicyResponse.builder()
+                        .policyId(policyEntity.getPolicyId())
+                        .businessName(policyEntity.getBusinessName())
+                        .targetEligibility(policyEntity.getTargetEligibility())
+                        .businessContent(policyEntity.getBusinessContent())
+                        .conditions(policyEntity.getConditions())
+                        .evidence(policyEntity.getEvidence())
+                        .reception(policyEntity.getReception())
+                        .build()).toList();
+
+        return RegionResponse.builder()
+                .regionId(regionEntity.getRegionId())
+                .regionName(regionEntity.getRegionName())
+                .household(regionEntity.getHousehold())
+                .province(regionEntity.getProvince())
+                .returners(regionEntity.getReturners())
+                .area(regionEntity.getArea())
+                .homepageUrl(regionEntity.getHomepageUrl())
+                .imgUrl(regionEntity.getImgUrl())
+                .cropList(cropResponseList)
+                .policyList(policyResponseList)
+                .build();
+    }
 }
 
 
