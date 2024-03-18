@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class SerachEntity {
+public class SearchEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "region_id")
