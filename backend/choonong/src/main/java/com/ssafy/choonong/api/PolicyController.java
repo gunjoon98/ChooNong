@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/policy")
+@RequestMapping("/api/v1/policy")
+
+
 public class PolicyController {
 
     private final PolicyService policyService;
