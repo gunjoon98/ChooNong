@@ -12,11 +12,7 @@ public class RegionService { //DTO를 사용하지 않고 엔티티를 그대로
 
     private final RegionRepository regionRepository;
 
-    /** regionID에 따라 지역정보만을 가져옵니다.*/
-    public RegionEntity getRegionById(int regionId) {
-        return regionRepository.findById(regionId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 지역을 찾을 수 없습니다."));
-    }
+
 
     /** 주어진 regionId에 해당하는 지역 정보와 그 지역의 작물 및 정책 정보를 한 번에 가져옵니다. */
     public RegionEntity getRegionWithCropsAndPoliciesById(int regionId) {

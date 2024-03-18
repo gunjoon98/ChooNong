@@ -17,13 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegionController {
     private final RegionService regionService;
 
-    @GetMapping("/{regionId}")
-    public ResponseEntity<RegionEntity> getRegionById(@PathVariable int regionId) {
-        RegionEntity region = regionService.getRegionById(regionId);
-        return ResponseEntity.ok(region);
-    }
 
-    @GetMapping("/{regionId}/details")
+
+    @GetMapping("/{regionId}")
     public ResponseEntity<RegionEntity> getRegionWithCropsAndPoliciesById(@PathVariable int regionId) {
         RegionEntity region = regionService.getRegionWithCropsAndPoliciesById(regionId);
         return ResponseEntity.ok(region);

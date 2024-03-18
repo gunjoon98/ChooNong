@@ -1,4 +1,3 @@
-//<<<<<<< HEAD
 ////package com.ssafy.choonong.api;
 ////
 ////
@@ -44,4 +43,4 @@
 //        return recommendationService.getRecommendationById(regionId);
 //    }
 //}
-//>>>>>>> 63d51c452ac016c01a6b92aa147fb7995bb98881
+
