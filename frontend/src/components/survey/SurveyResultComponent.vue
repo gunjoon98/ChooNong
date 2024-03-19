@@ -1,7 +1,9 @@
 <template>
+  <div>
   <h1>설문 결과</h1>
   <h3>설문 답변 리스트 : {{ surveyStore.selectedAnswers }}</h3>
   <h4>답변은 답변의 인덱스값</h4>
+  
   <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
     :coverflow-effect="{
     rotate: 0, // 슬라이드 회전 없음
@@ -30,9 +32,11 @@
       <p>컴포넌트 클릭시 지역 상세로 이동</p>
     </div>
   </div>
+  
 </swiper-slide>
 
   </swiper>
+</div>
 </template>
 
 <script setup>

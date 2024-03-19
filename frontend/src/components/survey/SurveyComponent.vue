@@ -1,8 +1,10 @@
 <template>
+  <div>
   <div class="survey-header">
     <h1 class="survey-title">설문 페이지</h1>
     <button class="reset-button" @click="resetSurvey" v-if="surveyStore.allAnswersSelected">다시하기</button>
   </div>
+  
   <div class="steppy">
     <div class="progress-bar-container">
       <div class="progress-bar" :style="{ width: progressWidth + '%' }"></div>
@@ -33,6 +35,7 @@
       <button class="next-button" @click="goToNextStep" v-if="currentStep < surveyStore.steps.length">다음</button>
       <button @click="showResults" v-if="surveyStore.allAnswersSelected">결과보기</button>
     </div>
+  </div>
   </div>
 </template>
 

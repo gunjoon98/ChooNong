@@ -9,15 +9,20 @@
       @blur="onBlur"
     />
     <img src="@/assets/search.png" @click="searchRegion" alt="검색" class="search-icon" />
-    <ul v-if="filteredData.length && dropdownVisible" class="dropdown">
-      <li 
-        v-for="(item, index) in filteredData" 
-        :key="item" 
-        @click="logSelection(item)" 
-        class="list"
-        :class="{'list-divider': index < filteredData.length - 1}"
-      >
-        {{ item }}
+    <ul v-if="dropdownVisible" class="dropdown">
+      <template v-if="filteredData.length">
+        <li 
+          v-for="(item, index) in filteredData" 
+          :key="item" 
+          @click="logSelection(item)" 
+          class="list"
+          :class="{'list-divider': index < filteredData.length - 1}"
+        >
+          {{ item }}
+        </li>
+      </template>
+      <li v-else class="list no-result">
+        해당하는 지역은 없습니다.
       </li>
     </ul>
   </div>
@@ -51,7 +56,7 @@ const filteredData = computed(() => {
 
 const handleInput = (event) => {
   searchQuery.value = event.target.value;
-  dropdownVisible.value = true;
+  dropdownVisible.value = searchQuery.value.length > 0;
 };
 
 const logSelection = (item) => {
@@ -70,6 +75,10 @@ const onFocus = () => {
 
 const onBlur = () => {
   inputFocused.value = false;
+  // 검색어가 비었을 경우 드롭다운 숨기기
+  if (!searchQuery.value) {
+    dropdownVisible.value = false;
+  }
 };
 </script>
 
