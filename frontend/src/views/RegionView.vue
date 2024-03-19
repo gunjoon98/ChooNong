@@ -7,8 +7,7 @@
         <div v-for="regionDetail in regionStore.dummyRegion" :key="regionDetail.region_id">
           <h3>지역명: {{ regionDetail.region_name }}</h3>
           <a :href="regionDetail.homepage_url">지역링크</a>
-          <img src="@/assets/logo.png" alt="test"
-            class="region-img">
+          <img src="@/assets/logo.png" alt="test" class="region-img">
         </div>
       </div>
       <div class="info-policy-container">
