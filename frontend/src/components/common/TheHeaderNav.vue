@@ -60,6 +60,12 @@ const clickMenu = function (menuNum) {
   position: relative;
 }
 
+/* 나중에 추가 */
+.one-menu :hover {
+  background-image: url("@/assets/cloud.png");
+  background-size: cover;
+}
+
 .clicked-menu {
   background-image: url("@/assets/cloud.png");
   background-size: cover;
@@ -73,6 +79,7 @@ const clickMenu = function (menuNum) {
 
 .one-menu a:hover {
   font-weight: bold;
+  
 }
 
 .one-menu a{
