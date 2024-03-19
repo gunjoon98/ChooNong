@@ -7,12 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-@Entity(name = "region")
+@Entity
+@Table(name = "region")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class RegionEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "region_id")
@@ -39,9 +39,9 @@ public class RegionEntity {
     @Column(length = 512)
     private String homepageUrl; //홈페이지URL
 
-    @OneToMany
+    @OneToMany(mappedBy = "region")
     private List<CropEntity> cropList;
 
-    @OneToMany
+    @OneToMany(mappedBy = "region")
     private List<PolicyEntity> policyList;
 }

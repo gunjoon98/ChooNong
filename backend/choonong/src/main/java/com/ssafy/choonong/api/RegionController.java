@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/region")
+@RequestMapping("/region")
 @RequiredArgsConstructor
 public class RegionController {
     private final RegionService regionService;
 
     @GetMapping
     public ResponseEntity<List<RegionItemResponse>> getRegionList() {
-        return null;
+        return ResponseEntity.ok(regionService.getResionList());
     }
 
     @GetMapping("/{regionId}")

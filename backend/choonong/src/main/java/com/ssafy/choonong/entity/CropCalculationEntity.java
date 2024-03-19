@@ -1,12 +1,18 @@
 package com.ssafy.choonong.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
 
 @Entity
-@Data
+@Table(name = "crop_calculation")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class CropCalculationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

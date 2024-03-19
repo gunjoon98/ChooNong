@@ -3,13 +3,13 @@ package com.ssafy.choonong.service;
 import com.ssafy.choonong.dto.Response.CropCalculationResponse;
 import com.ssafy.choonong.entity.CropCalculationEntity;
 import com.ssafy.choonong.repository.CropCalculationRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CropCalculationService {
     private final CropCalculationRepository cropcalculationrepository;
 

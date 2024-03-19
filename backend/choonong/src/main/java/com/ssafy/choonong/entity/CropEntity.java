@@ -1,10 +1,16 @@
 package com.ssafy.choonong.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Table(name = "crop")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class CropEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,4 +21,8 @@ public class CropEntity {
 
     @Column
     private double areaRate; //그래프상 면적비율(%)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id")
+    private RegionEntity region;
 }

@@ -6,15 +6,14 @@ import com.ssafy.choonong.dto.Response.RegionItemResponse;
 import com.ssafy.choonong.dto.Response.RegionResponse;
 import com.ssafy.choonong.entity.RegionEntity;
 import com.ssafy.choonong.repository.RegionRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RegionService {
-
     private final RegionRepository regionRepository;
 
     public List<RegionItemResponse> getResionList() {

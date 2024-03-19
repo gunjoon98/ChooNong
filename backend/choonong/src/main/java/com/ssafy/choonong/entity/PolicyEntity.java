@@ -1,10 +1,16 @@
 package com.ssafy.choonong.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Table(name = "policy")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class PolicyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +33,8 @@ public class PolicyEntity {
 
     @Column(length = 512)
     private String reception; // 접수 및 문의처
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id")
+    private RegionEntity region;
 }
