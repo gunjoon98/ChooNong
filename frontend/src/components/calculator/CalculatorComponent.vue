@@ -78,30 +78,31 @@
 									<div class="property-name">재배 면적 비율</div>
 									<div>
 										<div>
-											<InputText v-model.number="crop.cropExtentValue" />%&nbsp&nbsp
+											<InputText v-model.number="crop.cropExtentRatio" />%&nbsp&nbsp
 										</div>
-										<div>({{ totalExtentP*crop.cropExtentValue/100 }}평={{ totalExtentM*crop.cropExtentValue/100 }}㎡)</div>
+										<div>({{ totalExtentP*crop.cropExtentRatio/100 }}평={{ totalExtentM*crop.cropExtentRatio/100 }}㎡)</div>
 									</div>
 								</div>
-								<Slider v-model="crop.cropExtentValue" :min="0" :max="100" :step="5" />
+								<Slider v-model="crop.cropExtentRatio" :min="0" :max="100" :step="5" />
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-		<router-link :to="{ name: 'calculatorResult' }" class="result-button">
-			결과보기
-			<!-- <button type="button" >결과보기</button> -->
-		</router-link>
+		<button type="button" class="result-button" @click="showResult(addedCropList)">
+		결과보기</button>
 	</div>
 </template>
 
 <script setup>
 import { watch, ref } from "vue";
-// import { useCropStore } from "@/stores/cropStore";
+import { useRouter } from "vue-router";
+import { useCalculatorStore } from "@/stores/calculatorStore";
 import Slider from 'primevue/slider';
 import InputText from 'primevue/inputtext';
+
+const router = useRouter();
 
 const totalExtentM = ref();
 const totalExtentP = ref();
@@ -170,7 +171,8 @@ const addCrop = function (crop) {
 	const isAlreadyAdded = addedCropList.value.some(addedCrop => addedCrop.cropId === crop.cropId);
 
 	if (!isAlreadyAdded) {
-		addedCropList.value.push({ ...crop, cropExtentValue: 0 });
+		addedCropList.value.push({ ...crop, cropExtentRatio: 0 });
+		console.log(addedCropList)
 	} else {
 		window.alert("이미 추가된 작물입니다.")
 	}
@@ -179,6 +181,13 @@ const addCrop = function (crop) {
 const deleteCrop = function (index) {
 	addedCropList.value.splice(index, 1);
 };
+
+const showResult = async function (addedCropList) {
+	const calculatorStore = useCalculatorStore();
+	await calculatorStore.setTotalExtent(totalExtentP);
+	await calculatorStore.setAddedCropList(addedCropList);
+	router.push({ name: 'calculatorResult' })
+}
 
 // onMounted
 

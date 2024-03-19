@@ -76,7 +76,7 @@ const setStep = function(step) {
 };
 </script>
 
-<style>
+<style scoped>
 .survey-container {
   display: flex;
   flex-direction: column;
