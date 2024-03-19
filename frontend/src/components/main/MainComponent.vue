@@ -18,8 +18,10 @@
       <div class="content-wrapper">
         <div class="content-container">
           <div>귀농지 검색하기</div>
+          <RegionSearchComponentVue/>
+          <!-- 
           <input type="search">
-          <button type="button">검색</button>
+          <button type="button">검색</button> -->
         </div>
         <div class="content-container">
           <div>귀농 준비 체크리스트</div>
@@ -33,7 +35,7 @@
 </template>
 
 <script setup>
-
+import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
 </script>
 
 <style scoped>

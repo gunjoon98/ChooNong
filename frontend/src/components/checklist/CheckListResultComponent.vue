@@ -1,13 +1,15 @@
 <template>
-   <div>
-      <h1>체크리스트 결과</h1>
-    </div>
+  <div>
+  <div>
+    <h1>체크리스트 결과</h1>
+  </div>
   <div class="container">
-   
     <div class="checkchart">
       <CheckListChartComponent />
     </div>
   </div>
+
+</div>
 </template>
 
 <script setup>
@@ -21,7 +23,7 @@ import CheckListChartComponent from '@/components/checklist/CheckListChartCompon
   /* align-items: center; */
   /* 화면의 전체 높이 */
   /* height: 100vh;  */
-  
+
 }
 
 .checkchart {

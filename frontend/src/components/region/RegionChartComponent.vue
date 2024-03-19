@@ -39,6 +39,22 @@ onMounted(() => {
                 borderWidth: 1
             }]
         },
+        options: {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = '';
+                            
+                            if (context.parsed !== undefined) {
+                                label += context.parsed + '%';
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        },
     });
 });
 </script>

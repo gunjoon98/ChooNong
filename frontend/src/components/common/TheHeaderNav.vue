@@ -51,8 +51,6 @@ const clickMenu = function (menuNum) {
 }
 
 .one-menu {
-  /* background-image: url("@/assets/cloud.png");
-  background-size: cover; */
   width: 200px;
   height: 90px;
   text-align: center;
@@ -60,30 +58,25 @@ const clickMenu = function (menuNum) {
   position: relative;
 }
 
-/* 나중에 추가 */
-.one-menu :hover {
+/* 호버 상태에서 구름 이미지 크기 일치 */
+.one-menu:hover {
   background-image: url("@/assets/cloud.png");
   background-size: cover;
+  
 }
 
 .clicked-menu {
   background-image: url("@/assets/cloud.png");
   background-size: cover;
-  /* width: 200px;
-  height: 90px;
-  text-align: center; */
   font-weight: bold;
   line-height: 130px;
-  /* position: relative; */
 }
 
 .one-menu a:hover {
   font-weight: bold;
-  
 }
 
-.one-menu a{
-  /* transform: translate(-50%, -50%); */
+.one-menu a {
   color: #000000; /* 텍스트 색상 */
   text-decoration: none; /* 밑줄 제거 */
 }

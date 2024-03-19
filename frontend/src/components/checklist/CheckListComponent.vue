@@ -1,16 +1,16 @@
 <template>
   <div>
     <h1>체크리스트 페이지</h1>
-    <div v-for="(check, cIndex) in checkStore.checkList" :key="cIndex" class="container">
-      <div>{{ check.check_title }}</div>
-
-      <div v-for="(option, oIndex) in check.options" :key="oIndex" class="option">
-        <RadioButton v-model="checkedAnswers[cIndex]" :value="oIndex" />
+    <div v-if="currentQuestionIndex < checkStore.checkList.length" class="container">
+      <div>{{ currentCheck.check_title }}</div>
+      <div v-for="(option, oIndex) in currentCheck.options" :key="oIndex" class="option">
+        <RadioButton v-model="checkedAnswers[currentQuestionIndex]" :value="oIndex" />
         <div>{{ option }}</div>
-        
       </div>
     </div>
-    <button @click="goToResult">결과보기</button>
+    <button v-if="currentQuestionIndex > 0" @click="prevQuestion">이전</button>
+    <button v-if="currentQuestionIndex < checkStore.checkList.length - 1" @click="nextQuestion">다음</button>
+    <button v-if="allChecked && currentQuestionIndex === checkStore.checkList.length - 1" @click="goToResult">결과보기</button>
   </div>
 </template>
 
@@ -23,6 +23,23 @@ import RadioButton from 'primevue/radiobutton';
 const checkStore = useCheckStore();
 const router = useRouter();
 const checkedAnswers = ref(checkStore.checkList.map(() => null));
+const currentQuestionIndex = ref(0);
+
+const currentCheck = computed(() => {
+  return checkStore.checkList[currentQuestionIndex.value];
+});
+
+const nextQuestion = () => {
+  if (currentQuestionIndex.value < checkStore.checkList.length - 1) {
+    currentQuestionIndex.value++;
+  }
+};
+
+const prevQuestion = () => {
+  if (currentQuestionIndex.value > 0) {
+    currentQuestionIndex.value--;
+  }
+};
 
 const calculateWeight = function(answerIndex, optionCount) {
   if (answerIndex === null) return 0;
