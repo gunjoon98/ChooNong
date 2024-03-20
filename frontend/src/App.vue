@@ -14,33 +14,50 @@ import { RouterView } from 'vue-router';
 </script>
 
 <style>
-/* #app {
-  min-height: 100vh;
+/* 전역 스타일 */
+body {
+  font-size: 24px; /* 기본 텍스트 크기 */
+}
+
+html, body {
+  margin: 0;
+}
+
+button {
+  font-size: 1.3rem;
+}
+
+</style>
+
+<style scoped>
+/* app {
+  min-height: 100%;
   position: relative;
+  background-color: brown;
 } */
 
 html, body {
   height: 100%;
-  margin: 0;
 }
 
-/* .body-container {
+.body-container {
   height: 100%;
 	display: flex;
 	flex-direction: column;
-} */
+}
 
 .the-header-nav {
+  width: 100%;
   height: 120px;
-  position: fixed;
-  top: 0px;
+  /* position: fixed;
+  top: 0px; */
 }
 
 .main-container {
-  padding: 50px 15vw 100px 15vw;
+  padding: 50px 14vw 100px 14vw;
   /* flex-grow: 1; */
   /* margin-bottom: 50px; */
-  /* min-height: calc(100vh - 170px); 연산자 주위에 공백 추가 */
+  min-height: calc(100vh - 170px);
 }
 
 /* .bottom-picture {

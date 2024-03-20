@@ -23,15 +23,15 @@
 					<div class="crop-list-container">
 						<div class="crop-list-header">
 							<div>
-								<input type="search" class="search-box">
+								<input type="search" class="search-box" v-model="searchQuery" @input="searchCrop($event)" placeholder="작물 이름을 입력하세요">
 								<button type="button" class="search-button">
 									<img src="@/assets/search.png" alt="검색" class="search-icon">
 								</button>
 							</div>
 							<div>
-								<button type="button" class="sort-button">이름순</button>
+								<button type="button" class="sort-button" @click="sortByCropName()">이름순</button>
 								|
-								<button type="button" class="sort-button">수익률순</button>
+								<button type="button" class="sort-button" @click="sortByProfitRate()">수익률순</button>
 							</div>
 						</div>
 						<div class="crop-list">
@@ -41,7 +41,7 @@
 								<li>수익률</li>
 								<li>추가하기</li>
 							</ul>
-							<ul v-for="(crop, index) in cropList" :key="index" class="table-body">
+							<ul v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body">
 								<li><img src="@/assets/cropimage.png" /></li>
 								<li>{{ crop.cropName }}</li>
 								<li>{{ crop.profitRate }}</li>
@@ -49,14 +49,14 @@
 									<button type="button" class="add-button" @click="addCrop(crop)">추가</button>
 								</li>
 							</ul>
-							<!-- <ul>
-								<li><img src="" />@작물 사진@</li>
-								<li>작물1</li>
-								<li>수익률</li>
+							<ul v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body">
+								<li><img src="@/assets/cropimage.png" /></li>
+								<li>{{ filteredCrop.cropName }}</li>
+								<li>{{ filteredCrop.profitRate }}</li>
 								<li>
-									<button type="button" class="add-button">추가</button>
+									<button type="button" class="add-button" @click="addCrop(crop)">추가</button>
 								</li>
-							</ul> -->
+							</ul>
 						</div>
 					</div>
 					<div class="arrow-wrapper">
@@ -96,30 +96,11 @@
 </template>
 
 <script setup>
-import { watch, ref } from "vue";
+import { watch, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useCalculatorStore } from "@/stores/calculatorStore";
 import Slider from 'primevue/slider';
 import InputText from 'primevue/inputtext';
-
-const router = useRouter();
-
-const totalExtentM = ref();
-const totalExtentP = ref();
-
-watch(totalExtentM, function (newValue) {
-	totalExtentP.value = Math.round(newValue / 3.3);
-})
-
-watch(totalExtentP, function (newValue) {
-	totalExtentM.value = Math.round(newValue * 3.3);
-})
-
-const unit = ref("p");
-
-const changeUnit = function () {
-	unit.value = unit.value === 'p' ? 'm' : 'p';
-}
 
 const cropList = [
 	{
@@ -165,6 +146,61 @@ const cropList = [
 		profitRate: 0.83,
 	}
 ]
+
+const router = useRouter();
+
+const sortOption = ref("cropName");
+const sortedCropList = ref([]);
+const searchQuery = ref("");
+const filteredCropList = ref([]);
+
+const searchCrop = function (event) {
+	searchQuery.value = event.target.value;
+	filteredCropList.value = sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value));
+}
+
+const sortByCropName = function () {
+	sortOption.value = "cropName";
+	console.log(sortOption.value)
+}
+
+const sortByProfitRate = function () {
+	sortOption.value = "profitRate";
+	console.log(sortOption.value)
+}
+
+const sortCropList = function () {
+	switch(sortOption.value) {
+		case "cropName":
+			sortedCropList.value = cropList.slice().sort((a, b) => a.cropName.localeCompare(b.cropName));
+			break;
+	  case "profitRate":
+			sortedCropList.value = cropList.sort((a, b) => b.profitRate - a.profitRate);
+			break;
+	}
+}
+
+watch(sortOption, sortCropList, { immediate: true })
+
+
+const totalExtentM = ref();
+const totalExtentP = ref();
+
+watch(totalExtentM, function (newValue) {
+	totalExtentP.value = Math.round(newValue / 3.3);
+})
+
+watch(totalExtentP, function (newValue) {
+	totalExtentM.value = Math.round(newValue * 3.3);
+})
+
+const unit = ref("p");
+
+const changeUnit = function () {
+	unit.value = unit.value === 'p' ? 'm' : 'p';
+}
+
+
 
 const addedCropList = ref([]);
 const addCrop = function (crop) {
@@ -268,6 +304,7 @@ const showResult = async function (addedCropList) {
 .sort-button {
 	border: none;
 	background-color: transparent;
+	cursor: pointer;
 }
 
 .crop-list-container,
@@ -275,7 +312,7 @@ const showResult = async function (addedCropList) {
 	border: 2px solid #e9e9e9;
 	border-radius: 15px;
 	padding: 20px;
-	width: 450px;
+	width: 650px;
 	height: 500px;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -342,7 +379,7 @@ const showResult = async function (addedCropList) {
 	border: none;
 	border-radius: 15px;
 	background-color: #C6EB74;
-	width: 45px;
+	width: 60px;
 	height: 30px;
 }
 
@@ -367,7 +404,7 @@ const showResult = async function (addedCropList) {
 }
 
 .one-added-crop {
-	height: 120px;
+	height: 150px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
