@@ -8,17 +8,16 @@
     <!-- <img src="@/assets/cloud.png" /> -->
     <div class="menu-container">
       <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 1 }"><router-link to="/survey" @click="clickMenu(1)">귀농지 추천 설문</router-link></div>
+      <div class="one-menu">귀농지 검색</div>
       <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 3 }"><router-link to="/calculator" @click="clickMenu(3)">작물 수익 계산기</router-link></div>
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 4 }"><router-link to="/checklist" @click="clickMenu(4)">체크리스트</router-link></div>
+      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 4 }"><router-link to="/checklist" @click="clickMenu(4)">귀농 준비 체크리스트</router-link></div>
       <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 5 }"><router-link to="/region" @click="clickMenu(5)">지역 정보</router-link></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
-
+import { ref } from "vue";
 const clickedMenu = ref(0);
 const route = useRoute();
 
@@ -39,7 +38,7 @@ watch(route, (currentRoute) => {
 
 const clickMenu = (menuNum) => {
   clickedMenu.value = menuNum;
-};
+}
 
 </script>
 
@@ -76,8 +75,8 @@ const clickMenu = (menuNum) => {
   position: relative;
 }
 
-/* 호버 상태에서 구름 이미지 크기 일치 */
-.one-menu:hover {
+/* 나중에 추가 */
+.one-menu :hover {
   background-image: url("@/assets/cloud.png");
   background-size: cover;
   
