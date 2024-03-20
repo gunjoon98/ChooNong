@@ -6,16 +6,23 @@
   </div>
   
   <div class="steppy">
+    <div class="progress-info">
+      {{ currentStep }} / {{ surveyStore.steps.length }}
+    </div>
     <div class="progress-bar-container">
       <div class="progress-bar" :style="{ width: progressWidth + '%' }"></div>
     </div>
-    <div class="steps">
+    
+
+    <!-- 문제 인덱스 번호 구 형태 표기 -->
+    <!-- <div class="steps">
       <div v-for="(step, index) in surveyStore.steps" :key="index" class="step"
         :class="{ unanswered: surveyStore.isUnanswered(index), active: currentStep === index + 1 }"
         @click="setStep(index + 1)">
         <h3>{{ index + 1 }}</h3>
       </div>
-    </div>
+    </div> -->
+
     <div class="content">
       <div class="step-title">{{ surveyStore.steps[currentStep - 1].title }}</div>
       <br>
@@ -251,5 +258,11 @@ const setStep = function(step) {
   background-color: #4BAF47;
   border-radius: 5px;
   transition: width 0.3s ease-in-out;
+}
+
+.progress-info {
+  text-align: right;
+  font-size: 1.2em;
+  margin: 10px 0;
 }
 </style>
