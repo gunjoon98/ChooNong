@@ -14,10 +14,16 @@ import { RouterView } from 'vue-router';
 </script>
 
 <style>
+body {
+  font-size: 24px;
+}
 /* #app {
   min-height: 100vh;
   position: relative;
 } */
+button {
+  font-size: 1.3rem;
+}
 
 html, body {
   height: 100%;

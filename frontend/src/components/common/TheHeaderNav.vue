@@ -8,20 +8,38 @@
     <!-- <img src="@/assets/cloud.png" /> -->
     <div class="menu-container">
       <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 1 }"><router-link to="/survey" @click="clickMenu(1)">귀농지 추천 설문</router-link></div>
-      <div class="one-menu">귀농지 검색</div>
       <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 3 }"><router-link to="/calculator" @click="clickMenu(3)">작물 수익 계산기</router-link></div>
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 4 }"><router-link to="/checklist" @click="clickMenu(4)">귀농 준비 체크리스트</router-link></div>
+      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 4 }"><router-link to="/checklist" @click="clickMenu(4)">체크리스트</router-link></div>
       <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 5 }"><router-link to="/region" @click="clickMenu(5)">지역 정보</router-link></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+
 const clickedMenu = ref(0);
-const clickMenu = function (menuNum) {
+const route = useRoute();
+
+watch(route, (currentRoute) => {
+  // 현재 라우트에 따라 clickedMenu 값을 업데이트
+  if (currentRoute.path.startsWith('/survey')) {
+    clickedMenu.value = 1;
+  } else if (currentRoute.path.startsWith('/calculator')) {
+    clickedMenu.value = 3;
+  } else if (currentRoute.path.startsWith('/checklist')) {
+    clickedMenu.value = 4;
+  } else if (currentRoute.path.startsWith('/region')) {
+    clickedMenu.value = 5;
+  } else {
+    clickedMenu.value = 0; // 기본값 또는 해당되지 않는 경우
+  }
+}, { immediate: true }); // 컴포넌트 마운트 시 즉시 실행
+
+const clickMenu = (menuNum) => {
   clickedMenu.value = menuNum;
-}
+};
 
 </script>
 

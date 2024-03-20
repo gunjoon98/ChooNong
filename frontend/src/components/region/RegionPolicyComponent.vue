@@ -129,7 +129,6 @@ const toggleDetail = function (id) {
   outline: none;
   margin: 10px;
   font-weight: bold;
-  font-size: 13px;
   padding: 0px;
 }
 

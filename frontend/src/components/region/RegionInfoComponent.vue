@@ -35,8 +35,8 @@ const regionURL = ref('')
 <style scoped>
 .info-chart-container {
   display: flex;
-  border: 1px solid #4BAF47;
-  border-radius: 1rem;
+  /* border: 1px solid #4BAF47;
+  border-radius: 1rem; */
   margin-right: 10px;
   margin-bottom: 10px;
 }
@@ -53,11 +53,17 @@ const regionURL = ref('')
 .region-info {
   margin-right: 20px; 
   margin: 10px;
+  border: 1px solid #4BAF47;
+  border-radius: 1rem;
+  background: #ECF6EC;
 }
 
 .region-chart {
   margin-right: 20px; 
-  margin-bottom: 10px;
+  margin: 10px;
+  border: 1px solid #4BAF47;
+  border-radius: 1rem;
+  background: #ECF6EC;
 }
 
 .region-info-detail {
