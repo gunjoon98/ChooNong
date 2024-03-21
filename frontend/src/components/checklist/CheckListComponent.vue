@@ -54,6 +54,39 @@ const selectOption = (oIndex) => {
   checkedAnswers.value = [...checkedAnswers.value];
 };
 
+const calculateWeight = function(answerIndex, optionCount) {
+  if (answerIndex === null) return 0;
+  return Math.round((answerIndex / (optionCount - 1)) * 100);
+}
+
+const categoryWeights = computed(() => {
+  const weightSums = {};
+
+  checkStore.checkList.forEach((check, cIndex) => {
+    const category = check.category;
+    const optionCount = check.options.length;
+    const answerIndex = checkedAnswers.value[cIndex];
+    const weight = calculateWeight(answerIndex, optionCount);
+
+    if (!weightSums[category]) {
+      weightSums[category] = 0;
+    }
+    weightSums[category] += weight;
+  });
+
+  // '생활' 카테고리의 가중치 합을 조정
+  if (weightSums['생활'] !== undefined) {
+    // 예를 들어, 총합이 200일 경우, 이를 100으로 조정하기 위해 2로 나눕니다.
+    // 이 조정 비율은 필요에 따라 조정할 수 있습니다.
+    weightSums['생활'] = Math.round(weightSums['생활'] / 2);
+  }
+
+  return weightSums;
+});
+
+
+
+
 const goToResult = function () {
   const isAllChecked = checkedAnswers.value.every(answer => answer !== null);
   if (isAllChecked) {
@@ -69,13 +102,11 @@ const allChecked = computed(() => {
   return checkedAnswers.value.every(answer => answer !== null);
 });
 
-watch(checkedAnswers, (newAnswers, oldAnswers) => {
-  // 모든 선택된 답변을 출력
-  const selectedAnswers = newAnswers
-    .map((answer, index) => answer !== null ? checkStore.checkList[index].options[answer] : '미선택')
-    .join(', ');
-  console.log('현재 선택된 답변:', selectedAnswers);
+watch(checkedAnswers, () => {
+  checkStore.setCategoryWeights(categoryWeights.value);
+  console.log(checkStore.categoryWeights)
 }, { deep: true });
+
 
 </script>
 

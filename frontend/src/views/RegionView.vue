@@ -79,6 +79,7 @@ const showPolicy = function () {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border: 3px solid #ECF6EC;
   border-radius: 1rem;
+  margin-bottom: 20px;
 }
 
 .region-details {
