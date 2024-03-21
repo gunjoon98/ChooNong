@@ -4,17 +4,22 @@
     <div v-if="currentQuestionIndex < checkStore.checkList.length" class="container">
       <div>{{ currentCheck.check_title }}</div>
       <div v-for="(option, oIndex) in currentCheck.options" :key="oIndex" class="option">
-        <button @click="selectOption(oIndex)" :class="{ 'selected': checkedAnswers[currentQuestionIndex] === oIndex, 'option-button': true }">
+        <button @click="selectOption(oIndex)"
+          :class="{ 'selected': checkedAnswers[currentQuestionIndex] === oIndex, 'option-button': true }">
           {{ option }}
         </button>
       </div>
     </div>
     <div class="button-group">
       <button v-if="currentQuestionIndex > 0" @click="prevQuestion" class="prev-button">이전</button>
-      <button v-if="currentQuestionIndex < checkStore.checkList.length - 1" @click="nextQuestion" class="next-button">다음</button>
-      <button v-if="allChecked && currentQuestionIndex === checkStore.checkList.length - 1" @click="goToResult" class="result-button">결과보기</button>
+      <!-- "다음" 버튼에 대한 조건을 수정합니다. -->
+      <button v-if="currentQuestionIndex < checkStore.checkList.length - 1 && isCurrentQuestionAnswered"
+        @click="nextQuestion" class="next-button">다음</button>
+      <button v-if="allChecked && currentQuestionIndex === checkStore.checkList.length - 1" @click="goToResult"
+        class="result-button">결과보기</button>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -26,6 +31,10 @@ const checkStore = useCheckStore();
 const router = useRouter();
 const checkedAnswers = ref(checkStore.checkList.map(() => null));
 const currentQuestionIndex = ref(0);
+
+const isCurrentQuestionAnswered = computed(() => {
+  return checkedAnswers.value[currentQuestionIndex.value] !== null;
+});
 
 const currentCheck = computed(() => {
   return checkStore.checkList[currentQuestionIndex.value];
@@ -54,7 +63,7 @@ const selectOption = (oIndex) => {
   checkedAnswers.value = [...checkedAnswers.value];
 };
 
-const calculateWeight = function(answerIndex, optionCount) {
+const calculateWeight = function (answerIndex, optionCount) {
   if (answerIndex === null) return 0;
   return Math.round((answerIndex / (optionCount - 1)) * 100);
 }
@@ -116,17 +125,25 @@ watch(checkedAnswers, () => {
   border-radius: 1rem;
 }
 
-.option-button, .prev-button, .next-button, .result-button {
+.option-button,
+.prev-button,
+.next-button,
+.result-button {
   padding: 10px 20px;
   margin: 5px;
   border: 1px solid #4BAF47;
   border-radius: 1rem;
-  background-color: white; /* 버튼 기본 배경색 */
+  background-color: white;
+  /* 버튼 기본 배경색 */
   cursor: pointer;
 }
 
-.option-button:hover, .prev-button:hover, .next-button:hover, .result-button:hover {
-  background-color: #ECF6EC; /* 마우스 오버시 배경색 */
+.option-button:hover,
+.prev-button:hover,
+.next-button:hover,
+.result-button:hover {
+  background-color: #ECF6EC;
+  /* 마우스 오버시 배경색 */
 }
 
 .selected {

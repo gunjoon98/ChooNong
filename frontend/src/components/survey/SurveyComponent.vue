@@ -1,7 +1,7 @@
 <template>
   <div>
   <div class="survey-header">
-    <!-- <h1 class="survey-title">설문 페이지</h1> -->
+    <h1 class="survey-title">설문 페이지</h1>
     <button class="reset-button" @click="resetSurvey" v-if="surveyStore.allAnswersSelected">다시하기</button>
   </div>
   
@@ -134,6 +134,7 @@ const setStep = function(step) {
   border: 3px solid #ECF6EC;
   border-radius: 1rem;
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 .steps {

@@ -32,6 +32,7 @@
     <div class="additional-text">
       <p>aaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
       <p>컴포넌트 클릭시 지역 상세로 이동</p>
+      <p>지금은 콘솔출력만</p>
     </div>
   </div>
   
@@ -142,7 +143,7 @@ const handleSlideClick = (index, regionName) => {
 }
 
 ::v-deep(.swiper-button-prev) {
-  left: 0px;
+  left: 15px;
 }
 
 /* 페이지네이션 스타일 */

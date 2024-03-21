@@ -66,7 +66,15 @@ const logSelection = (item) => {
 };
 
 const searchRegion = () => {
+  // 검색이 안되는 경우 로직
+  if (filteredData.value.length === 0) {
+    console.log("해당하는 지역이 없어 검색을 수행할 수 없습니다.");
+    alert("해당하는 지역이 없어 검색을 수행할 수 없습니다.")
+    return; // 함수를 여기서 종료시킴
+  }
+  // 실제 검색 함수 로직 
   console.log("검색어:", searchQuery.value);
+  
 };
 
 const onFocus = () => {
