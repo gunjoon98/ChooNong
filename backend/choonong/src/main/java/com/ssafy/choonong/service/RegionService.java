@@ -5,6 +5,8 @@ import com.ssafy.choonong.dto.Response.PolicyResponse;
 import com.ssafy.choonong.dto.Response.RegionItemResponse;
 import com.ssafy.choonong.dto.Response.RegionResponse;
 import com.ssafy.choonong.entity.RegionEntity;
+import com.ssafy.choonong.repository.PolicyRepository;
+import com.ssafy.choonong.repository.RegionCropRepository;
 import com.ssafy.choonong.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RegionService {
     private final RegionRepository regionRepository;
+    private final PolicyRepository policyRepository;
+    private final RegionCropRepository regionCropRepository;
 
     public List<RegionItemResponse> getResionList() {
         return regionRepository.findAll().stream()
@@ -27,17 +31,17 @@ public class RegionService {
     /* regionId 지역 정보, 작물, 정책 정보 가져옴 */
     public RegionResponse getRegionWithCropsAndPoliciesById(int regionId) {
         RegionEntity regionEntity =
-                regionRepository.findRegionEntityWithCropsAndPoliciesByRegionId(regionId)
+                regionRepository.findById(regionId)
                         .orElseThrow();
 
-        List<CropResponse> cropResponseList = regionEntity.getCropList().stream()
-                .map(cropEntity -> CropResponse.builder()
-                        .cropId(cropEntity.getCropId())
-                        .cropName(cropEntity.getCropName())
-                        .areaRate(cropEntity.getAreaRate())
+        List<CropResponse> cropResponseList = regionCropRepository.findByRegion(regionEntity.getRegionId()).stream()
+                .map(regionCropEntity -> CropResponse.builder()
+                        .cropId(regionCropEntity.getCrop().getCropId())
+                        .cropName(regionCropEntity.getCrop().getCropName())
+                        .areaRate(regionCropEntity.getAreaRate())
                         .build()).toList();
 
-        List<PolicyResponse> policyResponseList = regionEntity.getPolicyList().stream()
+        List<PolicyResponse> policyResponseList = policyRepository.findByRegion(regionEntity).stream()
                 .map(policyEntity -> PolicyResponse.builder()
                         .policyId(policyEntity.getPolicyId())
                         .businessName(policyEntity.getBusinessName())

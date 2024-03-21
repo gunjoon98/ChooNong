@@ -18,11 +18,4 @@ public class CropEntity {
 
     @Column(length = 16)
     private String cropName; //작물명
-
-    @Column
-    private double areaRate; //그래프상 면적비율(%)
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id")
-    private RegionEntity region;
 }

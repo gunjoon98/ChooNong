@@ -38,10 +38,4 @@ public class RegionEntity {
 
     @Column(length = 512)
     private String homepageUrl; //홈페이지URL
-
-    @OneToMany(mappedBy = "region")
-    private List<CropEntity> cropList;
-
-    @OneToMany(mappedBy = "region")
-    private List<PolicyEntity> policyList;
 }
