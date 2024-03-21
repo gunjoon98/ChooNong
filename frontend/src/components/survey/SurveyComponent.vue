@@ -118,8 +118,8 @@ const setStep = function(step) {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background: #4BAF47;
-  color: white;
+  background: #C6EB74;
+  color: black;
   cursor: pointer;
   font-size: 1em;
   transition: background-color 0.3s;
@@ -171,7 +171,7 @@ const setStep = function(step) {
 }
 
 .step.active {
-  background: #4BAF47;
+  background: #C6EB74;
   color: white;
   transform: scale(1.1);
 }
@@ -218,7 +218,7 @@ const setStep = function(step) {
 }
 
 .option.selected {
-  background-color: #4BAF47;
+  background-color: #C6EB74;
   color: black;
 }
 
@@ -233,8 +233,8 @@ const setStep = function(step) {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
-  background: #4BAF47;
-  color: white;
+  background: #C6EB74;
+  color: black;
   cursor: pointer;
   font-size: 1em;
   transition: background-color 0.3s;
@@ -258,7 +258,7 @@ const setStep = function(step) {
 
 .progress-bar {
   height: 20px;
-  background-color: #4BAF47;
+  background-color: #C6EB74;
   border-radius: 5px;
   transition: width 0.3s ease-in-out;
 }

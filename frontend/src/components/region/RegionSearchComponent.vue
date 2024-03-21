@@ -116,10 +116,11 @@ const onBlur = () => {
   border: 1px solid #4BAF47;
   padding-left: 0;
   margin-top: 10px;
+  top: 100%
 }
 
 .search-input {
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
   height: 50px;
   /* border: 1px solid #4BAF47;
@@ -144,7 +145,7 @@ const onBlur = () => {
 .list {
   padding: 10px;
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: bold;
   border-bottom: 1px solid #e0e0e0; 
 }
