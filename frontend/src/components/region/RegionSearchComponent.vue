@@ -4,6 +4,7 @@
       class="search-input"
       :value="searchQuery"
       @input="handleInput"
+      @keyup.enter="searchRegion"
       placeholder="검색..."
       @focus="onFocus"
       @blur="onBlur"
@@ -66,15 +67,19 @@ const logSelection = (item) => {
 };
 
 const searchRegion = () => {
-  // 검색이 안되는 경우 로직
-  if (filteredData.value.length === 0) {
-    console.log("해당하는 지역이 없어 검색을 수행할 수 없습니다.");
-    alert("해당하는 지역이 없어 검색을 수행할 수 없습니다.")
-    return; // 함수를 여기서 종료시킴
+  // 입력된 검색어가 data 배열에 정확히 일치하는 항목이 있는지 확인
+  const isExactMatch = data.some(item => item === searchQuery.value);
+
+  // 정확히 일치하는 항목이 없으면 함수 실행을 중단
+  if (!isExactMatch) {
+    console.log("정확히 일치하는 지역이 없습니다.");
+    alert("정확히 일치하는 지역이 없어 검색을 수행할 수 없습니다.");
+    return; // 여기서 함수 종료
   }
-  // 실제 검색 함수 로직 
+
+  // 정확히 일치하는 항목이 있을 경우 검색 로직 실행
   console.log("검색어:", searchQuery.value);
-  
+  alert("검색어:", searchQuery.value)
 };
 
 const onFocus = () => {
@@ -111,10 +116,11 @@ const onBlur = () => {
   border: 1px solid #4BAF47;
   padding-left: 0;
   margin-top: 10px;
+  top: 100%
 }
 
 .search-input {
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
   height: 50px;
   /* border: 1px solid #4BAF47;
@@ -139,7 +145,7 @@ const onBlur = () => {
 .list {
   padding: 10px;
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: bold;
   border-bottom: 1px solid #e0e0e0; 
 }

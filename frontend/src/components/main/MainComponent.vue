@@ -87,6 +87,8 @@ body {
 }
 
 .search-box {
+  /* height: 300px; */
+  padding: 0px;
   border: none;
   margin: 0;
 }
