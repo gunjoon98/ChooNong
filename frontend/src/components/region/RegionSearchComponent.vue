@@ -109,18 +109,23 @@ const onBlur = () => {
   font-size: 2em;
   font-weight: bold;
   height: 50px;
-  border: 1px solid #4BAF47;
-  border-radius: 1rem;
+  /* border: 1px solid #4BAF47;
+  border-radius: 1rem; */
   padding-right: 60px;
   width: 100%;
   box-sizing: border-box;
   text-indent: 10px;
   outline: none; 
-  border-color: var(--input-border-color, #4BAF47); 
+  /* border-color: var(--input-border-color, #4BAF47);  */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 3px solid #ECF6EC;
+  border-radius: 1rem;
 }
 
 .search-input:focus {
-  border-color: var(--input-border-color-focused, #4BAF47); 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: px solid #4BAF47;
+  border-radius: 1rem;
 }
 
 .list {

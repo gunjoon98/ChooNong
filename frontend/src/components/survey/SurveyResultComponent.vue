@@ -19,8 +19,9 @@
     <div class="upper-container">
       <div class="text-container">
         <h2>{{ index + 1 }}순위</h2>
-        <br>
-        <h3>지역명: {{ region.region_name }}</h3>
+        
+        <h3> {{ region.province }}</h3>
+        <h3> {{ region.region_name }}</h3>
         <h3>적합도: {{ (region.suitability * 100).toFixed(0) }}%</h3>
       </div>
       <img src="@/assets/cropimage.png" alt="지역 이미지" class="img-swiper">

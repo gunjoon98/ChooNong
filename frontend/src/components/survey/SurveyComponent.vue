@@ -1,7 +1,7 @@
 <template>
   <div>
   <div class="survey-header">
-    <h1 class="survey-title">설문 페이지</h1>
+    <!-- <h1 class="survey-title">설문 페이지</h1> -->
     <button class="reset-button" @click="resetSurvey" v-if="surveyStore.allAnswersSelected">다시하기</button>
   </div>
   
@@ -39,7 +39,7 @@
     </div>
     <div class="buttons-container">
       <button class="prev-button" @click="prevStep" :disabled="currentStep === 1">이전</button>
-      <button class="next-button" @click="goToNextStep" v-if="currentStep < surveyStore.steps.length">다음</button>
+      <button class="next-button" @click="goToNextStep" v-if="currentStep < surveyStore.steps.length && surveyStore.selectedAnswers[currentStep - 1] !== null">다음</button>
       <button @click="showResults" v-if="surveyStore.allAnswersSelected">결과보기</button>
     </div>
   </div>
@@ -50,6 +50,8 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useSurveyStore } from '@/stores/surveyStore';
+import { useConfirm } from "primevue/useconfirm";
+const confirm = useConfirm();
 
 const surveyStore = useSurveyStore();
 const router = useRouter();

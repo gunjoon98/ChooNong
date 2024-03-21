@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>체크리스트 페이지</h1>
+    <!-- <h1>체크리스트 페이지</h1> -->
     <div v-if="currentQuestionIndex < checkStore.checkList.length" class="container">
       <div>{{ currentCheck.check_title }}</div>
       <div v-for="(option, oIndex) in currentCheck.options" :key="oIndex" class="option">

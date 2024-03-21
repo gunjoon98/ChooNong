@@ -82,7 +82,8 @@ const toggleDetail = function (id) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #4BAF47;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 3px solid #ECF6EC;
   border-radius: 1rem;
   margin-right: 10px;
   margin-bottom: 5px;
