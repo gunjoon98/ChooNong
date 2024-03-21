@@ -66,7 +66,15 @@ const logSelection = (item) => {
 };
 
 const searchRegion = () => {
+  // 검색이 안되는 경우 로직
+  if (filteredData.value.length === 0) {
+    console.log("해당하는 지역이 없어 검색을 수행할 수 없습니다.");
+    alert("해당하는 지역이 없어 검색을 수행할 수 없습니다.")
+    return; // 함수를 여기서 종료시킴
+  }
+  // 실제 검색 함수 로직 
   console.log("검색어:", searchQuery.value);
+  
 };
 
 const onFocus = () => {
@@ -109,18 +117,23 @@ const onBlur = () => {
   font-size: 2em;
   font-weight: bold;
   height: 50px;
-  border: 1px solid #bcbcbc;
-  border-radius: 1rem;
+  /* border: 1px solid #4BAF47;
+  border-radius: 1rem; */
   padding-right: 60px;
   width: 100%;
   box-sizing: border-box;
   text-indent: 10px;
   outline: none; 
-  border-color: var(--input-border-color, #bcbcbc); 
+  /* border-color: var(--input-border-color, #4BAF47);  */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 3px solid #ECF6EC;
+  border-radius: 1rem;
 }
 
 .search-input:focus {
-  border-color: var(--input-border-color-focused, #bcbcbc); 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: px solid #4BAF47;
+  border-radius: 1rem;
 }
 
 .list {

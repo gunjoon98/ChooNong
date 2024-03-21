@@ -11,8 +11,8 @@ import CheckListComponent from "@/components/checklist/CheckListComponent.vue";
 import CheckListResultComponent from "../components/checklist/CheckListResultComponent.vue";
 import SurveyComponent from "@/components/survey/SurveyComponent.vue";
 import SurveyResultComponent from "@/components/survey/SurveyResultComponent.vue";
-
-
+import MainComponentC from "@/components/main/MainComponentC.vue";
+import MainComponentCC from "@/components/main/MainComponentCC.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,7 +24,7 @@ const router = createRouter({
         {
           path: "/",
           name: "main",
-          component: MainComponent,
+          component: MainComponentC,
         },
       ],
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>지역 정보</h1>
+    <!-- <h1>지역 정보</h1> -->
     <region-search-component class="search-component" />
     <div class="content-container">
       <div class="region-details">
@@ -20,6 +20,7 @@
         <region-policy-component v-if="activeComponent === 'policy'" />
       </div>
     </div>
+    <img src="../assets/chicken.png" class="bottom-picture">
   </div>
 </template>
 
@@ -51,9 +52,17 @@ const showPolicy = function () {
 </script>
 
 <style scoped>
+.bottom-picture {
+  max-width: 120%;
+  height: 100px;
+  position: absolute;
+  bottom: -3px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .container h1 {
@@ -67,8 +76,10 @@ const showPolicy = function () {
 .content-container {
   display: flex;
   flex-direction: row;
-  border: 1px solid #4BAF47;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 3px solid #ECF6EC;
   border-radius: 1rem;
+  margin-bottom: 20px;
 }
 
 .region-details {

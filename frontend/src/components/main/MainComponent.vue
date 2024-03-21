@@ -50,7 +50,7 @@ body {
   height: 50vh;
   width: 100vw;
   /* 가로 전체 화면 */
-  max-width: 1050px;
+  max-width: 1500px;
   /* 최대 너비 제한 */
   display: flex;
   flex-direction: row;

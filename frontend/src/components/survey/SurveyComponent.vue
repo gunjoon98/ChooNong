@@ -6,16 +6,23 @@
   </div>
   
   <div class="steppy">
+    <div class="progress-info">
+      {{ currentStep }} / {{ surveyStore.steps.length }}
+    </div>
     <div class="progress-bar-container">
       <div class="progress-bar" :style="{ width: progressWidth + '%' }"></div>
     </div>
-    <div class="steps">
+    
+
+    <!-- 문제 인덱스 번호 구 형태 표기 -->
+    <!-- <div class="steps">
       <div v-for="(step, index) in surveyStore.steps" :key="index" class="step"
         :class="{ unanswered: surveyStore.isUnanswered(index), active: currentStep === index + 1 }"
         @click="setStep(index + 1)">
         <h3>{{ index + 1 }}</h3>
       </div>
-    </div>
+    </div> -->
+
     <div class="content">
       <div class="step-title">{{ surveyStore.steps[currentStep - 1].title }}</div>
       <br>
@@ -32,7 +39,7 @@
     </div>
     <div class="buttons-container">
       <button class="prev-button" @click="prevStep" :disabled="currentStep === 1">이전</button>
-      <button class="next-button" @click="goToNextStep" v-if="currentStep < surveyStore.steps.length">다음</button>
+      <button class="next-button" @click="goToNextStep" v-if="currentStep < surveyStore.steps.length && surveyStore.selectedAnswers[currentStep - 1] !== null">다음</button>
       <button @click="showResults" v-if="surveyStore.allAnswersSelected">결과보기</button>
     </div>
   </div>
@@ -43,6 +50,8 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useSurveyStore } from '@/stores/surveyStore';
+import { useConfirm } from "primevue/useconfirm";
+const confirm = useConfirm();
 
 const surveyStore = useSurveyStore();
 const router = useRouter();
@@ -125,6 +134,7 @@ const setStep = function(step) {
   border: 3px solid #ECF6EC;
   border-radius: 1rem;
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 .steps {
@@ -251,5 +261,11 @@ const setStep = function(step) {
   background-color: #4BAF47;
   border-radius: 5px;
   transition: width 0.3s ease-in-out;
+}
+
+.progress-info {
+  text-align: right;
+  font-size: 1.2em;
+  margin: 10px 0;
 }
 </style>
