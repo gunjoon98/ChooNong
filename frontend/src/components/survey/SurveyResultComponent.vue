@@ -5,30 +5,31 @@
   <h4>답변은 답변의 인덱스값</h4>
   
   <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
-    :coverflow-effect="{
-    rotate: 0, // 슬라이드 회전 없음
-    stretch: 1, // 슬라이드 사이 간격 조정
-    depth: 50, // 깊이 효과 강조, 슬라이드 사이의 '깊이' 효과
-    modifier: 1, // 효과 영향 범위
-    slideShadows: false, // 슬라이드 그림자 제거
-  }" :space-between="30" :slides-per-group="1" :loop="true" :loop-fill-group-with-blank="true" :navigation="true"
-    :pagination="{ clickable: true }">
+        :coverflow-effect="{
+        rotate: 0,
+        stretch: 1,
+        depth: 50,
+        modifier: 1,
+        slideShadows: false,
+      }" :space-between="30" :slides-per-group="1" :loop="true" :loop-fill-group-with-blank="true" :navigation="true"
+        :pagination="{ clickable: true }"
+        @swiper="onSwiper"
+        @mouseover="showNavigation = true"
+        @mouseout="showNavigation = false">
     
-    <swiper-slide v-for="(region, index) in regionStore.dummyRegionList" :key="region.region_id">
+        <swiper-slide v-for="(region, index) in regionStore.dummyRegionList" :key="region.region_id"
+                    @click="handleSlideClick(index, region.region_name)">
   <div class="content-container">
     <div class="upper-container">
       <div class="text-container">
         <h2>{{ index + 1 }}순위</h2>
-        
         <h3> {{ region.province }}</h3>
         <h3> {{ region.region_name }}</h3>
         <h3>적합도: {{ (region.suitability * 100).toFixed(0) }}%</h3>
       </div>
       <img src="@/assets/cropimage.png" alt="지역 이미지" class="img-swiper">
     </div>
-    <br>
     <div class="additional-text">
-      <h4>aaaaaaaaaaaa</h4>
       <p>aaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
       <p>컴포넌트 클릭시 지역 상세로 이동</p>
     </div>
@@ -41,20 +42,41 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { Pagination, Navigation } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/vue'
+import { ref } from 'vue';
+import { Pagination, Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 import { useRegionStore } from '@/stores/regionStore';
 import { useSurveyStore } from '@/stores/surveyStore';
 
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
-import 'swiper/css/effect-coverflow'
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/effect-coverflow';
 
-const modules = ref([Pagination, Navigation])
-const regionStore = useRegionStore()
-const surveyStore = useSurveyStore()
+const regionStore = useRegionStore();
+const surveyStore = useSurveyStore();
+const modules = ref([Pagination, Navigation]);
+
+const showNavigation = ref(false);
+// Swiper 인스턴스를 저장할 ref 정의
+const swiperInstance = ref();
+
+// Swiper 인스턴스를 저장하는 함수
+const onSwiper = (swiper) => {
+  swiperInstance.value = swiper;
+};
+
+// 클릭 이벤트 핸들러
+const handleSlideClick = (index, regionName) => {
+  // 현재 활성 슬라이드의 실제 인덱스 얻기
+  let realIndex = swiperInstance.value.realIndex;
+  if (realIndex === index) {
+    console.log(regionName);
+  } else {
+    // 비활성 슬라이드 클릭시 슬라이드 넘김
+    swiperInstance.value.slideToLoop(index);
+  }
+};
 </script>
 
 <style scoped>
@@ -104,6 +126,15 @@ const surveyStore = useSurveyStore()
   border-radius: 50%;
   transform: translateY(0%);
   z-index: 10;
+  opacity: 0; /* 기본적으로 안 보이게 */
+  transition: opacity 0.5s; /* 서서히 보이게 */
+  display: block;
+}
+
+.swiper:hover ::v-deep(.swiper-button-next),
+.swiper:hover ::v-deep(.swiper-button-prev),
+.swiper:hover ::v-deep(.swiper-pagination) {
+  opacity: 1;
 }
 
 ::v-deep(.swiper-button-next) {
@@ -111,7 +142,7 @@ const surveyStore = useSurveyStore()
 }
 
 ::v-deep(.swiper-button-prev) {
-  left: -10px;
+  left: 0px;
 }
 
 /* 페이지네이션 스타일 */
@@ -131,6 +162,8 @@ const surveyStore = useSurveyStore()
   margin-top: 20px;
   padding-top: 40px;
   z-index: 9;
+  opacity: 0; 
+  transition: opacity 0.5s;
 }
 
 .img-swiper {
@@ -166,4 +199,9 @@ const surveyStore = useSurveyStore()
   text-align: center;
   width: 100%;
 }
+
+.additional-text p {
+  margin: 0px
+}
+
 </style>
