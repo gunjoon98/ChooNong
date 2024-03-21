@@ -18,7 +18,7 @@
       <div class="content-wrapper">
         <div class="content-container">
           <div>귀농지 검색하기</div>
-          <RegionSearchComponentVue/>
+          <RegionSearchComponentVue class="search-box"/>
           <!-- 
           <input type="search">
           <button type="button">검색</button> -->
@@ -45,7 +45,7 @@ body {
 }
 
 .main-container {
-  border: 1px solid #C6EB74;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
   height: 50vh;
   width: 100vw;
@@ -63,9 +63,41 @@ body {
 }
 
 .content-container {
-  border: 1px solid #C6EB74;
+  border: 2px solid #e9e9e9;
+	border-radius: 15px;
   margin: 10px;
   padding: 10px;
   flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.search-box {
+  width: 250px;
+}
+
+button {
+  display: block;
+	margin: 0 auto;
+  width: 110px;
+	height: 50px;
+	background-color: #C6EB74;
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+	/* 커서 포인터로 변경 */
+	/* transition: background-color 0.3s ease; */
+	/* 배경색 변화에 대한 전환 */
+	/* color: #000000; */
+	/* text-decoration: none; */
+	text-align: center;
+	line-height: 40px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 </style>

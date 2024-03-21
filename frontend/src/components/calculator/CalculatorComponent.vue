@@ -23,7 +23,8 @@
 					<div class="crop-list-container">
 						<div class="crop-list-header">
 							<div>
-								<input type="search" class="search-box" v-model="searchQuery" @input="searchCrop($event)" placeholder="작물 이름을 입력하세요">
+								<input type="search" class="search-box" v-model="searchQuery" @input="searchCrop($event)"
+									placeholder="  작물 이름">
 								<button type="button" class="search-button">
 									<img src="@/assets/search.png" alt="검색" class="search-icon">
 								</button>
@@ -77,21 +78,26 @@
 								<div>
 									<div class="property-name">재배 면적 비율</div>
 									<div>
-										<div>
-											<InputText v-model.number="crop.cropExtentRatio" />%&nbsp&nbsp
-										</div>
-										<div>({{ totalExtentP*crop.cropExtentRatio/100 }}평={{ totalExtentM*crop.cropExtentRatio/100 }}㎡)</div>
+
 									</div>
 								</div>
-								<Slider v-model="crop.cropExtentRatio" :min="0" :max="100" :step="5" />
+								<div>
+									<Slider v-model="crop.cropExtentRatio" :min="0" :max="100" :step="5" />
+								</div>
+								<div>
+									<InputText v-model.number="crop.cropExtentRatio" />%
+									<div class="cropExtent">({{ totalExtentP * crop.cropExtentRatio / 100 }}평={{ totalExtentM *
+						crop.cropExtentRatio / 100 }}㎡)
+									</div>
+
+								</div>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-		<button type="button" class="result-button" @click="showResult(addedCropList)">
-		결과보기</button>
+		<button type="button" class="result-button" @click="showResult()">결과보기</button>
 	</div>
 </template>
 
@@ -170,11 +176,11 @@ const sortByProfitRate = function () {
 }
 
 const sortCropList = function () {
-	switch(sortOption.value) {
+	switch (sortOption.value) {
 		case "cropName":
 			sortedCropList.value = cropList.slice().sort((a, b) => a.cropName.localeCompare(b.cropName));
 			break;
-	  case "profitRate":
+		case "profitRate":
 			sortedCropList.value = cropList.sort((a, b) => b.profitRate - a.profitRate);
 			break;
 	}
@@ -204,6 +210,11 @@ const changeUnit = function () {
 
 const addedCropList = ref([]);
 const addCrop = function (crop) {
+	if (totalExtentM.value == null || totalExtentM.value <= 0) {
+		window.alert("총 재배 면적을 입력해주세요.")
+		return;
+	}
+
 	const isAlreadyAdded = addedCropList.value.some(addedCrop => addedCrop.cropId === crop.cropId);
 
 	if (!isAlreadyAdded) {
@@ -218,10 +229,14 @@ const deleteCrop = function (index) {
 	addedCropList.value.splice(index, 1);
 };
 
-const showResult = async function (addedCropList) {
+const showResult = async function () {
+	if (addedCropList.value.length === 0) {
+		window.alert("작물을 하나 이상 선택해 주세요.")
+		return;
+	}
 	const calculatorStore = useCalculatorStore();
 	await calculatorStore.setTotalExtent(totalExtentP);
-	await calculatorStore.setAddedCropList(addedCropList);
+	await calculatorStore.setAddedCropList(addedCropList.value);
 	router.push({ name: 'calculatorResult' })
 }
 
@@ -235,20 +250,27 @@ const showResult = async function (addedCropList) {
 }
 
 .calculator-container {
-	border-radius: 15px;
+	/* border-radius: 15px; */
 	padding: 20px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.extent-input-wrapper > * {
+.extent-input-wrapper {
+	margin-bottom: 50px;
+	display: flex;
+	align-items: center;
+}
+
+.extent-input-wrapper>* {
 	display: inline-block;
 }
 
 .extent-input-box {
 	margin-left: 21px;
 	margin-right: 5px;
-	width: 150px;
-	height: 30px;
+	width: 200px;
+	height: 45px;
+	border-radius: 15px;
 }
 
 .change-unit-button {
@@ -256,15 +278,14 @@ const showResult = async function (addedCropList) {
 	background-color: transparent;
 	width: 40px;
 	height: 40px;
-	margin-left: 15px;
+	margin: 0 0 5px 10px;
+	line-height: 45px;
 	cursor: pointer;
-	position: relative;
-	top: 5px;
 }
 
 .change-unit-button img {
-	width: 25px;
-	height: 25px;
+	width: 40px;
+	height: 40px;
 }
 
 .crop-container {
@@ -281,9 +302,16 @@ const showResult = async function (addedCropList) {
 }
 
 .search-box {
+	font-size: 1.3rem;
 	margin-right: 10px;
-	width: 150px;
-	height: 30px;
+	width: 200px;
+	height: 45px;
+	border-radius: 15px;
+}
+
+.search-box::placeholder {
+	font-size: 1.3rem;
+	margin-top: 5px;
 }
 
 .search-button {
@@ -294,9 +322,9 @@ const showResult = async function (addedCropList) {
 }
 
 .search-icon {
-	width: 25px;
+	width: 40px;
 	/* 이미지의 크기 설정 */
-	height: 25px;
+	height: 40px;
 	vertical-align: middle;
 	/* 아이콘을 버튼의 중앙에 정렬 */
 }
@@ -305,14 +333,14 @@ const showResult = async function (addedCropList) {
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
+	line-height: 45px;
 }
 
 .crop-list-container,
 .added-crop-list-container {
 	border: 2px solid #e9e9e9;
 	border-radius: 15px;
-	padding: 20px;
-	width: 650px;
+	width: 490px;
 	height: 500px;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -329,6 +357,10 @@ const showResult = async function (addedCropList) {
 	/* IE, Edge */
 	scrollbar-width: none;
 	/* Firefox */
+}
+
+.crop-list-container {
+	padding: 20px 15px;
 }
 
 .crop-list {
@@ -380,10 +412,12 @@ const showResult = async function (addedCropList) {
 	border-radius: 15px;
 	background-color: #C6EB74;
 	width: 60px;
-	height: 30px;
+	height: 40px;
+	cursor: pointer;
 }
 
 .arrow-wrapper {
+	height: 50px;
 	position: relative;
 	top: 200px;
 }
@@ -395,23 +429,21 @@ const showResult = async function (addedCropList) {
 	padding: 0;
 }
 
-.added-crop-list-container ul li {
+.one-added-crop {
 	border: 1px solid #C6EB74;
 	border-radius: 15px;
 	padding: 20px;
-	width: 410px;
+	width: 460px;
+	height: 200px;
+	margin: 0 15px;
 	position: relative;
-}
-
-.one-added-crop {
-	height: 150px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-.one-added-crop div{
-	margin-bottom: 3px;
+.one-added-crop div {
+	margin-top: 3px;
 }
 
 .delete-button {
@@ -425,7 +457,7 @@ const showResult = async function (addedCropList) {
 .property-name {
 	font-weight: bold;
 	color: #333;
-	margin-right: 5px; 
+	margin-right: 5px;
 }
 
 .added-crop-list-container ul li div {
@@ -441,6 +473,10 @@ const showResult = async function (addedCropList) {
 	left: 10%;
 }
 
+.cropExtent {
+	margin-left: auto;
+}
+
 .p-inputtext {
 	width: 50px;
 	height: 30px;
@@ -449,17 +485,17 @@ const showResult = async function (addedCropList) {
 .result-button {
 	display: block;
 	margin: 20px auto;
-	width: 100px;
-	height: 40px;
+	width: 110px;
+	height: 50px;
 	background-color: #C6EB74;
 	border: none;
 	border-radius: 15px;
 	cursor: pointer;
 	/* 커서 포인터로 변경 */
-	transition: background-color 0.3s ease;
+	/* transition: background-color 0.3s ease; */
 	/* 배경색 변화에 대한 전환 */
-	color: #000000;
-	text-decoration: none;
+	/* color: #000000; */
+	/* text-decoration: none; */
 	text-align: center;
 	line-height: 40px;
 }

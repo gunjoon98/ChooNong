@@ -17,6 +17,7 @@ import { RouterView } from 'vue-router';
 /* 전역 스타일 */
 body {
   font-size: 24px; /* 기본 텍스트 크기 */
+  color: #333333;
 }
 
 html, body {
