@@ -189,6 +189,10 @@ const handleSlideClick = (index, regionName) => {
   width: 100%;
 }
 
+.upper-container h3 {
+  margin: 0px
+}
+
 .text-container {
   text-align: left;
   flex: 1; 
