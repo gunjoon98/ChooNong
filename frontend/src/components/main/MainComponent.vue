@@ -48,9 +48,9 @@ body {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
   height: 50vh;
-  width: 100vw;
+  /* width: 100vw; */
   /* 가로 전체 화면 */
-  max-width: 1500px;
+  /* max-width: 1500px; */
   /* 최대 너비 제한 */
   display: flex;
   flex-direction: row;
