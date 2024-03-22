@@ -291,7 +291,7 @@ onMounted(() => {
 .calculator-result-container {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  height: max-content;
+  min-height: fit-content;
 }
 
 .earnings-container {

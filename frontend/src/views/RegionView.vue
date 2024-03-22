@@ -1,23 +1,26 @@
 <template>
   <div class="container">
     <!-- <h1>지역 정보</h1> -->
-    <region-search-component class="search-component" />
-    <div class="content-container">
-      <div class="region-details">
-        <div v-for="regionDetail in regionStore.dummyRegion" :key="regionDetail.region_id">
-          <h3>지역명: {{ regionDetail.region_name }}</h3>
-          <a :href="regionDetail.homepage_url">지역링크</a>
-          <img src="@/assets/logo.png" alt="test" class="region-img">
+    <div class="region-container">
+      <region-search-component class="search-component" />
+      <div class="content-container">
+        <div class="region-details">
+          <div v-for="regionDetail in regionStore.dummyRegion" :key="regionDetail.region_id">
+            <h3>지역명: {{ regionDetail.region_name }}</h3>
+            <a :href="regionDetail.homepage_url">지역링크</a>
+            <img src="@/assets/logo.png" alt="test" class="region-img">
+          </div>
         </div>
-      </div>
-      <div class="info-policy-container">
-        <div class="buttons-container">
-          <button class="button-choose" @click="showInfo" :class="{ active: activeComponent === 'info' }">지역정보</button>
-          <button class="button-choose" @click="showPolicy"
-            :class="{ active: activeComponent === 'policy' }">지역정책</button>
+        <div class="info-policy-container">
+          <div class="buttons-container">
+            <button class="button-choose" @click="showInfo"
+              :class="{ active: activeComponent === 'info' }">지역정보</button>
+            <button class="button-choose" @click="showPolicy"
+              :class="{ active: activeComponent === 'policy' }">지역정책</button>
+          </div>
+          <region-info-component v-if="activeComponent === 'info'" />
+          <region-policy-component v-if="activeComponent === 'policy'" />
         </div>
-        <region-info-component v-if="activeComponent === 'info'" />
-        <region-policy-component v-if="activeComponent === 'policy'" />
       </div>
     </div>
     <img src="../assets/chicken.png" class="bottom-picture">
@@ -52,6 +55,10 @@ const showPolicy = function () {
 </script>
 
 <style scoped>
+.region-container {
+  margin-bottom: 100px;
+}
+
 .bottom-picture {
   max-width: 120%;
   height: 100px;

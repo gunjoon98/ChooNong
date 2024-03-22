@@ -7,10 +7,14 @@
     </div>
     <!-- <img src="@/assets/cloud.png" /> -->
     <div class="menu-container">
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 1 }"><router-link to="/survey" @click="clickMenu(1)">귀농지 설문</router-link></div>
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 2 }"><router-link to="/region" @click="clickMenu(2)">지역 정보</router-link></div>
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 3 }"><router-link to="/calculator" @click="clickMenu(3)">작물 수익 계산기</router-link></div>
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 4 }"><router-link to="/checklist" @click="clickMenu(4)">체크리스트</router-link></div>
+      <router-link to="/survey" @click="clickMenu(1)" class="router-link"
+        :class="{ 'clicked-menu': clickedMenu === 1 }">귀농지 설문<div class="one-menu"></div></router-link>
+      <router-link to="/region" @click="clickMenu(2)" class="router-link"
+        :class="{ 'clicked-menu': clickedMenu === 2 }">지역 정보<div class="one-menu"></div></router-link>
+      <router-link to="/calculator" @click="clickMenu(3)" class="router-link"
+        :class="{ 'clicked-menu': clickedMenu === 3 }">작물 수익 계산기<div class="one-menu"></div></router-link>
+      <router-link to="/checklist" @click="clickMenu(4)" class="router-link"
+        :class="{ 'clicked-menu': clickedMenu === 4 }">체크리스트<div class="one-menu"></div></router-link>
     </div>
   </div>
 </template>
@@ -67,19 +71,29 @@ const clickMenu = (menuNum) => {
   justify-content: space-between;
 }
 
+.router-link {
+  position: relative;
+  z-index: 999;
+}
+
 .one-menu {
   width: 200px;
   height: 90px;
-  text-align: center;
-  line-height: 130px;
-  position: relative;
+  /* text-align: center; */
+  /* line-height: 130px; */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-100%);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
 }
 
 /* 호버 상태에서 구름 이미지 크기 일치 */
 .one-menu:hover {
   background-image: url("@/assets/cloud.png");
   background-size: cover;
-  
+
 }
 
 .clicked-menu {
@@ -89,13 +103,14 @@ const clickMenu = (menuNum) => {
   line-height: 130px;
 }
 
-.one-menu a:hover {
+a:hover {
   font-weight: bold;
 }
 
-.one-menu a {
-  color: #000000; /* 텍스트 색상 */
-  text-decoration: none; /* 밑줄 제거 */
+a {
+  color: #000000;
+  /* 텍스트 색상 */
+  text-decoration: none;
+  /* 밑줄 제거 */
 }
-
 </style>

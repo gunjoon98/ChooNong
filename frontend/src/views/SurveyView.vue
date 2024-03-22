@@ -1,7 +1,7 @@
 <template>
   <div class="router-container">
-    <RouterView/>
-    <img src="../assets/chicken.png" class="bottom-picture">
+    <RouterView class="router-view"/>
+    <img src="@\assets\tractor.png" class="bottom-picture">
   </div>
 </template>
 
@@ -15,11 +15,15 @@ import { RouterView } from 'vue-router';
   position: relative;
 }
 
+.router-view {
+  margin-bottom: 100px;
+}
+
 .bottom-picture {
   max-width: 120%;
   height: 100px;
   position: absolute;
-  bottom: -3px;
+  bottom: -1px;
   left: 50%;
   transform: translateX(-50%);
 }  

@@ -24,7 +24,7 @@
 						<div class="crop-list-header">
 							<div>
 								<input type="search" class="search-box" v-model="searchQuery" @input="searchCrop($event)"
-									placeholder="  작물 이름">
+									placeholder="작물 이름">
 								<button type="button" class="search-button">
 									<img src="@/assets/search.png" alt="검색" class="search-icon">
 								</button>
@@ -81,7 +81,7 @@
 
 									</div>
 								</div>
-								<div>
+								<div class="slider-wrapper">
 									<Slider v-model="crop.cropExtentRatio" :min="0" :max="100" :step="5" />
 								</div>
 								<div>
@@ -234,6 +234,19 @@ const showResult = async function () {
 		window.alert("작물을 하나 이상 선택해 주세요.")
 		return;
 	}
+	
+	let sumOfCropExtentRatio = 0;
+	for(let crop of addedCropList.value) {
+		sumOfCropExtentRatio += crop.cropExtentRatio
+	}
+
+	console.log(sumOfCropExtentRatio);
+
+	if (sumOfCropExtentRatio !== 100) {
+		window.alert("작물 재배 면적의 합계가 100이 되도록 설정해주세요.")
+		return;
+	}
+
 	const calculatorStore = useCalculatorStore();
 	await calculatorStore.setTotalExtent(totalExtentP);
 	await calculatorStore.setAddedCropList(addedCropList.value);
@@ -266,11 +279,13 @@ const showResult = async function () {
 }
 
 .extent-input-box {
+	padding-left: 15px;
 	margin-left: 21px;
 	margin-right: 5px;
 	width: 200px;
 	height: 45px;
 	border-radius: 15px;
+	font-size: 1.3rem;
 }
 
 .change-unit-button {
@@ -303,6 +318,7 @@ const showResult = async function () {
 
 .search-box {
 	font-size: 1.3rem;
+	padding-left: 15px;
 	margin-right: 10px;
 	width: 200px;
 	height: 45px;
@@ -432,9 +448,9 @@ const showResult = async function () {
 .one-added-crop {
 	border: 1px solid #C6EB74;
 	border-radius: 15px;
-	padding: 20px;
+	padding: 20px 20px 0px 20px;
 	width: 460px;
-	height: 200px;
+	height: 240px;
 	margin: 0 15px;
 	position: relative;
 	display: flex;
@@ -466,6 +482,10 @@ const showResult = async function () {
 	justify-content: space-between;
 }
 
+.slider-wrapper {
+	padding: 10px 0 15px 0;
+}
+
 .p-slider-horizontal {
 	width: 80%;
 	/* Set the desired width */
@@ -478,8 +498,9 @@ const showResult = async function () {
 }
 
 .p-inputtext {
-	width: 50px;
-	height: 30px;
+	width: 65px;
+	height: 40px;
+	font-size: 1.3rem;
 }
 
 .result-button {
