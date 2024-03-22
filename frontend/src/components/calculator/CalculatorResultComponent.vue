@@ -62,7 +62,7 @@
       <div class="bar-graph-container">
         <p>작물별 상세 결과 그래프</p>
         <div>
-          <canvas id="myChart3" width="400" height="200" class="bar-graph"></canvas>
+          <canvas id="myChart3" width="400" height="150" class="bar-graph"></canvas>
         </div>
       </div>
     </div>

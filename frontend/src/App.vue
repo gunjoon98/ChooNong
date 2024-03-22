@@ -56,13 +56,16 @@ html, body {
 
 .the-header-nav {
   width: 100%;
+  min-width: 1215px;
   height: 120px;
   /* position: fixed;
   top: 0px; */
 }
 
 .main-container {
-  padding: 50px 14vw 100px 14vw;
+  width: 1200px;
+  padding: 50px 0 100px 0;
+  margin: 0 auto;
   /* flex-grow: 1; */
   /* margin-bottom: 50px; */
   min-height: calc(100vh - 170px);
@@ -77,6 +80,7 @@ html, body {
 
 .the-footer {
   width: 100%;
+  min-width: 1215px;
   height: 65px;
   /* position: absolute;
   bottom: 0; */
