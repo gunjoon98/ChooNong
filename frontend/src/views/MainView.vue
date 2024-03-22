@@ -19,7 +19,7 @@
 }
 
 .bottom-picture {
-  max-width: 80%;
+  max-width: 120%;
   height: 80px;
   position: absolute;
   bottom: 0px;
