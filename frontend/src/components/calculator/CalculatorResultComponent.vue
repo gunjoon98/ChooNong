@@ -61,8 +61,8 @@
       </div>
       <div class="bar-graph-container">
         <p>작물별 상세 결과 그래프</p>
-        <div>
-          <canvas id="myChart3" width="400" height="200" class="bar-graph"></canvas>
+        <div class="chart-detail">
+          <canvas id="myChart3" width="400" height="160" class="bar-graph"></canvas>
         </div>
       </div>
     </div>
@@ -284,6 +284,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.chart-detail {
+  margin: 20px;
+  /* width: 400px;
+  height: 150px;  */
+}
+
 .container-title {
   text-align: center;
 }
