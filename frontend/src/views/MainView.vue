@@ -18,5 +18,7 @@
   height: 100px;
   position: absolute;
   bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>

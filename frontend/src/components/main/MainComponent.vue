@@ -10,20 +10,21 @@
       </div>
       <div class="content-wrapper">
         <div class="content-container">
-          <img src="">@사진/아이콘@
+          <img src="@\assets\location.png" class="location-icon">
           <div>귀농지 추천 설문 설명</div>
           <router-link to="/survey">
             <button type="button">시작하기</button>
           </router-link>
         </div>
         <div class="content-container">
-          <img src="">@사진/아이콘@
+          <img src="@/assets/calculator.png" class="calculator-icon">
           <div>작물 수익 계산기 설명</div>
           <router-link to="/calculator">
             <button type="button">시작하기</button>
           </router-link>
         </div>
         <div class="content-container">
+          <img src="@\assets\checklist.png" class="checklist-icon">
           <div>귀농 준비 체크리스트</div>
           <router-link to="/checklist">
             <button type="button">시작하기</button>
@@ -109,6 +110,19 @@ button {
   /* text-decoration: none; */
   text-align: center;
   line-height: 40px;
+}
+
+.location-icon {
+  width: 250px;
+  height: 150px;
+  margin: 0 auto;
+}
+
+.calculator-icon,
+.checklist-icon {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
 }
 
 a {

@@ -15,9 +15,13 @@ import { RouterView } from 'vue-router';
 
 <style>
 /* 전역 스타일 */
+/* './assets/so.png' */
 body {
   font-size: 24px; /* 기본 텍스트 크기 */
   color: #333333;
+  /* 커서 변경 */
+  /* cursor : url('./assets/search.png') 54 54 , auto; */
+  
 }
 
 html, body {

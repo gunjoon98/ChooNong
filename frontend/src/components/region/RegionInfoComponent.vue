@@ -56,7 +56,7 @@ const regionURL = ref('')
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border: 3px solid #ECF6EC;
   border-radius: 1rem;
-  background: #ECF6EC;
+  background: white;
 }
 
 .region-chart {
@@ -65,7 +65,7 @@ const regionURL = ref('')
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border: 3px solid #ECF6EC;
   border-radius: 1rem;
-  background: #ECF6EC;
+  background: white;
 }
 
 .region-info-detail {
