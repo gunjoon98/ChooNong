@@ -1,6 +1,6 @@
 <template>
   <div class="router-container">
-    <RouterView />
+    <RouterView class="router-view" />
     <img src="../assets/chicken.png" class="bottom-picture">
   </div>
 </template>
@@ -13,6 +13,10 @@ import { RouterView } from 'vue-router';
 <style scoped>
 .router-container {
   position: relative;
+}
+
+.router-view {
+  margin-bottom: 100px;
 }
 
 .bottom-picture {

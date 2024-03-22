@@ -1,7 +1,7 @@
 <template>
     <div class="router-container">
-      <RouterView />
-      <img src="../assets/chicken.png" class="bottom-picture">
+      <RouterView class="router-view"/>
+      <img src="@\assets\carrot.png" class="bottom-picture">
     </div>
 </template>
 
@@ -13,11 +13,16 @@
 .router-container {
   position: relative;
 }
+
+.router-view {
+  margin-bottom: 100px;
+}
+
 .bottom-picture {
-  max-width: 120%;
-  height: 100px;
+  max-width: 80%;
+  height: 80px;
   position: absolute;
-  bottom: -3px;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
 }
