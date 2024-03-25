@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <img src="../assets/chicken.png" class="bottom-picture">
+    <img src="@\assets\scarecrow.png" class="bottom-picture">
   </div>
 </template>
 
@@ -70,7 +70,7 @@ const showMap = () => {
   max-width: 120%;
   height: 100px;
   position: absolute;
-  bottom: -3px;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
 }

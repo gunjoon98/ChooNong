@@ -77,19 +77,15 @@
 								</div>
 								<div>
 									<div class="property-name">재배 면적 비율</div>
-									<div>
-
-									</div>
-								</div>
-								<div class="slider-wrapper">
-									<Slider v-model="crop.cropExtentRatio" :min="0" :max="100" :step="5" />
-								</div>
-								<div>
-									<InputText v-model.number="crop.cropExtentRatio" />%
-									<div class="cropExtent">({{ totalExtentP * crop.cropExtentRatio / 100 }}평={{ totalExtentM *
+									<div class="crop-extent">({{ totalExtentP * crop.cropExtentRatio / 100 }}평={{ totalExtentM *
 						crop.cropExtentRatio / 100 }}㎡)
 									</div>
-
+								</div>
+								<div class="crop-extent-wrapper">
+									<div class="slider-wrapper">
+										<Slider v-model="crop.cropExtentRatio" :min="0" :max="100" :step="5" />
+									</div>
+									<InputText v-model.number="crop.cropExtentRatio" />%
 								</div>
 							</li>
 						</ul>
@@ -234,9 +230,9 @@ const showResult = async function () {
 		window.alert("작물을 하나 이상 선택해 주세요.")
 		return;
 	}
-	
+
 	let sumOfCropExtentRatio = 0;
-	for(let crop of addedCropList.value) {
+	for (let crop of addedCropList.value) {
 		sumOfCropExtentRatio += crop.cropExtentRatio
 	}
 
@@ -448,9 +444,9 @@ const showResult = async function () {
 .one-added-crop {
 	border: 1px solid #C6EB74;
 	border-radius: 15px;
-	padding: 20px 20px 0px 20px;
+	padding: 5px 30px 0px 30px;
 	width: 460px;
-	height: 240px;
+	height: 210px;
 	margin: 0 15px;
 	position: relative;
 	display: flex;
@@ -466,14 +462,19 @@ const showResult = async function () {
 	border: none;
 	background-color: transparent;
 	position: absolute;
-	top: 5px;
-	right: 5px;
+	top: 7px;
+	right: 7px;
 }
 
 .property-name {
 	font-weight: bold;
 	color: #333;
 	margin-right: 5px;
+	text-decoration: underline;
+	text-decoration-color: rgba(198, 235, 116, 0.5);
+	;
+	text-decoration-thickness: 5px;
+	text-underline-offset: -5px;
 }
 
 .added-crop-list-container ul li div {
@@ -483,18 +484,25 @@ const showResult = async function () {
 }
 
 .slider-wrapper {
-	padding: 10px 0 15px 0;
+	padding: 13px 0 15px 0;
 }
 
 .p-slider-horizontal {
-	width: 80%;
+	width: 250px;
 	/* Set the desired width */
+	margin-right: 60px;
 	position: relative;
 	left: 10%;
 }
 
-.cropExtent {
-	margin-left: auto;
+.crop-extent-wrapper {
+	display: flex;
+	flex-direction: row;
+	/* justify-content: right; */
+}
+
+.crop-extent {
+	margin-left: 10px;
 }
 
 .p-inputtext {

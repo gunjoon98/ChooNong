@@ -1,7 +1,7 @@
 <template>
   <div class="router-container">
     <RouterView class="router-view"/>
-    <img src="../assets/chicken.png" class="bottom-picture">
+    <img src="../assets/corn.png" class="bottom-picture">
   </div>
 </template>
 
@@ -23,7 +23,7 @@ import { RouterView } from 'vue-router';
   max-width: 120%;
   height: 100px;
   position: absolute;
-  bottom: -3px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 }

@@ -7,10 +7,27 @@
     </div>
     <!-- <img src="@/assets/cloud.png" /> -->
     <div class="menu-container">
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 1 }"><router-link to="/survey" @click="clickMenu(1)">귀농지 설문</router-link></div>
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 2 }"><router-link to="/region" @click="clickMenu(2)">지역 정보</router-link></div>
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 3 }"><router-link to="/calculator" @click="clickMenu(3)">작물 수익 계산기</router-link></div>
-      <div class="one-menu" :class="{ 'clicked-menu' : clickedMenu === 4 }"><router-link to="/checklist" @click="clickMenu(4)">체크리스트</router-link></div>
+      <router-link to="/survey" @click="clickMenu(1)" class="router-link"
+        :class="{ 'clicked-menu': clickedMenu === 1 }">
+        <p>귀농지 설문</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 1 }"
+          v-if="clickedMenu === 1">
+      </router-link>
+      <router-link to="/region" @click="clickMenu(2)" class="router-link"
+        :class="{ 'clicked-menu': clickedMenu === 2 }">
+        <p>지역 정보</p><img src=@\assets\search.png class="search-icon"/>
+        <img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 2 }"
+          v-if="clickedMenu === 2">
+      </router-link>
+      <router-link to="/calculator" @click="clickMenu(3)" class="router-link"
+        :class="{ 'clicked-menu': clickedMenu === 3 }">
+        <p>작물 수익 계산기</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 3 }"
+          v-if="clickedMenu === 3">
+      </router-link>
+      <router-link to="/checklist" @click="clickMenu(4)" class="router-link"
+        :class="{ 'clicked-menu': clickedMenu === 4 }">
+        <p>체크리스트</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 4 }"
+          v-if="clickedMenu === 4">
+      </router-link>
     </div>
   </div>
 </template>
@@ -53,8 +70,8 @@ const clickMenu = (menuNum) => {
 }
 
 .logo-image {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   position: absolute;
   left: 2vw;
   top: 20px;
@@ -67,35 +84,50 @@ const clickMenu = (menuNum) => {
   justify-content: space-between;
 }
 
-.one-menu {
-  width: 200px;
-  height: 90px;
-  text-align: center;
-  line-height: 130px;
-  position: relative;
+.search-icon {
+  width: 30px;
+  height: auto;
+  margin: 5px;
+  z-index: 999;
 }
 
-/* 호버 상태에서 구름 이미지 크기 일치 */
-.one-menu:hover {
-  background-image: url("@/assets/cloud.png");
-  background-size: cover;
-  
+.router-link {
+  position: relative;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+}
+
+.router-link:hover {
+  font-weight: bold;
+}
+
+.router-link p {
+  z-index: 999;
 }
 
 .clicked-menu {
-  background-image: url("@/assets/cloud.png");
-  background-size: cover;
   font-weight: bold;
   line-height: 130px;
 }
 
-.one-menu a:hover {
-  font-weight: bold;
+.cloud-image {
+  width: 200px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  /* 부모 요소의 정중앙을 기준으로 좌측으로 이동 */
+  top: 50%;
+  /* 부모 요소의 정중앙을 기준으로 상단으로 이동 */
+  transform: translate(-50%, -60%);
+  /* 이미지를 가운데 정렬하기 위해 translate 사용 */
+  z-index: 1;
 }
 
-.one-menu a {
-  color: #000000; /* 텍스트 색상 */
-  text-decoration: none; /* 밑줄 제거 */
+a {
+  color: #000000;
+  /* 텍스트 색상 */
+  text-decoration: none;
+  /* 밑줄 제거 */
 }
-
 </style>
