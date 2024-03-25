@@ -57,7 +57,7 @@ html, body {
 .the-header-nav {
   width: 100%;
   min-width: 1215px;
-  height: 120px;
+  height: 150px;
   /* position: fixed;
   top: 0px; */
 }
@@ -68,7 +68,7 @@ html, body {
   margin: 0 auto;
   /* flex-grow: 1; */
   /* margin-bottom: 50px; */
-  min-height: calc(100vh - 170px);
+  min-height: calc(100vh - 200px);
 }
 
 /* .bottom-picture {
