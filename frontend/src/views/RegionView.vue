@@ -17,9 +17,13 @@
               :class="{ active: activeComponent === 'info' }">지역정보</button>
             <button class="button-choose" @click="showPolicy"
               :class="{ active: activeComponent === 'policy' }">지역정책</button>
+            <button class="button-choose" @click="showMap" :class="{ active: activeComponent === 'map' }">지역지</button>
+
+
           </div>
           <region-info-component v-if="activeComponent === 'info'" />
           <region-policy-component v-if="activeComponent === 'policy'" />
+          <region-map-component v-if="activeComponent === 'map'" />
         </div>
       </div>
     </div>
@@ -31,7 +35,7 @@
 import RegionInfoComponent from '@/components/region/RegionInfoComponent.vue';
 import RegionPolicyComponent from '@/components/region/RegionPolicyComponent.vue';
 import RegionSearchComponent from '@/components/region/RegionSearchComponent.vue';
-
+import RegionMapComponent from '@/components/region/RegionMapComponent.vue'
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useRegionStore } from '@/stores/regionStore';
@@ -43,7 +47,7 @@ onMounted(async () => {
   await regionStore.getRegion(route.params.regionId);
 });
 
-const activeComponent = ref('info');
+const activeComponent = ref('map');
 
 const showInfo = function () {
   activeComponent.value = 'info';
@@ -51,6 +55,9 @@ const showInfo = function () {
 
 const showPolicy = function () {
   activeComponent.value = 'policy';
+};
+const showMap = () => {
+  activeComponent.value = 'map';
 };
 </script>
 
