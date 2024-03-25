@@ -17,7 +17,7 @@
               :class="{ active: activeComponent === 'info' }">지역정보</button>
             <button class="button-choose" @click="showPolicy"
               :class="{ active: activeComponent === 'policy' }">지역정책</button>
-            <button class="button-choose" @click="showMap" :class="{ active: activeComponent === 'map' }">지역지</button>
+            <button class="button-choose" @click="showMap" :class="{ active: activeComponent === 'map' }">지역지도</button>
 
 
           </div>

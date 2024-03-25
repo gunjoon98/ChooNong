@@ -15,5 +15,4 @@ app.use(router)
 app.use(PrimeVue);
 app.use(ConfirmationService);
 app.directive('animateonscroll', AnimateOnScroll);
-
 app.mount('#app')
