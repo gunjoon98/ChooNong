@@ -1,7 +1,7 @@
 <template>
   
     <div class="main-component">
-      <region-new-main-component />
+      <router-view></router-view>
       <img src="@\assets\scarecrow.png" class="bottom-picture">
     </div>
   
@@ -9,6 +9,7 @@
 
 <script setup>
 import RegionNewMainComponent from '@/components/region/RegionNewMainComponent.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <style scoped>

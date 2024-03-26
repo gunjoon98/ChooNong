@@ -44,6 +44,7 @@ import { ref } from 'vue';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { useRegionStore } from '@/stores/regionStore';
+import { useRouter } from 'vue-router';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -53,6 +54,7 @@ import 'swiper/css/effect-coverflow';
 
 const regionStore = useRegionStore();
 const modules = ref([Pagination, Navigation, Autoplay]);
+const router = useRouter();
 
 const showNavigation = ref(false);
 // Swiper 인스턴스를 저장할 ref 정의
@@ -69,6 +71,7 @@ const handleSlideClick = (index, regionName) => {
   let realIndex = swiperInstance.value.realIndex;
   if (realIndex === index) {
     console.log(regionName);
+    router.push({ name: 'regionMain'})
   } else {
     // 비활성 슬라이드 클릭시 슬라이드 넘김
     swiperInstance.value.slideToLoop(index);

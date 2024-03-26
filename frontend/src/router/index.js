@@ -13,6 +13,9 @@ import SurveyComponent from "@/components/survey/SurveyComponent.vue";
 import SurveyResultComponent from "@/components/survey/SurveyResultComponent.vue";
 // import MainComponent from "@/components/main/MainComponent.vue";
 import MainComponentCC from "@/components/main/MainComponentCC.vue";
+import RegionMainComponent from "@/components/region/RegionMainComponent.vue";
+import RegionNewMainComponent from "@/components/region/RegionNewMainComponent.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -56,6 +59,20 @@ const router = createRouter({
       path: "/region",
       name: "region",
       component: RegionView,
+      children: [
+        {
+          path: "/region",
+          name: "region",
+          props: true,
+          component: RegionNewMainComponent,
+        },
+        {
+          path: "/region/main",
+          name: "regionMain",
+          props: true,
+          component: RegionMainComponent,
+        }
+      ]
     },
     {
       path: "/calculator",

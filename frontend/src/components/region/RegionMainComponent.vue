@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <img src="@\assets\scarecrow.png" class="bottom-picture">
+
   </div>
 </template>
 
@@ -64,15 +64,6 @@ const showMap = () => {
 <style scoped>
 .region-container {
   margin-bottom: 100px;
-}
-
-.bottom-picture {
-  max-width: 120%;
-  height: 100px;
-  position: absolute;
-  bottom: 0px;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .container {

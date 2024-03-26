@@ -136,8 +136,8 @@ export const useRegionStore = defineStore('region', () => {
 	// 21년 기준  출처: {http://www.youngnong.co.kr/news/articleView.html?idxno=39137}
 	// const famousRegion = ['의성군', '고흥군', '상주시', '영천군', '양평군', '무안군', '김천시']//
 
-	// 22년도 //
-	
+	// 22년도 
+	//시도별(시군별) · 성별 귀농가구원
 	const famousRegion = ['상주군', '남양주시','김천시', '의성군', '고흥군', '영천시', '아산시', '양평군','제주시']
 
 	return {
