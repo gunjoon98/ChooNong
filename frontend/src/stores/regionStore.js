@@ -43,7 +43,7 @@ export const useRegionStore = defineStore('region', () => {
 			region_id: 1,
 
 			// 지역명입니다. 해당 지역의 이름을 나타냅니다.
-			region_name: "부안군",
+			region_name: "상주시",
 
 			// 세대 수입니다. 해당 지역의 총 가구 수를 나타냅니다.
 			household: 1234,

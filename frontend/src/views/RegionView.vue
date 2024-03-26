@@ -8,7 +8,6 @@
 </template>
 
 <script setup>
-import RegionNewMainComponent from '@/components/region/RegionNewMainComponent.vue';
 import { RouterView } from 'vue-router';
 </script>
 

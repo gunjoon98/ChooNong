@@ -11,25 +11,27 @@
       <h2 class="popular-regions-title">인기 귀농지!!</h2>
       <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
         :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
-        :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig" :autoplay="autoplayOptions"
+        :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig" :autoplay="autoplayOptions" :speed="1000"
         @swiper="onSwiper" @mouseover="showNavigation = true" @mouseout="showNavigation = false" >
 
         <swiper-slide v-for="(region, index) in regionStore.dummyRegionList" :key="region.region_id"
           @click="handleSlideClick(index, region.region_name)">
           <div class="region-card">
-            <div class="region-image-container">
-              <img src="@/assets/cropimage.png" alt="지역 이미지" class="region-image">
-            </div>
+            
             <div class="region-info">
               <h2>{{ index + 1 }}위</h2>
               <h3>{{ region.province }}</h3>
               <h4>{{ region.region_name }}</h4>
               <p>적합도: {{ (region.suitability * 100).toFixed(0) }}%</p>
             </div>
+            
             <div class="region-additional-info">
               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
               <p>컴포넌트 클릭시 지역 상세로 이동</p>
               <p>지금은 콘솔출력만</p>
+            </div>
+            <div class="region-image-container">
+              <img src="@/assets/cropimage.png" alt="지역 이미지" class="region-image">
             </div>
           </div>
         </swiper-slide>
@@ -79,7 +81,7 @@ const handleSlideClick = (index, regionName) => {
 };
 
 const autoplayOptions = {
-  delay: 1000, // 5초 간격으로 자동 전환
+  delay: 2000, // 5초 간격으로 자동 전환
   disableOnInteraction: false, // 사용자 상호작용 후에도 자동 재생 계속
 };
 </script>
