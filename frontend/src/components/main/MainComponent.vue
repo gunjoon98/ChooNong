@@ -26,21 +26,13 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
 </script>
 
 <style scoped>
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100vw;
-  overflow-x: hidden;
-}
-
 .content-container {
   /* width: 1200px; */
-  height: 700px;
+  min-height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   margin-bottom: 2rem;
   background-color: #ffffff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);

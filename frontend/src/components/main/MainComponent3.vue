@@ -1,17 +1,22 @@
 <template>
-  <div>
-    <div>다른 편리한 기능들도 이용해보세요!</div>
+  <div class="main-container">
+    <h2>다른 편리한 기능들도 이용해보세요!</h2>
+    <div>
+      <p>- 지역 정보 검색: 궁금한 지역의 정보를 직접 찾아볼 수 있습니다.</p>
+      <p>- 작물 수익 계산기: 작물과 재배 면적을 입력하면 예상 수익을 계산해 줍니다.</p>
+      <p>- 귀농 준비 체크리스트: 귀농 준비가 잘 되어있는지 체크해 볼 수 있습니다.</p>
+    </div>
     <div class="content-wrapper">
         <div class="content-container">
           <img src="@\assets\search (2).png" class="search-icon">
           <div>지역 정보 검색</div>
-          <router-link to="/survey">
+          <router-link to="/region">
             <button type="button">시작하기</button>
           </router-link>
         </div>
         <div class="content-container">
           <img src="@/assets/calculator.png" class="calculator-icon">
-          <div>작물 수익 계산기 설명</div>
+          <div>작물 수익 계산기</div>
           <router-link to="/calculator">
             <button type="button">시작하기</button>
           </router-link>
@@ -43,18 +48,23 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
 </script>
 
 <style scoped>
-body {
+/* body {
   display: flex;
   justify-content: center;
-}
+} */
 
 .main-container {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  /* width: 100vw; */
+  background-color: #f7f6f6;
+  width: 100%;
+  padding: 35px;
   /* 가로 전체 화면 */
   /* max-width: 1500px; */
   /* 최대 너비 제한 */
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  /* width: 100vw; */
+  /* overflow-x: hidden; */
 }
 
 .content-wrapper {
@@ -64,6 +74,7 @@ body {
 }
 
 .content-container {
+  background-color: #ffffff;
   border: 2px solid #e9e9e9;
   border-radius: 15px;
   margin: 10px;
