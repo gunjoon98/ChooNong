@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>그러면, 설문하러 가실래요?</p>
+    <p>그러면, 설문을 시작해 볼까요?</p>
           <router-link to="/survey">
             <button type="button">시작하기</button>
           </router-link>
