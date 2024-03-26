@@ -59,8 +59,7 @@ public class RegionService {
                 .province(regionEntity.getProvince())
                 .returners(regionEntity.getReturners())
                 .area(regionEntity.getArea())
-                .homepageUrl(regionEntity.getHomepageUrl())
-                .imgUrl(regionEntity.getImgUrl())
+                .imageUrl(regionEntity.getImageUrl())
                 .cropList(cropResponseList)
                 .policyList(policyResponseList)
                 .build();

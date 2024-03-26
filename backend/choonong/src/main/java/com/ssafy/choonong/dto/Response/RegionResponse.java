@@ -27,11 +27,8 @@ public class RegionResponse {
     private int returners; // 귀농인 수
     private int area; // 행정면적
 
-    @JsonProperty("img_url")
-    private String imgUrl; // 이미지 URL
-
-    @JsonProperty("homepage_url")
-    private String homepageUrl; // 홈페이지 URL
+    @JsonProperty("image_url")
+    private String imageUrl; // 이미지 URL
 
     private List<CropResponse> cropList; //해당하는 지역에 속한 작물 목록
     private List<PolicyResponse> policyList; //해당하는 지역에 속한 정책 목록

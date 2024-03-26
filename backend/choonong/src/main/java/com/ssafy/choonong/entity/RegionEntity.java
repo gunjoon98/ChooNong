@@ -18,7 +18,7 @@ public class RegionEntity {
     @Column(name = "region_id")
     private Integer regionId; //지역 아이디
 
-    @Column(length = 32)
+    @Column(name = "region_name")
     private String regionName; // 지역명
 
     @Column
@@ -33,9 +33,6 @@ public class RegionEntity {
     @Column
     private int area; // 행정면적
 
-    @Column(length = 512)
-    private String imgUrl; //이미지URL
-
-    @Column(length = 512)
-    private String homepageUrl; //홈페이지URL
+    @Column(name="image_url")
+    private String imageUrl; //이미지URL
 }

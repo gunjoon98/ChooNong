@@ -22,6 +22,10 @@ public class CropCalculationResponse {
 
     @JsonProperty("admin")
     private int administrationFee; // 평당 경영비
+
+    @JsonProperty("image_url")
+    private String imageUrl; // 이미지 URL
+
     private BigInteger sales; // 평당 매출액
     private double profitRate; // 수익률
 }

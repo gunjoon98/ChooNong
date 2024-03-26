@@ -21,6 +21,7 @@ public class CropCalculationService {
                         .administrationFee(entity.getAdministrationFee())
                         .sales(entity.getSales())
                         .profitRate(entity.getProfitRate())
+                        .imageUrl(entity.getImageUrl())
                         .build()).toList();
     }
 }

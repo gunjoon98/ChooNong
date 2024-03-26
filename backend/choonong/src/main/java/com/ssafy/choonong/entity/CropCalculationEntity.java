@@ -18,7 +18,7 @@ public class CropCalculationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cropId; //작물 ID
 
-    @Column(length = 16)
+    @Column(name="crop_name")
     private String cropName; //작물 이름
 
     @Column
@@ -27,6 +27,8 @@ public class CropCalculationEntity {
     @Column
     private BigInteger sales; //평당매출액
 
-    @Column
     private double profitRate; //수익률
+
+    @Column(name = "image_url")
+    private String imageUrl;
 }
