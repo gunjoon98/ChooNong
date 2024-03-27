@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="main-container">
       <div class="content-container">
         <MainComponent1 />
       </div>
@@ -26,6 +26,11 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
 </script>
 
 <style scoped>
+.main-container {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
 .content-container {
   /* width: 1200px; */
   min-height: 500px;
@@ -33,9 +38,7 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
   justify-content: center;
   align-items: center;
   /* margin: 0 auto; */
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   background-color: #ffffff;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
 }
 </style>
