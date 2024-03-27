@@ -13,8 +13,8 @@ import SurveyComponent from "@/components/survey/SurveyComponent.vue";
 import SurveyResultComponent from "@/components/survey/SurveyResultComponent.vue";
 // import MainComponent from "@/components/main/MainComponent.vue";
 import MainComponentCC from "@/components/main/MainComponentCC.vue";
-import RegionMainComponent from "@/components/region/RegionMainComponent.vue";
-import RegionNewMainComponent from "@/components/region/RegionNewMainComponent.vue";
+import RegionDetailComponent from "@/components/region/RegionDetailComponent.vue";
+import RegionFamousComponent from "@/components/region/RegionFamousComponent.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,13 +64,13 @@ const router = createRouter({
           path: "/region",
           name: "region",
           props: true,
-          component: RegionNewMainComponent,
+          component: RegionFamousComponent,
         },
         {
-          path: "/region/main",
-          name: "regionMain",
+          path: "/region/detail",
+          name: "regionDetail",
           props: true,
-          component: RegionMainComponent,
+          component: RegionDetailComponent,
         }
       ]
     },

@@ -22,7 +22,6 @@
               <h2>{{ index + 1 }}위</h2>
               <h3>{{ region.province }}</h3>
               <h4>{{ region.region_name }}</h4>
-              <p>적합도: {{ (region.suitability * 100).toFixed(0) }}%</p>
             </div>
             
             <div class="region-additional-info">
@@ -73,7 +72,7 @@ const handleSlideClick = (index, regionName) => {
   let realIndex = swiperInstance.value.realIndex;
   if (realIndex === index) {
     console.log(regionName);
-    router.push({ name: 'regionMain'})
+    router.push({ name: 'regionDetail'})
   } else {
     // 비활성 슬라이드 클릭시 슬라이드 넘김
     swiperInstance.value.slideToLoop(index);
