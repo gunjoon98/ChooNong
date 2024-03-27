@@ -2,10 +2,8 @@
   <div class="info-chart-container">
     <div class="region-info">
       <h3>info</h3>
-      <div v-for="regionDetail in regionStore.dummyRegion" :key="regionDetail.region_id" class="region-info-detail">
-        <a :href="regionDetail.homepage_url">지역 URL 링크</a>
-
-        <p>세대수 : {{ regionDetail.household }}</p>
+      <div class="region-info-detail">
+        <p>세대수 : {{ regionDetail.house_hold }}</p>
         <p>귀농인 : {{ regionDetail.returners }}</p>
         <p>행정면적 : {{ regionDetail.area }}</p>
       </div>
@@ -13,23 +11,19 @@
 
     <div class="region-chart">
       <h3>지역 작물</h3>
-      <region-chart-component/>
+      <region-chart-component :regionDetail="regionDetail" />
     </div>
   </div>
 </template>
 
 <script setup>
 import RegionChartComponent from '@/components/region/RegionChartComponent.vue';
+import { defineProps } from 'vue'
 
-import { reactive, ref } from 'vue'
-import { useCropStore } from '@/stores/cropStore';
-import { useRegionStore } from '@/stores/regionStore';
 
-const regionStore = useRegionStore();
-const cropStore = useCropStore()
-const regionName = ref('')
-const regionURL = ref('')
-
+const props = defineProps({
+  regionDetail: Object
+});
 </script>
 
 <style scoped>

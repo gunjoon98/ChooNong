@@ -1,6 +1,6 @@
 <template>
   <div class="policy-container">
-    <div v-for="detail in regionStore.dummyPolicy" :key="detail.id" class="policy-item">
+    <div v-for="detail in regionDetail.policy_list" :key="detail.id" class="policy-item">
       <div class="policy-header">
         <div class="policy-title">
           <p>{{ detail.business_name }}</p>
@@ -45,10 +45,13 @@
 
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, defineProps } from 'vue'
 import { useRegionStore } from '@/stores/regionStore';
 
 const regionStore = useRegionStore()
+const props = defineProps({
+  regionDetail: Object
+});
 
 const detailsVisible = reactive({});
 

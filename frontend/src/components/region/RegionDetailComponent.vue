@@ -5,10 +5,9 @@
       <region-search-component class="search-component" />
       <div class="content-container">
         <div class="region-details">
-          <div v-for="regionDetail in regionStore.dummyRegion" :key="regionDetail.region_id">
+          <div>
             <h3>지역명: {{ regionDetail.region_name }}</h3>
-            <a :href="regionDetail.homepage_url">지역링크</a>
-            <img src="@/assets/logo.png" alt="test" class="region-img">
+            <img :src="regionDetail.image_url" alt="test" class="region-img">
           </div>
         </div>
         <div class="info-policy-container">
@@ -18,12 +17,10 @@
             <button class="button-choose" @click="showPolicy"
               :class="{ active: activeComponent === 'policy' }">지역정책</button>
             <button class="button-choose" @click="showMap" :class="{ active: activeComponent === 'map' }">지역지도</button>
-
-
           </div>
-          <region-info-component v-if="activeComponent === 'info'" />
-          <region-policy-component v-if="activeComponent === 'policy'" />
-          <region-map-component v-if="activeComponent === 'map'" />
+          <region-info-component :regionDetail="regionDetail" v-if="activeComponent === 'info'" />
+          <region-policy-component :regionDetail="regionDetail" v-if="activeComponent === 'policy'" />
+          <region-map-component :regionDetail="regionDetail" v-if="activeComponent === 'map'" />
         </div>
       </div>
     </div>
@@ -36,18 +33,21 @@ import RegionInfoComponent from '@/components/region/RegionInfoComponent.vue';
 import RegionPolicyComponent from '@/components/region/RegionPolicyComponent.vue';
 import RegionSearchComponent from '@/components/region/RegionSearchComponent.vue';
 import RegionMapComponent from '@/components/region/RegionMapComponent.vue'
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useRegionStore } from '@/stores/regionStore';
 
 const route = useRoute();
+const regionId = route.params.id
 const regionStore = useRegionStore();
+const regionDetail = ref([])
 
-onMounted(async () => {
-  await regionStore.getRegion(route.params.regionId);
+onMounted(async () => { 
+  await regionStore.getRegionDetail(regionId)
+  regionDetail.value = regionStore.regionDetail
 });
 
-const activeComponent = ref('map');
+const activeComponent = ref('info');
 
 const showInfo = function () {
   activeComponent.value = 'info';
@@ -59,6 +59,8 @@ const showPolicy = function () {
 const showMap = () => {
   activeComponent.value = 'map';
 };
+
+
 </script>
 
 <style scoped>

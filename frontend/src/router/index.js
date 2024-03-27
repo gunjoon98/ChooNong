@@ -67,7 +67,7 @@ const router = createRouter({
           component: RegionFamousComponent,
         },
         {
-          path: "/region/detail",
+          path: "/region/:id",
           name: "regionDetail",
           props: true,
           component: RegionDetailComponent,

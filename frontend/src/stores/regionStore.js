@@ -7,18 +7,28 @@ export const useRegionStore = defineStore('region', () => {
 	// 내부 값 다 변경
 	// 지금은 예시 코드만
 	const regionInfoList = ref([])
+	const regionDetail = ref()
 	const policyList = ref([])
 
-	const getRegionInfoList = function (regionId) {
-		axios({
+	const getRegionInfoList = async function () {
+		await axios({
 			method: 'GET',
-			url: '/api1/region',
-			params: {
-				regionId: regionId
-			}
+			url: `${import.meta.env.VITE_API_URL}/region`,
 		})
 			.then((response) => {
 				regionInfoList.value = response.data
+			})
+			.catch(err => console.log("지역 조회 오류"))
+	}
+
+	const getRegionDetail = async function (id) {
+		await axios({
+			method: 'GET',
+			url: `${import.meta.env.VITE_API_URL}/region/${id}`,
+		})
+			.then((response) => {
+				regionDetail.value = response.data
+				console.log(response.data)
 			})
 			.catch(err => console.log("지역 조회 오류"))
 	}
@@ -141,11 +151,13 @@ export const useRegionStore = defineStore('region', () => {
 
 	return {
 		regionInfoList,
+		regionDetail,
 		policyList,
 		dummyRegion,
 		dummyPolicy,
 		dummyRegionList,
 		getRegionInfoList,
+		getRegionDetail,
 		getPolicyList,
 		famousRegion,
 	}
