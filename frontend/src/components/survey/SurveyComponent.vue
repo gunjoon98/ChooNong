@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div class="main-div">
   <div class="survey-header">
-    <h1 class="survey-title">설문 페이지</h1>
-    <button class="reset-button" @click="resetSurvey" v-if="surveyStore.allAnswersSelected">다시하기</button>
+    <!-- <h1 class="survey-title">설문 페이지</h1> -->
+    <!-- <button class="reset-button" @click="resetSurvey" v-if="surveyStore.allAnswersSelected">다시하기</button> -->
   </div>
-  
+  <div class="survey-explain">
+    <h2>간단한 설문을 하면 적합한 귀농지를 추천해 드려요!</h2>
+  </div>
   <div class="steppy">
     <div class="progress-info">
       {{ currentStep }} / {{ surveyStore.steps.length }}
@@ -38,16 +40,20 @@
       </div>
     </div>
     <div class="buttons-container">
-      <button class="prev-button" @click="prevStep" :disabled="currentStep === 1">이전</button>
+      <div v-if="currentStep === 1" class="button-placeholder"></div>
+      <button class="prev-button" @click="prevStep" v-if="currentStep > 1 && !surveyStore.allAnswersSelected">이전</button>
       <button class="next-button" @click="goToNextStep" v-if="currentStep < surveyStore.steps.length && surveyStore.selectedAnswers[currentStep - 1] !== null">다음</button>
-      <button @click="showResults" v-if="surveyStore.allAnswersSelected">결과보기</button>
+      <div v-if="surveyStore.allAnswersSelected" class="results-reset-container">
+    <button @click="showResults" class="results-button">결과보기</button>
+    <button @click="resetSurvey" class="reset-button">다시하기</button>
+  </div>
     </div>
   </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, nextTick  } from 'vue';
 import { useRouter } from 'vue-router';
 import { useSurveyStore } from '@/stores/surveyStore';
 import { useConfirm } from "primevue/useconfirm";
@@ -56,6 +62,10 @@ const confirm = useConfirm();
 const surveyStore = useSurveyStore();
 const router = useRouter();
 const currentStep = ref(1);
+
+onMounted( () => {
+  resetSurvey()  
+})
 
 const progressWidth = computed(() => {
   const answeredCount = surveyStore.selectedAnswers.filter(answer => answer !== null).length;
@@ -70,7 +80,9 @@ const resetSurvey = function() {
 const showResults = function() {
   router.push({ name: 'surveyResult' });
   alert('결과 확인.');
-
+  nextTick(() => {
+      window.scrollTo(0, 0);
+    });
 };
 
 const prevStep = function() {
@@ -80,6 +92,9 @@ const prevStep = function() {
 const goToNextStep = function() {
   if (currentStep.value < surveyStore.steps.length) {
     currentStep.value++;
+    nextTick(() => {
+      window.scrollTo(1000, 300);
+    });
   }
 };
 
@@ -89,6 +104,10 @@ const setStep = function(step) {
 </script>
 
 <style scoped>
+.main-div {
+  margin: 0px
+}
+
 .survey-container {
   display: flex;
   flex-direction: column;
@@ -108,6 +127,12 @@ const setStep = function(step) {
   width: 100%;
   padding: 0 20px;
   margin-bottom: 40px;
+}
+
+.survey-explain {
+  padding: 0 20px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .survey-title {
@@ -133,8 +158,9 @@ const setStep = function(step) {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border: 3px solid #ECF6EC;
   border-radius: 1rem;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 40px;
+  padding-top: 20px;
+  margin-bottom: 40px;
 }
 
 .steps {
@@ -226,7 +252,8 @@ const setStep = function(step) {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 20px;
+  margin: 10px;
+  margin-top: 50px;
 }
 
 .buttons-container button {
@@ -267,5 +294,31 @@ const setStep = function(step) {
   text-align: right;
   font-size: 1.2em;
   margin: 10px 0;
+}
+
+.button-placeholder {
+  flex: 1;
+}
+
+.results-reset-container {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  width: 100%; /* 너비 100%로 설정하여 버튼 너비를 확장 */
+  gap: 20px; /* 버튼 사이 간격 */
+}
+
+.results-button {
+  width: 300px; /* 버튼 너비 조정 */
+  height: auto;
+  padding: 10px 0; /* 상하 패딩 조정 */
+  font-size: 1.2em; /* 글꼴 크기는 기본값 유지 */
+}
+
+.reset-button {
+  position: absolute;
+  width: 200px; /* 버튼 너비 조정 */
+  padding: 10px 0; /* 상하 패딩 조정 */
+  font-size: 1em; /* 글꼴 크기는 기본값 유지 */
+  right: 50px;
 }
 </style>

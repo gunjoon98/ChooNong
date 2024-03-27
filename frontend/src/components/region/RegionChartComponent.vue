@@ -1,7 +1,7 @@
 <template>
-  <div class="card">
-    <canvas id="cropPieChart"></canvas>
-  </div>
+    <div class="card">
+        <canvas id="cropPieChart"></canvas>
+    </div>
 </template>
 
 <script setup>
@@ -43,16 +43,24 @@ onMounted(() => {
             plugins: {
                 tooltip: {
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             let label = '';
-                            
+
                             if (context.parsed !== undefined) {
                                 label += context.parsed + '%';
                             }
                             return label;
                         }
                     }
+                },
+                legend: {
+                    labels: {
+                        font: {
+                            size: 20
+                        }
+                    }
                 }
+
             }
         },
     });
@@ -61,14 +69,13 @@ onMounted(() => {
 
 <style scoped>
 .card {
-  max-width: 330px;
-  margin: auto;
+    max-width: 330px;
+    margin: auto;
 }
 
 canvas {
-  height: fit-content;
-  width: fit-content;
-  margin-bottom: 5px;
+    height: fit-content;
+    width: fit-content;
+    margin-bottom: 5px;
 }
-
 </style>

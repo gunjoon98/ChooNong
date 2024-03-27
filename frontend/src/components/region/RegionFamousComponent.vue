@@ -23,15 +23,15 @@
               <h3>{{ region.province }}</h3>
               <h4>{{ region.region_name }}</h4>
             </div>
-            
+            <div class="region-image-container">
+              <img src="@/assets/cropimage.png" alt="지역 이미지" class="region-image">
+            </div>
             <div class="region-additional-info">
               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
               <p>컴포넌트 클릭시 지역 상세로 이동</p>
               <p>지금은 콘솔출력만</p>
             </div>
-            <div class="region-image-container">
-              <img src="@/assets/cropimage.png" alt="지역 이미지" class="region-image">
-            </div>
+
           </div>
         </swiper-slide>
       </swiper>

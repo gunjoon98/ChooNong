@@ -72,7 +72,6 @@ export const useRegionStore = defineStore('region', () => {
 		{ id: 3, business_name: '세부사업명3', target_eligibility: '지원대상3', business_content: '사업내용3', conditions: '지원조건3', evidence: '증빙서류3', reception: '문의처3' },
 		{ id: 4, business_name: '세부사업명4', target_eligibility: '지원대상4', business_content: '사업내용4', conditions: '지원조건4', evidence: '증빙서류4', reception: '문의처4' },
 		{ id: 5, business_name: '세부사업명5', target_eligibility: '지원대상5', business_content: '사업내용5', conditions: '지원조건5', evidence: '증빙서류5', reception: '문의처5' },
-
 	])
 
 	const dummyRegionList = reactive([

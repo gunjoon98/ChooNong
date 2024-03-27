@@ -91,6 +91,7 @@ const toggleDetail = function (id) {
 
 .policy-title p {
   margin-left: 10px;
+  font-weight: bold;
 }
 
 .detail-content {
