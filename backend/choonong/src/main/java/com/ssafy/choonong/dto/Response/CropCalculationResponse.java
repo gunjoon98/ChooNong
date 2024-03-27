@@ -15,17 +15,19 @@ import java.math.BigInteger;
 @AllArgsConstructor
 public class CropCalculationResponse {
     @JsonProperty("crop_id")
-    private int cropId; // 작물 ID
+    private Integer cropId; // 작물 ID
 
     @JsonProperty("crop_name")
     private String cropName; // 작물 이름
 
-    @JsonProperty("admin")
-    private int administrationFee; // 평당 경영비
+    @JsonProperty("administration_fee")
+    private Integer administrationFee; // 평당 경영비
 
     @JsonProperty("image_url")
     private String imageUrl; // 이미지 URL
 
     private BigInteger sales; // 평당 매출액
-    private double profitRate; // 수익률
+
+    @JsonProperty("profit_rate")
+    private Double profitRate; // 수익률
 }

@@ -17,6 +17,7 @@ public class CropCalculationService {
         List<CropCalculationEntity> cropCalculations = cropcalculationrepository.findAll();
         return cropCalculations.stream()
                 .map(entity -> CropCalculationResponse.builder()
+                        .cropId(entity.getCropId())
                         .cropName(entity.getCropName())
                         .administrationFee(entity.getAdministrationFee())
                         .sales(entity.getSales())
