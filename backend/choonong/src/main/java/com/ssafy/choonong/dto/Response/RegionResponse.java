@@ -55,6 +55,9 @@ public class RegionResponse {
     @JsonProperty("water_quality")
     private Double waterQuality;
 
+    @JsonProperty("crop_list")
     private List<CropResponse> cropList; //해당하는 지역에 속한 작물 목록
+
+    @JsonProperty("policy_list")
     private List<PolicyResponse> policyList; //해당하는 지역에 속한 정책 목록
 }
