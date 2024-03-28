@@ -1,6 +1,6 @@
 <template>
   <div class="footer-container">
-    &copy; ChooNong Company<br>
+    &copy; Project ChooNong<br>
     김근형 김소연 김용준 송의찬 정건준
   </div>
 </template>

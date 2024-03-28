@@ -71,7 +71,7 @@ const clickMenu = (menuNum) => {
 }
 
 .header-wrapper {
-  width: 1100px;
+  width: 1250px;
   height: 150px;
   margin: 15px auto;
   display: flex;

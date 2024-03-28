@@ -55,15 +55,15 @@ html, body {
 
 .the-header-nav {
   width: 100%;
-  min-width: 1215px;
+  min-width: 1340px;
   height: 150px;
   /* position: fixed;
   top: 0px; */
 }
 
 .main-container {
-  width: 1200px;
-  padding: 50px 0 100px 0;
+  width: 1340px;
+  padding: 50px 70px 100px 70px;
   margin: 0 auto;
   /* flex-grow: 1; */
   /* margin-bottom: 50px; */
@@ -79,7 +79,7 @@ html, body {
 
 .the-footer {
   width: 100%;
-  min-width: 1215px;
+  min-width: 1340px;
   height: 65px;
   /* position: absolute;
   bottom: 0; */
