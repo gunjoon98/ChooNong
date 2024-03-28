@@ -1,5 +1,5 @@
 <template>
-  <div class="search-container">
+  <div class="search-container" @keydown="onKeyDown">
     <input 
       class="search-input"
       :value="searchQuery"
@@ -14,10 +14,11 @@
       <template v-if="filteredData.length">
         <li 
           v-for="(item, index) in filteredData" 
-          :key="item" 
+          :key="index" 
           @click="logSelection(item)" 
           class="list"
-          :class="{'list-divider': index < filteredData.length - 1}"
+          :class="{'list-divider': index < filteredData.length - 1, 'highlighted': selectedIndex === index}"
+          :ref="`dropdownItem${index}`"
         >
           {{ item }}
         </li>
@@ -30,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
@@ -52,6 +53,7 @@ const data = [
 const searchQuery = ref('');
 const dropdownVisible = ref(false);
 const inputFocused = ref(false);
+const selectedIndex = ref(-1);
 
 const filteredData = computed(() => {
   return searchQuery.value ? data.filter(item => item.includes(searchQuery.value)) : [];
@@ -89,6 +91,40 @@ const onBlur = () => {
     dropdownVisible.value = false;
   }
 };
+
+const onKeyDown = async (event) => {
+  if (event.key === "ArrowDown") {
+    event.preventDefault();
+    selectedIndex.value = Math.min(selectedIndex.value + 1, filteredData.value.length - 1);
+    await scrollToSelected();
+  } else if (event.key === "ArrowUp") {
+    event.preventDefault();
+    selectedIndex.value = Math.max(selectedIndex.value - 1, 0);
+    await scrollToSelected();
+  } else if (event.key === "Enter" && selectedIndex.value !== -1) {
+    logSelection(filteredData.value[selectedIndex.value]);
+  }
+};
+
+const scrollToSelected = () => {
+  return new Promise(resolve => {
+    // DOM 업데이트를 기다립니다.
+    nextTick(() => {
+      const selectedItem = document.querySelector(`.highlighted`);
+      if (selectedItem) {
+        // 선택된 항목이 드롭다운 영역 안에서 보이도록 스크롤을 조정합니다.
+        const dropdown = document.querySelector(".dropdown");
+        dropdown.scrollTop = selectedItem.offsetTop - dropdown.offsetTop;
+      }
+      resolve();
+    });
+  });
+};
+
+watch(dropdownVisible, () => {
+  selectedIndex.value = -1;
+});
+
 </script>
 
 <style scoped>
@@ -158,5 +194,9 @@ const onBlur = () => {
   position: relative;
   width: 390px;
   margin: 0px;
+}
+
+.highlighted {
+  background-color: #f0f0f0;
 }
 </style>

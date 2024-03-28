@@ -1,47 +1,52 @@
 <template>
   <div class="policy-container">
-    <div v-for="detail in regionDetail.policy_list" :key="detail.policy_id" class="policy-item">
-      <div class="policy-header">
-        <div class="policy-title">
-          <p>{{ detail.business_name }}</p>
+    <!-- 정책 리스트가 있을 때 -->
+    <div v-if="regionDetail.policy_list && regionDetail.policy_list.length > 0">
+      <div v-for="detail in regionDetail.policy_list" :key="detail.policy_id" class="policy-item">
+        <div class="policy-header">
+          <div class="policy-title">
+            <p>{{ detail.business_name }}</p>
+          </div>
+          <div class="policy-button">
+            <button @click="toggleDetail(detail.policy_id)">
+              {{ detailsVisible[detail.policy_id] ? '닫기' : '상세보기' }}
+            </button>
+          </div>
         </div>
-        <div class="policy-button">
-          <button @click="toggleDetail(detail.policy_id)">
-            {{ detailsVisible[detail.policy_id] ? '닫기' : '상세보기' }}
-          </button>
-        </div>
+        <transition name="fade">
+          <table v-if="detailsVisible[detail.policy_id]" class="detail-content">
+            <tbody>
+              <tr>
+                <th>지원대상 및 자격조건</th>
+                <td>{{ detail.target_eligibility ? detail.target_eligibility : '-' }}</td>
+              </tr>
+              <tr>
+                <th>사업내용</th>
+                <td>{{ detail.business_content ? detail.business_content : '-' }}</td>
+              </tr>
+              <tr>
+                <th>지원조건</th>
+                <td>{{ detail.conditions ? detail.conditions : '-' }}</td>
+              </tr>
+              <tr>
+                <th>증빙서류</th>
+                <td>{{ detail.evidence ? detail.evidence : '-' }}</td>
+              </tr>
+              <tr>
+                <th>접수 및 문의처</th>
+                <td>{{ detail.reception ? detail.reception : '-' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </transition>
       </div>
-      <transition name="fade">
-        <table v-if="detailsVisible[detail.policy_id]" class="detail-content">
-          <tbody>
-            <tr>
-              <th>지원대상 및 자격조건</th>
-              <td>{{ detail.target_eligibility ? detail.target_eligibility : '-' }}</td>
-            </tr>
-            <tr>
-              <th>사업내용</th>
-              <td>{{ detail.business_content ? detail.business_content : '-' }}</td>
-            </tr>
-            <tr>
-              <th>지원조건</th>
-              <td>{{ detail.conditions ? detail.conditions : '-' }}</td>
-            </tr>
-            <tr>
-              <th>증빙서류</th>
-              <td>{{ detail.evidence ? detail.evidence : '-' }}</td>
-            </tr>
-            <tr>
-              <th>접수 및 문의처</th>
-              <td>{{ detail.reception ? detail.reception : '-' }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </transition>
-
+    </div>
+    <!-- 정책 리스트가 비어 있을 때 -->
+    <div v-else class="no-policy">
+      <p>이 지역에 대한 정책 정보가 없습니다.</p>
     </div>
   </div>
 </template>
-
 
 
 <script setup>
