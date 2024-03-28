@@ -18,7 +18,6 @@
 
 <script setup>
 import RegionChartComponent from '@/components/region/RegionChartComponent.vue';
-import { defineProps } from 'vue'
 
 
 const props = defineProps({
