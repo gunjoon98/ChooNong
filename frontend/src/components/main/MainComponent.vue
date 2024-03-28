@@ -33,7 +33,7 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
 
 .content-container {
   /* width: 1200px; */
-  min-height: 500px;
+  /* min-height: 500px; */
   display: flex;
   justify-content: center;
   align-items: center;
