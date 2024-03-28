@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Pagination, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { useRegionStore } from '@/stores/regionStore';
@@ -79,6 +79,13 @@ const handleSlideClick = (index, regionName) => {
     swiperInstance.value.slideToLoop(index);
   }
 };
+
+const resultList = ref([]);
+onMounted(async () => {
+  await surveyStore.getSurveyResult();
+  resultList.value = surveyStore.resultList;
+  console.log(resultList.value);
+})
 </script>
 
 <style scoped>

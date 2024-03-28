@@ -43,7 +43,7 @@
 								<li>추가하기</li>
 							</ul>
 							<ul v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body">
-								<li><img src="@/assets/cropimage.png" /></li>
+								<li><img :src="crop.imageUrl" /></li>
 								<li>{{ crop.cropName }}</li>
 								<li>{{ crop.profitRate }}</li>
 								<li>
@@ -51,7 +51,7 @@
 								</li>
 							</ul>
 							<ul v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body">
-								<li><img src="@/assets/cropimage.png" /></li>
+								<li><img :src="filteredCrop.imageUrl" /></li>
 								<li>{{ filteredCrop.cropName }}</li>
 								<li>{{ filteredCrop.profitRate }}</li>
 								<li>
@@ -98,59 +98,16 @@
 </template>
 
 <script setup>
-import { watch, ref, computed } from "vue";
+import { watch, ref, computed, onMounted, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 import { useCalculatorStore } from "@/stores/calculatorStore";
 import Slider from 'primevue/slider';
 import InputText from 'primevue/inputtext';
 
-const cropList = [
-	{
-		cropId: 1,
-		cropName: "가지",
-		administrationCost: 10000,
-		sales: 40000,
-		profitRate: 0.75,
-	},
-	{
-		cropId: 2,
-		cropName: "미나리",
-		administrationCost: 12000,
-		sales: 36000,
-		profitRate: 0.67,
-	},
-	{
-		cropId: 3,
-		cropName: "사과",
-		administrationCost: 5000,
-		sales: 30000,
-		profitRate: 0.83,
-	},
-	{
-		cropId: 4,
-		cropName: "오이",
-		administrationCost: 10000,
-		sales: 40000,
-		profitRate: 0.75,
-	},
-	{
-		cropId: 5,
-		cropName: "콩",
-		administrationCost: 12000,
-		sales: 36000,
-		profitRate: 0.67,
-	},
-	{
-		cropId: 6,
-		cropName: "토마토",
-		administrationCost: 5000,
-		sales: 30000,
-		profitRate: 0.83,
-	}
-]
-
+const calculatorStore = useCalculatorStore();
 const router = useRouter();
 
+const cropList = ref([])
 const sortOption = ref("cropName");
 const sortedCropList = ref([]);
 const searchQuery = ref("");
@@ -174,19 +131,21 @@ const sortByProfitRate = function () {
 const sortCropList = function () {
 	switch (sortOption.value) {
 		case "cropName":
-			sortedCropList.value = cropList.slice().sort((a, b) => a.cropName.localeCompare(b.cropName));
+			sortedCropList.value = cropList.value.sort((a, b) => a.cropName.localeCompare(b.cropName));
 			break;
 		case "profitRate":
-			sortedCropList.value = cropList.sort((a, b) => b.profitRate - a.profitRate);
+			sortedCropList.value = cropList.value.sort((a, b) => b.profitRate - a.profitRate);
 			break;
 	}
 }
 
-watch(sortOption, sortCropList, { immediate: true })
-
-
 const totalExtentM = ref();
 const totalExtentP = ref();
+
+// watchEffect(() => {
+// 	totalExtentM.value = Math.round(totalExtentP.value * 3.3);
+// 	totalExtentP.value = Math.round(totalExtentM.value / 3.3)
+// })
 
 watch(totalExtentM, function (newValue) {
 	totalExtentP.value = Math.round(newValue / 3.3);
@@ -233,23 +192,31 @@ const showResult = async function () {
 
 	let sumOfCropExtentRatio = 0;
 	for (let crop of addedCropList.value) {
+		if (crop.cropExtentRatio <= 0) {
+			window.alert("재배 면적이 0% 이하인 작물이 존재합니다.\n작물의 재배면적을 다시 설정해 주세요.");
+			return;
+		}
 		sumOfCropExtentRatio += crop.cropExtentRatio
 	}
 
-	console.log(sumOfCropExtentRatio);
+	// console.log(sumOfCropExtentRatio);
 
 	if (sumOfCropExtentRatio !== 100) {
 		window.alert("작물 재배 면적의 합계가 100이 되도록 설정해주세요.")
 		return;
 	}
 
-	const calculatorStore = useCalculatorStore();
 	await calculatorStore.setTotalExtent(totalExtentP);
 	await calculatorStore.setAddedCropList(addedCropList.value);
 	router.push({ name: 'calculatorResult' })
 }
 
-// onMounted
+onMounted (async () => {
+	await calculatorStore.getCropList();
+	cropList.value = calculatorStore.cropList;
+	console.log(cropList.value);
+	watch(sortOption, sortCropList, { immediate: true })
+})
 
 </script>
 
@@ -260,7 +227,7 @@ const showResult = async function () {
 
 .calculator-container {
 	/* border-radius: 15px; */
-	padding: 20px;
+	padding: 45px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -352,23 +319,30 @@ const showResult = async function () {
 .added-crop-list-container {
 	border: 2px solid #e9e9e9;
 	border-radius: 15px;
-	width: 490px;
+	width: 520px;
 	height: 500px;
 	overflow-y: auto;
 	overflow-x: hidden;
+	scrollbar-width: thin;
+  scrollbar-color: #888 transparent; /* 스크롤바 색상 설정 */
+}
+/* 스크롤바 화살표 숨기기 */
+.crop-list-container::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
 }
 
-.crop-list-container::-webkit-scrollbar,
-.added-crop-list-container::-webkit-scrollbar {
-	display: none;
-	/* Chrome */
+.crop-list-container::-webkit-scrollbar-track {
+  background: transparent; /* 스크롤바 트랙 배경색 */
 }
 
-.crop-list-container {
-	-ms-overflow-style: none;
-	/* IE, Edge */
-	scrollbar-width: none;
-	/* Firefox */
+.crop-list-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바 색상 */
+  border-radius: 20px; /* 스크롤바 모서리 반경 */
+  border: 2px solid transparent; /* 스크롤바 경계선 */
+}
+
+.crop-list-container::-webkit-scrollbar-button {
+  display: none; /* 위 아래 화살표 숨김 */
 }
 
 .crop-list-container {
@@ -415,7 +389,7 @@ const showResult = async function () {
 }
 
 .crop-list ul li img {
-	max-width: 70px;
+	max-width: 100px;
 	/* 이미지 크기 제한 */
 }
 
@@ -434,8 +408,6 @@ const showResult = async function () {
 	top: 200px;
 }
 
-.added-crop-list-container {}
-
 .added-crop-list-container ul {
 	list-style-type: none;
 	padding: 0;
@@ -445,7 +417,8 @@ const showResult = async function () {
 	border: 1px solid #C6EB74;
 	border-radius: 15px;
 	padding: 5px 30px 0px 30px;
-	width: 460px;
+	margin: 0 auto;
+	width: 488px;
 	height: 210px;
 	margin: 0 15px;
 	position: relative;

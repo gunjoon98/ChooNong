@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="first-container">
     <img src="@\assets\location.png" class="location-icon">
     <div>간단한 설문을 하면 적합한 귀농지를 추천해 드려요!</div>
     <router-link to="/survey">
@@ -28,9 +28,13 @@ body {
   justify-content: center;
 }
 
-.main-container {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+.first-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   /* width: 100vw; */
   /* 가로 전체 화면 */
   /* max-width: 1500px; */

@@ -1,33 +1,34 @@
 <template>
   <div class="header-container">
-    <div class="logo-wrapper">
-      <router-link to="/" @click="clickMenu(0)">
-        <img src="@/assets/logo.png" class="logo-image">
-      </router-link>
-    </div>
-    <!-- <img src="@/assets/cloud.png" /> -->
-    <div class="menu-container">
-      <router-link to="/survey" @click="clickMenu(1)" class="router-link"
-        :class="{ 'clicked-menu': clickedMenu === 1 }">
-        <p>귀농지 설문</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 1 }"
-          v-if="clickedMenu === 1">
-      </router-link>
-      <router-link to="/region" @click="clickMenu(2)" class="router-link"
-        :class="{ 'clicked-menu': clickedMenu === 2 }">
-        <p>지역 정보</p><img src=@\assets\search.png class="search-icon"/>
-        <img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 2 }"
-          v-if="clickedMenu === 2">
-      </router-link>
-      <router-link to="/calculator" @click="clickMenu(3)" class="router-link"
-        :class="{ 'clicked-menu': clickedMenu === 3 }">
-        <p>작물 수익 계산기</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 3 }"
-          v-if="clickedMenu === 3">
-      </router-link>
-      <router-link to="/checklist" @click="clickMenu(4)" class="router-link"
-        :class="{ 'clicked-menu': clickedMenu === 4 }">
-        <p>체크리스트</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 4 }"
-          v-if="clickedMenu === 4">
-      </router-link>
+    <div class="header-wrapper">
+      <div class="logo-wrapper">
+        <router-link to="/" @click="clickMenu(0)">
+          <img src="@/assets/logo.png" class="logo-image">
+        </router-link>
+      </div>
+      <!-- <img src="@/assets/cloud.png" /> -->
+      <div class="menu-container">
+        <router-link to="/survey" @click="clickMenu(1)" class="router-link"
+          :class="{ 'clicked-menu': clickedMenu === 1 }">
+          <p>귀농지 설문</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 1 }"
+            v-if="clickedMenu === 1">
+        </router-link>
+        <router-link to="/region" @click="clickMenu(2)" class="router-link"
+          :class="{ 'clicked-menu': clickedMenu === 2 }">
+          <p>지역 정보</p><img src=@\assets\search.png class="search-icon" />
+          <img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 2 }" v-if="clickedMenu === 2">
+        </router-link>
+        <router-link to="/calculator" @click="clickMenu(3)" class="router-link"
+          :class="{ 'clicked-menu': clickedMenu === 3 }">
+          <p>작물 수익 계산기</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 3 }"
+            v-if="clickedMenu === 3">
+        </router-link>
+        <router-link to="/checklist" @click="clickMenu(4)" class="router-link"
+          :class="{ 'clicked-menu': clickedMenu === 4 }">
+          <p>체크리스트</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 4 }"
+            v-if="clickedMenu === 4">
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -63,6 +64,16 @@ const clickMenu = (menuNum) => {
 .header-container {
   padding: 0 2vw;
   background-image: linear-gradient(to bottom, #ADE6F9, #ffffff);
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; */
+}
+
+.header-wrapper {
+  width: 1100px;
+  height: 150px;
+  margin: 15px auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,8 +84,8 @@ const clickMenu = (menuNum) => {
   width: 150px;
   height: 150px;
   position: absolute;
-  left: 2vw;
-  top: 20px;
+  /* left: 2vw; */
+  top: 10px;
 }
 
 .menu-container {
