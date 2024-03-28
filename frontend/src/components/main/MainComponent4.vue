@@ -31,7 +31,7 @@ h2 {
 .fourth-container {
   background-color: #d8f7d0;
   width: 100%;
-  height: 300px;
+  height: 500px;
   display: flex;
   padding: 35px;
   flex-direction: column;
