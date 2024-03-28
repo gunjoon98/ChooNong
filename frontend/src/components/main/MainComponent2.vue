@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <p>토지 가격, 주택 가격, 편의시설, 병의원 등 여러 요소들이 나에게 딱 알맞은 귀농지를 추천받을 수 있습니다.</p>
+  <div class="second-container">
+    <h2>토지 가격, 주택 가격, 편의시설, 병의원 등 여러 요소들이 나에게 가장 적합한 귀농지를 추천받을 수 있습니다.</h2>
     <!-- <div class="main-container">
       
       <div class="content-wrapper">
@@ -28,13 +28,19 @@ body {
   justify-content: center;
 }
 
-.main-container {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  /* width: 100vw; */
-  /* 가로 전체 화면 */
-  /* max-width: 1500px; */
-  /* 최대 너비 제한 */
+h2 {
+  margin: 0;
+}
+
+.second-container {
+  background-color: #fbfbef;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  padding: 35px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .content-wrapper {

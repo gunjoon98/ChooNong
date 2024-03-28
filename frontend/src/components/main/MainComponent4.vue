@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <p>그러면, 설문을 시작해 볼까요?</p>
+  <div class="fourth-container">
+    <h2>그러면, 설문을 시작해 볼까요?</h2>
           <router-link to="/survey">
             <button type="button">시작하기</button>
           </router-link>
@@ -24,13 +24,19 @@ body {
   justify-content: center;
 }
 
-.main-container {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  /* width: 100vw; */
-  /* 가로 전체 화면 */
-  /* max-width: 1500px; */
-  /* 최대 너비 제한 */
+h2 {
+  margin: 0;
+}
+
+.fourth-container {
+  background-color: #d8f7d0;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  padding: 35px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .content-wrapper {

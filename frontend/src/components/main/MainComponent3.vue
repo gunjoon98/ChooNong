@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container3">
+  <div class="third-container">
     <h2>다른 편리한 기능들도 이용해 보세요!</h2>
     <div>
       <p>- 지역 정보 검색: 궁금한 지역의 정보를 직접 찾아볼 수 있습니다.</p>
@@ -53,8 +53,8 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
   justify-content: center;
 } */
 
-.main-container3 {
-  background-color: #f7f6f6;
+.third-container {
+  background-color: #eff9ec;
   width: 100%;
   padding: 35px;
   /* 가로 전체 화면 */
