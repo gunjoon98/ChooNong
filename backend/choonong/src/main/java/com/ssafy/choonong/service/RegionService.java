@@ -4,6 +4,7 @@ import com.ssafy.choonong.dto.Response.CropResponse;
 import com.ssafy.choonong.dto.Response.PolicyResponse;
 import com.ssafy.choonong.dto.Response.RegionItemResponse;
 import com.ssafy.choonong.dto.Response.RegionResponse;
+import com.ssafy.choonong.dto.request.SurveyRequest;
 import com.ssafy.choonong.entity.RegionEntity;
 import com.ssafy.choonong.repository.PolicyRepository;
 import com.ssafy.choonong.repository.RegionCropRepository;
@@ -71,6 +72,25 @@ public class RegionService {
                 .cropList(cropResponseList)
                 .policyList(policyResponseList)
                 .build();
+    }
+
+
+    /**
+     * @author 김용준
+     * @param surveyRequest 설문 결과
+     * @return 설문 결과에 맞는 지역 리스트
+     */
+    public List<RegionItemResponse> getRegionListBySurvey(SurveyRequest surveyRequest) {
+        return regionRepository.findAllByEducationClusterAndGroundClusterAndResidentClusterAndEnvCluster(
+                        surveyRequest.getEducationCluster(),
+                        surveyRequest.getGroundCluster(),
+                        surveyRequest.getResidentCluster(),
+                        surveyRequest.getEnvCluster())
+                .stream()
+                .map(regionEntity -> RegionItemResponse.builder()
+                        .regionId(regionEntity.getRegionId())
+                        .regionName(regionEntity.getRegionName())
+                        .build()).toList();
     }
 }
 
