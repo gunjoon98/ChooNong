@@ -21,16 +21,48 @@
 
             <div class="region-info">
               <h2>{{ index + 1 }}위</h2>
-              <h3>{{ region.province }}</h3>
-              <h4>{{ region.region_name }}</h4>
+              <h4>{{ region.province }}</h4>
+              <h3>{{ region.region_name }}</h3>
             </div>
             <div class="region-image-container">
               <img :src="region.image_url" alt="지역 이미지" class="region-image">
             </div>
             <div class="region-additional-info">
-              <p>{{ region.returners }}</p>
-              <p>평균 농지가격: {{ region.average_price_farmland }} (1000원/m^2)</p>
-              <p>평균 주택가격: {{ region.average_housing_price }} (1000원/m^2)</p>
+              <p>귀농인 수: {{ region.returners }} 명</p>
+              <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (m^2)</p>
+              <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (m^2)</p>
+            </div>
+
+          </div>
+        </swiper-slide>
+      </swiper>
+    </div>
+
+    <!-- 인기 귀농지 스와이퍼 -->
+    <div class="popular-regions-container">
+      <h2 class="popular-regions-title">인기 귀농지!!</h2>
+      <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
+        :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
+        :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig"
+        :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
+        @mouseout="showNavigation = false">
+
+        <swiper-slide v-for="(region, index) in famousRegionsInfo" :key="region.region_id"
+          @click="handleSlideClick(index, region.region_id)">
+          <div class="region-card">
+
+            <div class="region-info">
+              <h2>{{ index + 1 }}위</h2>
+              <h4>{{ region.province }}</h4>
+              <h3>{{ region.region_name }}</h3>
+            </div>
+            <div class="region-image-container">
+              <img :src="region.image_url" alt="지역 이미지" class="region-image">
+            </div>
+            <div class="region-additional-info">
+              <p>귀농인 수: {{ region.returners }} 명</p>
+              <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (m^2)</p>
+              <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (m^2)</p>
             </div>
 
           </div>
@@ -55,16 +87,16 @@ import 'swiper/css/effect-coverflow';
 
 
 const regionStore = useRegionStore();
-const famousRegionIds = [92, 51, 26, 13, 78, 132, 41, 67]// 의성 상주 김천 고흥 영천 해남 밀양 양평 영동
-const famousRegionsInfo = ref([]); // 필터링된 지역 정보를 저장할 ref
+const famousRegionIds = [92, 51, 26, 13, 78, 132, 41, 67]// 의성 상주 김천 고흥 영천 해남 밀양 양평 영동 // 귀농인 가장 많은 지역
+//가평 25, 김천20, 평창18, 양산13, 파주13, 양양13, 양주11, 연천11, 군위 11 // 21년 대비 귀농인 증가 많은 순
+//남양주158, 제주39, 가평 35, 양산 26, 영동24, 평창19, 파주16, 양주16 // 21년 대비 귀농 가구원 증가많은 순
+//남양주270, 제주206, 가평 81, 양산 60, 영동200, 평창131, 파주97, 양주 48, 아산210, 해남 200 // 22년 귀농가구원수 많은 지역
+const famousRegionsInfo = ref([]); 
 
 onMounted(async () => {
-  // famousRegionsInfo를 업데이트하기 위해 Promise.all을 사용
   const details = await regionStore.getRegionsDetailList(famousRegionIds);
-  // 반환된 ref의 value를 famousRegionsInfo에 저장합니다.
   famousRegionsInfo.value = details.value;
 });
-
 
 const modules = ref([Pagination, Navigation, Autoplay]);
 const router = useRouter();

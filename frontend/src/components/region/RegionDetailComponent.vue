@@ -6,7 +6,8 @@
       <div class="content-container">
         <div class="region-details">
           <div>
-            <h3>지역명: {{ regionDetail.region_name }}</h3>
+            <h2>{{regionDetail.province}} </h2>
+            <h1>{{ regionDetail.region_name }}</h1>
             <img :src="regionDetail.image_url" alt="test" class="region-img">
           </div>
         </div>
@@ -83,6 +84,15 @@ const showMap = () => {
 }
 
 .container h1 {
+  margin-top: 0px;
+}
+
+.container h2 {
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+
+.container h1, h2{
   text-align: center;
 }
 

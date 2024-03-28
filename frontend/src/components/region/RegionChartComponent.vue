@@ -15,7 +15,7 @@ const regionStore = useRegionStore();
 const regionId = ref(route.params.id); // ref로 감싸서 반응성을 부여
 const regionDetail = ref({});
 
-// 라우트 파라미터 id 변경 감시
+
 watch(() => route.params.id, async (newId) => {
   regionId.value = newId; // 새로운 ID로 업데이트
   await regionStore.getRegionDetail(regionId.value);
