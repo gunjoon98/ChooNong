@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<h1 class="container-title">작물 수익 계산기</h1>
+		<!-- <h1 class="container-title">작물 수익 계산기</h1> -->
+		<h2>작물과 재배 면적을 입력하면 예상 수익을 계산해 줍니다.</h2>
 		<div class="calculator-container">
 			<div>
 				<h2>1. 총 재배 면적</h2>
@@ -227,6 +228,10 @@ onMounted (async () => {
 </script>
 
 <style scoped>
+h2 {
+	text-align: center;
+}
+
 .container-title {
 	text-align: center;
 }
