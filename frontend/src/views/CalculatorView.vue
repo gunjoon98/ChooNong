@@ -23,7 +23,7 @@ import { RouterView } from 'vue-router';
   max-width: 120%;
   height: 100px;
   position: absolute;
-  bottom: -3px;
+  bottom: -2px;
   left: 50%;
   transform: translateX(-50%);
 }

@@ -5,19 +5,21 @@
       <div class="earnings-container">
         <img src="@\assets\money.png" class="money-icon" />
         <div class="">
-          연간 예상 매출액<br>
-          {{ yearlySales.toLocaleString() }}원
+          <h3>연간 예상 매출액</h3>
+          <br>
+          <p>{{ yearlySales.toLocaleString() }}원</p>
         </div>
         -
         <div>
-          연간 예상 경영비<br>
-          {{ yearlyAdministrationCost.toLocaleString() }}원
+          <h3>연간 예상 경영비</h3>
+          <br>
+          <p>{{ yearlyAdministrationFee.toLocaleString() }}원</p>
         </div>
         =
         <div>
-          연간 예상 순수익<br>
-          {{ yearlyEarnings.toLocaleString() }}원<br>
-          (월 {{ monthlyEarnings.toLocaleString() }}원)
+          <h3>연간 예상 순수익</h3>
+          <p>{{ yearlyEarnings.toLocaleString() }}원</p>
+          <p>(월 {{ monthlyEarnings.toLocaleString() }}원)</p>
         </div>
       </div>
       <div class="extent-crop-list-pie-graph-wrapper">
@@ -25,7 +27,7 @@
           <div class="total-extent-container">
             <img src="@\assets\extent.png" class="extent-icon">
             <div>
-              총 재배 면적<br>
+              <h3>총 재배 면적</h3>
               {{ totalExtent.toLocaleString() }}평<br>
               ({{ (totalExtent * 3.3).toLocaleString() }} m^2)
             </div>
@@ -33,7 +35,7 @@
           <div class="crop-list-container">
             <img src="@\assets\sprout.png" class="sprout-icon">
             <div>
-              재배 작물 목록
+              <h3>재배 작물 목록</h3>
               <div>
                 <ul class="crop-list">
                   <li v-for="(crop, index) in addedCropList" :key="index">
@@ -44,25 +46,25 @@
             </div>
           </div>
         </div>
-        <div class="pie-graph-wrapper">
+        <div class="pie-graph-container-wrapper">
           <div class="extent-pie-graph-container">
-            <p>작물별 재배 면적 그래프</p>
-            <div>
-              <canvas id="myChart1" width="400" height="400"></canvas>
+            <h3>작물별 재배 면적 그래프</h3>
+            <div class="pie-graph-wrapper">
+              <canvas id="myChart1" width="400" height="400" class="pie-graph"></canvas>
             </div>
           </div>
           <div class="earnings-pie-graph-container">
-            <p>작물별 순수익 그래프</p>
-            <div>
-              <canvas id="myChart2" width="400" height="400"></canvas>
+            <h3>작물별 순수익 그래프</h3>
+            <div class="pie-graph-wrapper">
+              <canvas id="myChart2" width="400" height="400" class="pie-graph"></canvas>
             </div>
           </div>
         </div>
       </div>
       <div class="bar-graph-container">
-        <p>작물별 상세 결과 그래프</p>
-        <div class="chart-detail">
-          <canvas id="myChart3" width="400" height="160" class="bar-graph"></canvas>
+        <h3>작물별 상세 결과 그래프</h3>
+        <div class="bar-graph-wrapper">
+          <canvas id="myChart3" width="400" height="180" class="bar-graph"></canvas>
         </div>
       </div>
     </div>
@@ -84,19 +86,19 @@ const addedCropList = calculatorStore.addedCropList;
 const totalExtent = calculatorStore.totalExtent;
 const cropNameList = addedCropList.map(item => item.cropName);
 const cropYearlySalesList = ref([]);
-const cropYearlyAdministrationCostList = ref([]);
+const cropYearlyAdministrationFeeList = ref([]);
 const cropYearlyEarningsList = ref([]);
-const yearlyAdministrationCost = ref(0);
+const yearlyAdministrationFee = ref(0);
 const yearlySales = ref(0);
 const yearlyEarnings = ref(0);
 const monthlyEarnings = ref(0);
 
-const calculateYearlyAdministrationCost = function () {
+const calculateYearlyAdministrationFee = function () {
   // let cost = 0;
   for (let crop of addedCropList) {
-    const cropYearlyAdministrationCost = (totalExtent.value * crop.cropExtentRatio / 100 * crop.administrationCost);
-    yearlyAdministrationCost.value += cropYearlyAdministrationCost;
-    cropYearlyAdministrationCostList.value.push(cropYearlyAdministrationCost)
+    const cropYearlyAdministrationFee = (totalExtent.value * crop.cropExtentRatio / 100 * crop.administrationFee);
+    yearlyAdministrationFee.value += cropYearlyAdministrationFee;
+    cropYearlyAdministrationFeeList.value.push(cropYearlyAdministrationFee)
     // cropCalculateResultList.value.push({...crop, cropYearlyAdministrationCost})
   }
   // return yearlyAdministrationCost;
@@ -117,7 +119,7 @@ const calculateYearlySales = function () {
 }
 
 const calculateYearlyEarnings = function () {
-  yearlyEarnings.value = yearlySales.value - yearlyAdministrationCost.value;
+  yearlyEarnings.value = yearlySales.value - yearlyAdministrationFee.value;
   // return yearlyEarnings
 }
 
@@ -137,13 +139,13 @@ const calculateMonthlyEarnings = function () {
 
 onMounted(() => {
   console.log(yearlyEarnings)
-  calculateYearlyAdministrationCost();
+  calculateYearlyAdministrationFee();
   calculateYearlySales();
   calculateYearlyEarnings();
   calculateMonthlyEarnings();
   console.log(yearlyEarnings)
 
-  cropYearlyEarningsList.value = cropYearlySalesList.value.map((sales, index) => sales - cropYearlyAdministrationCostList.value[index]);
+  cropYearlyEarningsList.value = cropYearlySalesList.value.map((sales, index) => sales - cropYearlyAdministrationFeeList.value[index]);
   console.log(cropYearlyEarningsList.value)
 
   const cropExtentList = addedCropList.map(item => item.cropExtentRatio);
@@ -152,7 +154,7 @@ onMounted(() => {
     labels: cropNameList,
     datasets: [
       {
-        label: '선택 작물별 재배 면적 비율',
+        label: '재배 면적 비율',
         data: cropExtentList,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -180,9 +182,32 @@ onMounted(() => {
     type: 'pie',
     data: chartData1.value,
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
+      plugins: {
+        legend: {
+          labels: {
+            font: {
+              size: 25 // 범례 글자 크기를 3배로 설정
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              let label = context.dataset.label || '';
+              if (label) {
+                label += ': ';
+              }
+              label += context.formattedValue.toLocaleString() + ' %'; // 툴팁 내용에 원 단위 추가
+              return label;
+            }
+          },
+          maxWidth: 100,
+          titleFont: {
+            size: 25 // 툴팁 제목 글자 크기를 3배로 설정
+          },
+          bodyFont: {
+            size: 25 // 툴팁 내용 글자 크기를 3배로 설정
+          }
         }
       }
     }
@@ -192,7 +217,7 @@ onMounted(() => {
     labels: cropNameList,
     datasets: [
       {
-        label: '선택 작물별 순수익 비율',
+        label: '연간 예상 순수익',
         data: cropYearlyEarningsList,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -220,9 +245,33 @@ onMounted(() => {
     type: 'pie',
     data: chartData2.value,
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
+      plugins: {
+        legend: {
+          labels: {
+            font: {
+              size: 25 // 범례 글자 크기를 3배로 설정
+            }
+          }
+        },
+        tooltip: {
+          // position: 'nearest', 
+          // maxWidth: 100, // 툴팁의 최대 너비를 200px로 설정
+          callbacks: {
+            label: function (context) {
+              let label = context.dataset.label || '';
+              if (label) {
+                label += ': ';
+              }
+              label += context.formattedValue.toLocaleString() + ' 원'; // 툴팁 내용에 원 단위 추가
+              return label;
+            }
+          },
+          titleFont: {
+            size: 25 // 툴팁 제목의 글자 크기 설정
+          },
+          bodyFont: {
+            size: 25 // 툴팁 내용의 글자 크기 설정
+          }
         }
       }
     }
@@ -255,10 +304,10 @@ onMounted(() => {
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1,
-        data: cropYearlyAdministrationCostList,
+        data: cropYearlyAdministrationFeeList,
       },
       {
-        label: '연간 에상 수익률',
+        label: '연간 예상 순수익',
         backgroundColor: 'rgba(255, 218, 128, 0.2)',
         borderColor: 'rgba(255, 218, 128, 1)',
         borderWidth: 1,
@@ -271,23 +320,74 @@ onMounted(() => {
   const chartInstance3 = new Chart(ctx3, {
     type: 'bar',
     data: chartData3.value,
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+    options: options
+  });
+});
+
+const options = {
+  scales: {
+    x: {
+      ticks: {
+        font: {
+          size: 25 // x축 값의 글자 크기 설정
+        }
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: '금액 (원)', // y축 레이블에 표시할 단위
+        font: {
+          size: 25 // y축 레이블의 글자 크기 설정
+        }
+      },
+      ticks: {
+        font: {
+          size: 25 // y축 값의 글자 크기 설정
         }
       }
     }
-  });
-});
+  },
+  plugins: {
+    legend: {
+      labels: {
+        font: {
+          size: 25 // 범례 글자 크기를 3배로 설정
+        }
+      }
+    },
+    tooltip: {
+      callbacks: {
+        label: function (context) {
+          let label = context.dataset.label || '';
+          if (label) {
+            label += ': ';
+          }
+          label += context.formattedValue.toLocaleString() + ' 원'; // 툴팁 내용에 원 단위 추가
+          return label;
+        }
+      },
+      titleFont: {
+        size: 25 // 툴팁 제목 글자 크기를 3배로 설정
+      },
+      bodyFont: {
+        size: 25 // 툴팁 내용 글자 크기를 3배로 설정
+      }
+    }
+  }
+};
+
 
 </script>
 
 <style scoped>
-.chart-detail {
-  margin: 20px;
-  /* width: 400px;
-  height: 150px;  */
+h3 {
+  margin: 0;
+}
+
+p {
+  text-align: center;
+  margin: 0;
 }
 
 .container-title {
@@ -353,28 +453,59 @@ onMounted(() => {
 }
 
 .extent-crop-list-pie-graph-wrapper {
+  height: 500px;
   display: flex;
   flex-direction: row;
 }
 
 .extent-crop-list-wrapper {
   width: 30%;
-  height: calc(width * 2);
+  /* height: calc(width * 2); */
+}
+
+.pie-graph-container-wrapper {
+  width: 70%;
+  /* height: 300px; */
+  /* height: calc(width/2); */
 }
 
 .pie-graph-wrapper {
-  width: 70%;
-  height: calc(width/2);
+  height: 100%;
+
+}
+
+.pie-graph {
+  width: 300px;
+  height: auto;
 }
 
 .extent-pie-graph-container,
 .earnings-pie-graph-container {
+  padding: 30px 0;
   width: 50%;
+  height: 100%;
   display: inline-block;
 }
 
 .bar-graph-container {
   height: 600px;
+  padding-top: 30px;
+}
+
+.bar-graph-wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.bar-graph {
+  flex: 1;
+  height: 100%;
+  /* width: 1000px;
+  height: 720px;
+  margin: auto auto; */
 }
 
 canvas {
