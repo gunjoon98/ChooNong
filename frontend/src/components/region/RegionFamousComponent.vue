@@ -28,9 +28,9 @@
               <img :src="region.image_url" alt="지역 이미지" class="region-image">
             </div>
             <div class="region-additional-info">
-              <p>{{ region.returners }}</p>
-              <p>평균 농지가격: {{ region.average_price_farmland }} (1000원/m^2)</p>
-              <p>평균 주택가격: {{ region.average_housing_price }} (1000원/m^2)</p>
+              <p>귀농인 수: {{ region.returners }} 명</p>
+              <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (m^2)</p>
+              <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (m^2)</p>
             </div>
 
           </div>
@@ -56,12 +56,10 @@ import 'swiper/css/effect-coverflow';
 
 const regionStore = useRegionStore();
 const famousRegionIds = [92, 51, 26, 13, 78, 132, 41, 67]// 의성 상주 김천 고흥 영천 해남 밀양 양평 영동
-const famousRegionsInfo = ref([]); // 필터링된 지역 정보를 저장할 ref
+const famousRegionsInfo = ref([]); 
 
 onMounted(async () => {
-  // famousRegionsInfo를 업데이트하기 위해 Promise.all을 사용
   const details = await regionStore.getRegionsDetailList(famousRegionIds);
-  // 반환된 ref의 value를 famousRegionsInfo에 저장합니다.
   famousRegionsInfo.value = details.value;
 });
 
