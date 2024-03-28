@@ -4,8 +4,18 @@
       <h3>info</h3>
       <div class="region-info-detail">
         <p>세대수 : {{ regionDetail.house_hold }}</p>
-        <p>귀농인 : {{ regionDetail.returners }}</p>
         <p>행정면적 : {{ regionDetail.area }}</p>
+        <p>귀농인 : {{ regionDetail.returners }}</p>
+
+        <p>수질등급 : {{ regionDetail.water_quality }}</p>
+        <p>미세먼지 농도 : {{ regionDetail.dust_concentration }}</p>
+
+        <p>1000명당 보육시설 개수 : {{ regionDetail.child_care_facilities }}</p>
+        <p>평균 교육시설 도착 시간 : {{ regionDetail.average_accesstime_educational_facilities }}</p>
+        <p>평균 편의시설 도착 시간 : {{ regionDetail.average_accesstime_amenities }}</p>
+
+        <p>평균 주택 가격 : {{ regionDetail.average_housing_price }}</p>
+        <p>평균 농지 가격 : {{ regionDetail.average_price_farmland }}</p>
       </div>
     </div>
 
@@ -18,7 +28,6 @@
 
 <script setup>
 import RegionChartComponent from '@/components/region/RegionChartComponent.vue';
-
 
 const props = defineProps({
   regionDetail: Object
