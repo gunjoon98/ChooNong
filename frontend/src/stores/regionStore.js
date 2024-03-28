@@ -28,7 +28,7 @@ export const useRegionStore = defineStore('region', () => {
 		})
 			.then((response) => {
 				regionDetail.value = response.data
-				// console.log(response.data)
+				console.log(response.data)
 			})
 			.catch(err => console.log("지역 조회 오류"))
 	}

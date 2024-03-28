@@ -8,17 +8,20 @@
 import { onMounted, ref, watch } from 'vue';
 import Chart from 'chart.js/auto';
 import { useRoute } from 'vue-router';
-import { useRegionStore } from '@/stores/regionStore'; // 가정한 경로, 실제 경로에 맞게 조정 필요
+import { useRegionStore } from '@/stores/regionStore';
 
 const route = useRoute();
 const regionStore = useRegionStore();
-const regionId = route.params.id;
+const regionId = ref(route.params.id); // ref로 감싸서 반응성을 부여
 const regionDetail = ref({});
 
-onMounted(async () => { 
-await regionStore.getRegionDetail(regionId);
-regionDetail.value = regionStore.regionDetail;
-});
+// 라우트 파라미터 id 변경 감시
+watch(() => route.params.id, async (newId) => {
+  regionId.value = newId; // 새로운 ID로 업데이트
+  await regionStore.getRegionDetail(regionId.value);
+  regionDetail.value = regionStore.regionDetail;
+}, { immediate: true });
+
 
 let myChart = null;
 

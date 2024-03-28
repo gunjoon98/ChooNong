@@ -33,34 +33,42 @@ import RegionInfoComponent from '@/components/region/RegionInfoComponent.vue';
 import RegionPolicyComponent from '@/components/region/RegionPolicyComponent.vue';
 import RegionSearchComponent from '@/components/region/RegionSearchComponent.vue';
 import RegionMapComponent from '@/components/region/RegionMapComponent.vue'
-import { ref, onMounted, watch, computed } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { ref, watch, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import { useRegionStore } from '@/stores/regionStore';
 
 const route = useRoute();
-const regionId = route.params.id
 const regionStore = useRegionStore();
-const regionDetail = ref([])
-
-onMounted(async () => { 
-  await regionStore.getRegionDetail(regionId)
-  regionDetail.value = regionStore.regionDetail
-});
+const regionDetail = ref({});
 
 const activeComponent = ref('info');
 
-const showInfo = function () {
+const fetchRegionDetail = async (id) => {
+  await regionStore.getRegionDetail(id);
+  regionDetail.value = regionStore.regionDetail;
+};
+
+// 컴포넌트가 마운트될 때 첫 번째 지역 정보를 가져옵니다.
+onMounted(() => { 
+  fetchRegionDetail(route.params.id);
+});
+
+// route.params.id가 변경될 때마다 지역 정보를 가져옵니다.
+watch(() => route.params.id, (newId) => {
+  fetchRegionDetail(newId);
+});
+
+const showInfo = () => {
   activeComponent.value = 'info';
 };
 
-const showPolicy = function () {
+const showPolicy = () => {
   activeComponent.value = 'policy';
 };
+
 const showMap = () => {
   activeComponent.value = 'map';
 };
-
-
 </script>
 
 <style scoped>
