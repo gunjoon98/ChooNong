@@ -31,6 +31,9 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const data = [
     "가평군", "강릉시", "강진군", "강화군", "거제시", "거창군", "경산시", "경주시", "계룡시", "고령군", "고성군", "고창군", "고흥군", "곡성군",
@@ -66,19 +69,13 @@ const logSelection = (item) => {
 };
 
 const searchRegion = () => {
-  // 입력된 검색어가 data 배열에 정확히 일치하는 항목이 있는지 확인
-  const isExactMatch = data.some(item => item === searchQuery.value);
-
-  // 정확히 일치하는 항목이 없으면 함수 실행을 중단
-  if (!isExactMatch) {
+  const index = data.findIndex(item => item === searchQuery.value);
+  if (index === -1) {
     console.log("정확히 일치하는 지역이 없습니다.");
     alert("정확히 일치하는 지역이 없어 검색을 수행할 수 없습니다.");
-    return; // 여기서 함수 종료
+    return;
   }
-
-  // 정확히 일치하는 항목이 있을 경우 검색 로직 실행
-  console.log("검색어:", searchQuery.value);
-  alert("검색어:", searchQuery.value)
+  router.push({ name: 'regionDetail', params: { id: index + 1 } });
 };
 
 const onFocus = () => {

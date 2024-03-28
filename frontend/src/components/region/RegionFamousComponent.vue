@@ -11,25 +11,26 @@
       <h2 class="popular-regions-title">인기 귀농지!!</h2>
       <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
         :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
-        :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig" :autoplay="autoplayOptions" :speed="1000"
-        @swiper="onSwiper" @mouseover="showNavigation = true" @mouseout="showNavigation = false" >
+        :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig"
+        :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
+        @mouseout="showNavigation = false">
 
-        <swiper-slide v-for="(region, index) in regionStore.dummyRegionList" :key="region.region_id"
-          @click="handleSlideClick(index, region.region_name)">
+        <swiper-slide v-for="(region, index) in famousRegionsInfo" :key="region.region_id"
+          @click="handleSlideClick(index, region.region_id)">
           <div class="region-card">
-            
+
             <div class="region-info">
               <h2>{{ index + 1 }}위</h2>
               <h3>{{ region.province }}</h3>
               <h4>{{ region.region_name }}</h4>
             </div>
             <div class="region-image-container">
-              <img src="@/assets/cropimage.png" alt="지역 이미지" class="region-image">
+              <img :src="region.image_url" alt="지역 이미지" class="region-image">
             </div>
             <div class="region-additional-info">
-              <p>aaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-              <p>컴포넌트 클릭시 지역 상세로 이동</p>
-              <p>지금은 콘솔출력만</p>
+              <p>{{ region.returners }}</p>
+              <p>평균 농지가격: {{ region.average_price_farmland }} (1000원/m^2)</p>
+              <p>평균 주택가격: {{ region.average_housing_price }} (1000원/m^2)</p>
             </div>
 
           </div>
@@ -41,7 +42,7 @@
 
 <script setup>
 import RegionSearchComponent from '../region/RegionSearchComponent.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { useRegionStore } from '@/stores/regionStore';
@@ -54,6 +55,17 @@ import 'swiper/css/effect-coverflow';
 
 
 const regionStore = useRegionStore();
+const famousRegionIds = [92, 51, 26, 13, 78, 132, 41, 67]// 의성 상주 김천 고흥 영천 해남 밀양 양평 영동
+const famousRegionsInfo = ref([]); // 필터링된 지역 정보를 저장할 ref
+
+onMounted(async () => {
+  // famousRegionsInfo를 업데이트하기 위해 Promise.all을 사용
+  const details = await regionStore.getRegionsDetailList(famousRegionIds);
+  // 반환된 ref의 value를 famousRegionsInfo에 저장합니다.
+  famousRegionsInfo.value = details.value;
+});
+
+
 const modules = ref([Pagination, Navigation, Autoplay]);
 const router = useRouter();
 
@@ -67,12 +79,11 @@ const onSwiper = (swiper) => {
 };
 
 // 클릭 이벤트 핸들러
-const handleSlideClick = (index, regionName) => {
+const handleSlideClick = (index, regionId) => {
   // 현재 활성 슬라이드의 실제 인덱스 얻기
   let realIndex = swiperInstance.value.realIndex;
   if (realIndex === index) {
-    console.log(regionName);
-    router.push({ name: 'regionDetail'})
+    router.push({ name: 'regionDetail', params: { id: regionId } });
   } else {
     // 비활성 슬라이드 클릭시 슬라이드 넘김
     swiperInstance.value.slideToLoop(index);
@@ -83,6 +94,8 @@ const autoplayOptions = {
   delay: 2000, // 5초 간격으로 자동 전환
   disableOnInteraction: false, // 사용자 상호작용 후에도 자동 재생 계속
 };
+
+
 </script>
 
 <style scoped>

@@ -1,38 +1,38 @@
 <template>
   <div class="policy-container">
-    <div v-for="detail in regionDetail.policy_list" :key="detail.id" class="policy-item">
+    <div v-for="detail in regionDetail.policy_list" :key="detail.policy_id" class="policy-item">
       <div class="policy-header">
         <div class="policy-title">
           <p>{{ detail.business_name }}</p>
         </div>
         <div class="policy-button">
-          <button @click="toggleDetail(detail.id)">
-            {{ detailsVisible[detail.id] ? '닫기' : '상세보기' }}
+          <button @click="toggleDetail(detail.policy_id)">
+            {{ detailsVisible[detail.policy_id] ? '닫기' : '상세보기' }}
           </button>
         </div>
       </div>
       <transition name="fade">
-        <table v-if="detailsVisible[detail.id]" class="detail-content">
+        <table v-if="detailsVisible[detail.policy_id]" class="detail-content">
           <tbody>
             <tr>
               <th>지원대상 및 자격조건</th>
-              <td>{{ detail.target_eligibility }}</td>
+              <td>{{ detail.target_eligibility ? detail.target_eligibility : '-' }}</td>
             </tr>
             <tr>
               <th>사업내용</th>
-              <td>{{ detail.business_content }}</td>
+              <td>{{ detail.business_content ? detail.business_content : '-' }}</td>
             </tr>
             <tr>
               <th>지원조건</th>
-              <td>{{ detail.conditions }}</td>
+              <td>{{ detail.conditions ? detail.conditions : '-' }}</td>
             </tr>
             <tr>
               <th>증빙서류</th>
-              <td>{{ detail.evidence }}</td>
+              <td>{{ detail.evidence ? detail.evidence : '-' }}</td>
             </tr>
             <tr>
               <th>접수 및 문의처</th>
-              <td>{{ detail.reception }}</td>
+              <td>{{ detail.reception ? detail.reception : '-' }}</td>
             </tr>
           </tbody>
         </table>
@@ -45,8 +45,9 @@
 
 
 <script setup>
-import { reactive, defineProps } from 'vue'
+import { reactive } from 'vue'
 import { useRegionStore } from '@/stores/regionStore';
+
 
 const regionStore = useRegionStore()
 const props = defineProps({
@@ -57,18 +58,15 @@ const detailsVisible = reactive({});
 
 
 // 상세보기 하나만 가능하게
-const toggleDetail = function (id) {
-  const isVisible = detailsVisible[id];
-
-  Object.keys(detailsVisible).forEach(key => {
-    detailsVisible[key] = false;
-  });
-
-  if (!isVisible) {
-    detailsVisible[id] = true;
+const toggleDetail = (policy_id) => {
+  if (detailsVisible[policy_id] === undefined) {
+    // 최초 클릭 시 해당 항목에 대한 키를 생성하고 true로 설정
+    detailsVisible[policy_id] = true;
+  } else {
+    // 이미 존재하는 항목은 토글
+    detailsVisible[policy_id] = !detailsVisible[policy_id];
   }
-}
-
+};
 </script>
 
 <style scoped>

@@ -1,32 +1,41 @@
 <template>
-    <div class="card">
-        <canvas id="cropPieChart"></canvas>
-    </div>
+  <div class="card">
+      <canvas id="cropPieChart"></canvas>
+  </div>
 </template>
 
 <script setup>
-import { onMounted, ref, watch, defineProps } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import Chart from 'chart.js/auto';
+import { useRoute } from 'vue-router';
+import { useRegionStore } from '@/stores/regionStore'; // 가정한 경로, 실제 경로에 맞게 조정 필요
 
-const props = defineProps({
-  regionDetail: Object
+const route = useRoute();
+const regionStore = useRegionStore();
+const regionId = route.params.id;
+const regionDetail = ref({});
+
+onMounted(async () => { 
+await regionStore.getRegionDetail(regionId);
+regionDetail.value = regionStore.regionDetail;
 });
+
 let myChart = null;
 
 const initChart = (cropList) => {
-  const totalRate = cropList.reduce((acc, crop) => acc + crop.area_rate, 0);
-  const otherRate = 100 - totalRate;
+const totalRate = cropList.reduce((acc, crop) => acc + crop.area_rate, 0);
+const otherRate = 100 - totalRate;
 
-  const ctx = document.getElementById('cropPieChart').getContext('2d');
-  if (myChart) {
-    myChart.destroy();
-  }
-  myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: cropList.map(info => info.crop_name).concat(otherRate > 0 ? ['기타'] : []),
-      datasets: [{
-        data: cropList.map(info => info.area_rate).concat(otherRate > 0 ? [otherRate] : []),
+const ctx = document.getElementById('cropPieChart').getContext('2d');
+if (myChart) {
+  myChart.destroy();
+}
+myChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: cropList.map(info => info.crop_name).concat(otherRate > 0 ? ['기타'] : []),
+    datasets: [{
+      data: cropList.map(info => info.area_rate).concat(otherRate > 0 ? [otherRate] : []),
         backgroundColor: [ 
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -78,7 +87,7 @@ const initChart = (cropList) => {
   });
 };
 
-watch(() => props.regionDetail, (newValue) => {
+watch(() => regionDetail.value, (newValue) => {
   if (newValue && newValue.crop_list) {
     initChart([...newValue.crop_list]);  // Spread operator to create a shallow copy
   }
