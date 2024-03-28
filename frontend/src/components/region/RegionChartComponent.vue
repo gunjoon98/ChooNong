@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-      <canvas id="cropPieChart"></canvas>
+    <canvas id="cropPieChart"></canvas>
   </div>
 </template>
 
@@ -26,20 +26,20 @@ watch(() => route.params.id, async (newId) => {
 let myChart = null;
 
 const initChart = (cropList) => {
-const totalRate = cropList.reduce((acc, crop) => acc + crop.area_rate, 0);
-const otherRate = 100 - totalRate;
+  const totalRate = cropList.reduce((acc, crop) => acc + crop.area_rate, 0);
+  const otherRate = 100 - totalRate;
 
-const ctx = document.getElementById('cropPieChart').getContext('2d');
-if (myChart) {
-  myChart.destroy();
-}
-myChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: cropList.map(info => info.crop_name).concat(otherRate > 0 ? ['기타'] : []),
-    datasets: [{
-      data: cropList.map(info => info.area_rate).concat(otherRate > 0 ? [otherRate] : []),
-        backgroundColor: [ 
+  const ctx = document.getElementById('cropPieChart').getContext('2d');
+  if (myChart) {
+    myChart.destroy();
+  }
+  myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: cropList.map(info => info.crop_name).concat(otherRate > 0 ? ['기타'] : []),
+      datasets: [{
+        data: cropList.map(info => info.area_rate).concat(otherRate > 0 ? [otherRate] : []),
+        backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
@@ -63,30 +63,41 @@ myChart = new Chart(ctx, {
       }]
     },
     options: {
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              let label = context.label || '';
-              if (label) {
-                label += ': ';
-              }
-              if (context.parsed !== undefined) {
-                label += context.parsed + '%';
-              }
-              return label;
-            }
+  plugins: {
+    tooltip: {
+      // 툴팁에 대한 콜백 함수 설정
+      callbacks: {
+        label: function(context) {
+          let label = context.label || '';
+          if (label) {
+            label += ': ';
           }
-        },
-        legend: {
-          labels: {
-            font: {
-              size: 14
-            }
+          if (context.parsed !== undefined) {
+            label += `${Math.ceil(context.parsed * 10) / 10}%`;
           }
+          return label;
+        }
+      },
+      // 툴팁의 글꼴 설정
+      titleFont: {
+        size: 0, // 제목 글꼴 크기
+      },
+      bodyFont: {
+        size: 20, // 본문 글꼴 크기
+        weight: 'normal'
+      }
+    },
+    legend: {
+      labels: {
+        font: {
+          size: 20, // 범례 글꼴 크기
+          weight: 'bold'
         }
       }
     }
+  }
+}
+
   });
 };
 
@@ -101,13 +112,13 @@ watch(() => regionDetail.value, (newValue) => {
 
 <style scoped>
 .card {
-    max-width: 330px;
-    margin: auto;
+  max-width: 330px;
+  margin: auto;
 }
 
 canvas {
-    height: fit-content;
-    width: fit-content;
-    margin-bottom: 5px;
+  height: fit-content;
+  width: fit-content;
+  margin-bottom: 5px;
 }
 </style>

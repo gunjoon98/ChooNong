@@ -2,6 +2,7 @@
   <div class="policy-container">
     <!-- 정책 리스트가 있을 때 -->
     <div v-if="regionDetail.policy_list && regionDetail.policy_list.length > 0">
+      <h2>귀농 정책 갯수: {{ regionDetail.policy_list.length }}개</h2>
       <div v-for="detail in regionDetail.policy_list" :key="detail.policy_id" class="policy-item">
         <div class="policy-header">
           <div class="policy-title">

@@ -132,7 +132,7 @@ const showMap = () => {
 
 .region-img {
   width: 300px;
-  height: auto;
+  height: 390px;
   max-width: 100%;
 }
 

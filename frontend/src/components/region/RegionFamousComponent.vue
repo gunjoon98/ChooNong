@@ -38,7 +38,7 @@
       </swiper>
     </div>
 
-    <!-- 인기 귀농지 스와이퍼 -->
+    <!-- 귀농인 증가 많은 지역 스와이퍼 -->
     <div class="popular-regions-container">
       <h2 class="popular-regions-title">인기 귀농지!!</h2>
       <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
@@ -47,7 +47,7 @@
         :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
         @mouseout="showNavigation = false">
 
-        <swiper-slide v-for="(region, index) in famousRegionsInfo" :key="region.region_id"
+        <swiper-slide v-for="(region, index) in increaseRegionInfo" :key="region.region_id"
           @click="handleSlideClick(index, region.region_id)">
           <div class="region-card">
 
@@ -61,6 +61,7 @@
             </div>
             <div class="region-additional-info">
               <p>귀농인 수: {{ region.returners }} 명</p>
+              <p>증가한 귀농인 수: {{ increaseRegionPeople[index] }} 명</p>
               <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (m^2)</p>
               <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (m^2)</p>
             </div>
@@ -88,14 +89,23 @@ import 'swiper/css/effect-coverflow';
 
 const regionStore = useRegionStore();
 const famousRegionIds = [92, 51, 26, 13, 78, 132, 41, 67]// 의성 상주 김천 고흥 영천 해남 밀양 양평 영동 // 귀농인 가장 많은 지역
+
+const increaseRegionPeople = [25,20,28,13,13,13,11,11,11]
+const increaseRegionIds = [1,26,123,64,122,65,66,70,22]
 //가평 25, 김천20, 평창18, 양산13, 파주13, 양양13, 양주11, 연천11, 군위 11 // 21년 대비 귀농인 증가 많은 순
+
+
 //남양주158, 제주39, 가평 35, 양산 26, 영동24, 평창19, 파주16, 양주16 // 21년 대비 귀농 가구원 증가많은 순
 //남양주270, 제주206, 가평 81, 양산 60, 영동200, 평창131, 파주97, 양주 48, 아산210, 해남 200 // 22년 귀농가구원수 많은 지역
 const famousRegionsInfo = ref([]); 
+const increaseRegionInfo = ref([])
 
 onMounted(async () => {
-  const details = await regionStore.getRegionsDetailList(famousRegionIds);
-  famousRegionsInfo.value = details.value;
+  const famousDetails = await regionStore.getRegionsDetailList(famousRegionIds);
+  famousRegionsInfo.value = famousDetails.value;
+
+  const increaseDetails = await regionStore.getRegionsDetailList(increaseRegionIds);
+  increaseRegionInfo.value = increaseDetails.value;
 });
 
 const modules = ref([Pagination, Navigation, Autoplay]);
@@ -175,12 +185,16 @@ const autoplayOptions = {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin: 0px;
+  padding: 0px
 }
 
 .region-image {
   max-width: 100%;
-  height: auto;
+  height: 200px;
   border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .region-info h2,
