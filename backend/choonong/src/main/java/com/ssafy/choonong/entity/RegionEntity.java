@@ -61,6 +61,18 @@ public class RegionEntity {
     @Column(name = "water_quality")
     private Double waterQuality;
 
+    @Column(name = "pediatrics")
+    private Integer pediatrics; // 소아과 수
+
+    @Column(name = "kindergarden")
+    private Integer kindergarden; // 유치원 수
+
+    @Column(name = "elementary_school")
+    private Integer elementarySchool; // 초등학교 수
+
+    @Column(name = "middle_school")
+    private Integer middleSchool; // 중학교 수
+
     @Column(name = "education_cluster")
     private Integer educationCluster;
 
