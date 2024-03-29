@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="info-item">
-            <div class="info-label">귀농인</div>
+            <div class="info-label">귀농인구</div>
             <div class="info-content-unit">
               <div class="info-content">{{ regionDetail.returners }}</div>
               <div class="info-unit">명</div>
@@ -35,18 +35,21 @@
             <div class="info-label">인구밀도</div>
             <div class="info-content-unit">
               <div class="info-content">{{ regionDetail.population_density }}</div>
+              <div class="info-unit">명/㎢</div>
             </div>
           </div>
           <div class="info-item">
             <div class="info-label">수질등급</div>
             <div class="info-content-unit">
               <div class="info-content">{{ regionDetail.water_quality }}</div>
+              <div class="info-unit">급</div>
             </div>
           </div>
           <div class="info-item">
             <div class="info-label">미세먼지 농도</div>
             <div class="info-content-unit">
               <div class="info-content">{{ regionDetail.dust_concentration }}</div>
+              <div class="info-unit">㎍/㎥</div>
             </div>
           </div>
         </div>
@@ -58,21 +61,21 @@
             <div class="info-label">보육시설 개수</div>
             <div class="info-content-unit">
               <div class="info-content">{{ regionDetail.child_care_facilities }}</div>
-              <div class="info-unit">(개/1000명)</div>
+              <div class="info-unit">개 (1000명 당)</div>
             </div>
           </div>
           <div class="info-item">
             <div class="info-label">평균 교육시설 도착 시간</div>
             <div class="info-content-unit">
               <div class="info-content">{{ regionDetail.average_accesstime_educational_facilities }}</div>
-              <div class="info-unit">(분, 도보)</div>
+              <div class="info-unit">분 (도보기준)</div>
             </div>
           </div>
           <div class="info-item">
             <div class="info-label">평균 편의시설 도착 시간</div>
             <div class="info-content-unit">
               <div class="info-content">{{ regionDetail.average_accesstime_amenities }}</div>
-              <div class="info-unit">(분, 도보)</div>
+              <div class="info-unit">분 (도보기준)</div>
             </div>
           </div>
         </div>
@@ -84,14 +87,14 @@
             <div class="info-label">평균 주택 가격</div>
             <div class="info-content-unit">
               <div class="info-content">{{ regionDetail.average_housing_price * 1000 }}</div>
-              <div class="info-unit">원 (m^2)</div>
+              <div class="info-unit">원/㎡</div>
             </div>
           </div>
           <div class="info-item">
             <div class="info-label">평균 농지 가격</div>
             <div class="info-content-unit">
               <div class="info-content">{{ regionDetail.average_price_farmland * 1000 }}</div>
-              <div class="info-unit">원 (m^2)</div>
+              <div class="info-unit">원/㎡</div>
             </div>
           </div>
         </div>
