@@ -51,20 +51,22 @@ html, body {
   height: 100%;
 	display: flex;
 	flex-direction: column;
+  position: relative;
 }
 
 .the-header-nav {
   width: 100%;
   min-width: 1340px;
-  height: 150px;
-  /* position: fixed;
-  top: 0px; */
+  height: 120px;
+  position: fixed;
+  top: 0px;
+  z-index: 999;
 }
 
 .main-container {
   width: 1340px;
   padding: 50px 70px 100px 70px;
-  margin: 0 auto;
+  margin: 150px auto 0 auto;
   /* flex-grow: 1; */
   /* margin-bottom: 50px; */
   min-height: calc(100vh - 200px);
