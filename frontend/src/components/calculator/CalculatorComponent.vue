@@ -8,11 +8,11 @@
 				<div class="extent-input-wrapper">
 					<div v-if="unit == 'p'">
 						<input type="number" class="extent-input-box" v-model="totalExtentP"> 평
-						= {{ totalExtentM }} ㎡
+						= <div v-if="!isNaN(totalExtentM)" class="unit-changed-extent">{{ Math.round(totalExtentM) }}</div> ㎡
 					</div>
 					<div v-if="unit == 'm'">
 						<input type="number" class="extent-input-box" v-model="totalExtentM"> ㎡
-						= {{ totalExtentP }} 평
+						= <div v-if="!isNaN(totalExtentP)" class="unit-changed-extent">{{ Math.round(totalExtentP) }}</div> 평
 					</div>
 					<button type="button" @click="changeUnit()" class="change-unit-button"><img
 							src="@/assets/change.png"></button>
@@ -62,7 +62,7 @@
 						</div>
 					</div>
 					<div class="arrow-wrapper">
-						<h1>-></h1>
+						<img src="@\assets\right-arrow.png" class="arrow-icon"/>
 					</div>
 					<div class="added-crop-list-container">
 						<ul v-for="(crop, index) in addedCropList" :key="index">
@@ -158,11 +158,11 @@ const totalExtentP = ref();
 // })
 
 watch(totalExtentM, function (newValue) {
-	totalExtentP.value = Math.round(newValue / 3.3);
+	totalExtentP.value = newValue / 3.3;
 })
 
 watch(totalExtentP, function (newValue) {
-	totalExtentM.value = Math.round(newValue * 3.3);
+	totalExtentM.value = newValue * 3.3;
 })
 
 const unit = ref("p");
@@ -247,7 +247,8 @@ onMounted (async () => {
 	align-items: center;
 }
 
-.extent-input-wrapper>* {
+.extent-input-wrapper>*,
+.unit-changed-extent {
 	display: inline-block;
 }
 
@@ -280,6 +281,7 @@ onMounted (async () => {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
 }
 
 .crop-list-header {
@@ -329,7 +331,7 @@ onMounted (async () => {
 .added-crop-list-container {
 	border: 2px solid #e9e9e9;
 	border-radius: 15px;
-	width: 520px;
+	width: 620px;
 	height: 500px;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -388,7 +390,7 @@ onMounted (async () => {
 }
 
 .crop-image-column {
-	width: 36%;
+	width: 42%;
 	padding: 5px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
@@ -397,7 +399,7 @@ onMounted (async () => {
 }
 
 .profit-rate-column {
-	width: 18%;
+	width: 22%;
 	/* 각 셀의 너비를 25%로 설정 */
 	padding: 5px;
 	text-align: center;
@@ -407,7 +409,7 @@ onMounted (async () => {
 }
 
 .table-column {
-	width: 23%;
+	width: 18%;
 	/* 각 셀의 너비를 25%로 설정 */
 	padding: 5px;
 	text-align: center;
@@ -421,7 +423,7 @@ onMounted (async () => {
 }
 
 .crop-list ul li img {
-	max-width: 160px;
+	max-width: 220px;
 	/* 이미지 크기 제한 */
 }
 
@@ -436,8 +438,16 @@ onMounted (async () => {
 
 .arrow-wrapper {
 	height: 50px;
-	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	top: 200px;
+}
+
+.arrow-icon {
+	width: 45px;
+	height: auto;
 }
 
 .added-crop-list-container ul {
@@ -450,7 +460,7 @@ onMounted (async () => {
 	border-radius: 15px;
 	padding: 5px 30px 0px 30px;
 	margin: 0 auto;
-	width: 488px;
+	width: 546px;
 	height: 210px;
 	margin: 0 15px;
 	position: relative;
@@ -473,12 +483,10 @@ onMounted (async () => {
 
 .property-name {
 	font-weight: bold;
-	color: #333;
 	margin-right: 5px;
 	text-decoration: underline;
-	text-decoration-color: rgba(198, 235, 116, 0.5);
-	;
-	text-decoration-thickness: 5px;
+	text-decoration-color: rgba(182, 255, 24, 0.5);
+	text-decoration-thickness: 10px;
 	text-underline-offset: -5px;
 }
 

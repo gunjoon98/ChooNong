@@ -3,30 +3,34 @@
     <div class="header-wrapper">
       <div class="logo-wrapper">
         <router-link to="/" @click="clickMenu(0)">
-          <img src="@/assets/logo.png" class="logo-image">
+          <img src="@/assets/choonong-logo.png" class="logo-image">
         </router-link>
       </div>
       <!-- <img src="@/assets/cloud.png" /> -->
       <div class="menu-container">
         <router-link to="/survey" @click="clickMenu(1)" class="router-link"
-          :class="{ 'clicked-menu': clickedMenu === 1 }">
-          <p>귀농지 설문</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 1 }"
-            v-if="clickedMenu === 1">
+          :class="{ 'clicked-menu': clickedMenu === 1 }" @mouseenter="isHovered = 1" @mouseleave="isHovered = 0">
+          <p>귀농지 설문</p><img src="@\assets\survey (2).png" class="menu-icon" />
+          <img src="@/assets/cloud.png" class="cloud-image"
+            v-if="clickedMenu === 1 || isHovered === 1">
         </router-link>
         <router-link to="/region" @click="clickMenu(2)" class="router-link"
-          :class="{ 'clicked-menu': clickedMenu === 2 }">
-          <p>지역 정보</p><img src=@\assets\search.png class="search-icon" />
-          <img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 2 }" v-if="clickedMenu === 2">
+          :class="{ 'clicked-menu': clickedMenu === 2 }" @mouseenter="isHovered = 2" @mouseleave="isHovered = 0">
+          <p>지역 정보</p><img src="@\assets\search.png" class="menu-icon" />
+          <img src="@/assets/cloud.png" class="cloud-image"
+            v-if="clickedMenu === 2 || isHovered === 2">
         </router-link>
         <router-link to="/calculator" @click="clickMenu(3)" class="router-link"
-          :class="{ 'clicked-menu': clickedMenu === 3 }">
-          <p>작물 수익 계산기</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 3 }"
-            v-if="clickedMenu === 3">
+          :class="{ 'clicked-menu': clickedMenu === 3 }" @mouseenter="isHovered = 3" @mouseleave="isHovered = 0">
+          <p>작물 수익 계산기</p><img src="@\assets\math.png" class="menu-icon" />
+          <img src="@/assets/cloud.png" class="cloud-image"
+            v-if="clickedMenu === 3 || isHovered === 3">
         </router-link>
         <router-link to="/checklist" @click="clickMenu(4)" class="router-link"
-          :class="{ 'clicked-menu': clickedMenu === 4 }">
-          <p>체크리스트</p><img src="@/assets/cloud.png" :class="{ 'cloud-image': clickedMenu === 4 }"
-            v-if="clickedMenu === 4">
+          :class="{ 'clicked-menu': clickedMenu === 4 }" @mouseenter="isHovered = 4" @mouseleave="isHovered = 0">
+          <p>체크리스트</p><img src="@\assets\check.png" class="menu-icon" />
+          <img src="@/assets/cloud.png" class="cloud-image"
+            v-if="clickedMenu === 4 || isHovered === 4">
         </router-link>
       </div>
     </div>
@@ -37,6 +41,7 @@
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 const clickedMenu = ref(0);
+const isHovered = ref(0);
 const route = useRoute();
 
 watch(route, (currentRoute) => {
@@ -78,7 +83,7 @@ p {
 }
 
 .header-wrapper {
-  width: 1250px;
+  max-width: 1519.2px;
   height: 100px;
   margin: 0 auto;
   display: flex;
@@ -88,8 +93,8 @@ p {
 }
 
 .logo-image {
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: auto;
   position: absolute;
   /* left: 2vw; */
   top: 10px;
@@ -102,7 +107,7 @@ p {
   justify-content: space-between;
 }
 
-.search-icon {
+.menu-icon {
   width: 30px;
   height: auto;
   margin: 25px 5px 5px 5px;
@@ -114,10 +119,6 @@ p {
   z-index: 999;
   display: flex;
   align-items: center;
-}
-
-.router-link:hover {
-  font-weight: bold;
 }
 
 .router-link p {
