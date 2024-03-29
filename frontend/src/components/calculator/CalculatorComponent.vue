@@ -38,24 +38,24 @@
 						</div>
 						<div class="crop-list">
 							<ul class="table-header">
-								<li>작물 사진</li>
-								<li>작물명</li>
-								<li>수익률</li>
-								<li>추가하기</li>
+								<li class="crop-image-column">작물 사진</li>
+								<li class="table-column">작물명</li>
+								<li class="profit-rate-column">수익률(%)</li>
+								<li class="table-column">추가하기</li>
 							</ul>
 							<ul v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body">
-								<li><img :src="crop.imageUrl" /></li>
-								<li>{{ crop.cropName }}</li>
-								<li>{{ crop.profitRate }}</li>
-								<li>
+								<li class="crop-image-column"><img :src="crop.imageUrl"/></li>
+								<li class="table-column">{{ crop.cropName }}</li>
+								<li class="profit-rate-column">{{ crop.profitRate }}</li>
+								<li class="table-column">
 									<button type="button" class="add-button" @click="addCrop(crop)">추가</button>
 								</li>
 							</ul>
 							<ul v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body">
-								<li><img :src="filteredCrop.imageUrl" /></li>
-								<li>{{ filteredCrop.cropName }}</li>
-								<li>{{ filteredCrop.profitRate }}</li>
-								<li>
+								<li class="crop-image-column"><img :src="filteredCrop.imageUrl"/></li>
+								<li class="table-column">{{ filteredCrop.cropName }}</li>
+								<li class="profit-rate-column">{{ filteredCrop.profitRate }}</li>
+								<li class="table-column">
 									<button type="button" class="add-button" @click="addCrop(crop)">추가</button>
 								</li>
 							</ul>
@@ -116,9 +116,12 @@ const filteredCropList = ref([]);
 
 const searchCrop = function (event) {
 	searchQuery.value = event.target.value;
-	watchEffect(() => {
-		filteredCropList.value = sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value))
-	});
+	// watchEffect(() => {
+	// 	filteredCropList.value = sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value))
+	// });
+	watch([sortedCropList, searchQuery], ([sortedCropListValue, searchQueryValue]) => {
+  filteredCropList.value = sortedCropListValue.filter(item => item.cropName.includes(searchQueryValue));
+});
 	// filteredCropList.value = computed(() => {return sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value))})
 // 	filteredCropList.value = computed(() => {
 //   return sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value));
@@ -384,9 +387,27 @@ onMounted (async () => {
 	display: table-row;
 }
 
-.table-header li,
-.table-body li {
-	width: 25%;
+.crop-image-column {
+	width: 36%;
+	padding: 5px;
+	text-align: center;
+	/* border-bottom: 1px solid #cacaca; */
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.profit-rate-column {
+	width: 18%;
+	/* 각 셀의 너비를 25%로 설정 */
+	padding: 5px;
+	text-align: center;
+	/* border-bottom: 1px solid #cacaca; */
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.table-column {
+	width: 23%;
 	/* 각 셀의 너비를 25%로 설정 */
 	padding: 5px;
 	text-align: center;
@@ -400,7 +421,7 @@ onMounted (async () => {
 }
 
 .crop-list ul li img {
-	max-width: 100px;
+	max-width: 160px;
 	/* 이미지 크기 제한 */
 }
 

@@ -35,8 +35,12 @@ h2 {
   display: flex;
   padding: 35px;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+}
+
+.fourth-container > * {
+  margin: 20px;
 }
 
 .content-wrapper {
