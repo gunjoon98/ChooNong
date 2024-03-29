@@ -63,7 +63,8 @@ const clickMenu = (menuNum) => {
 <style scoped>
 p {
   margin: 0;
-  height: 80px;
+  padding-top: 20px;
+  height: 100px;
   line-height: 80px;
 }
 
@@ -104,7 +105,7 @@ p {
 .search-icon {
   width: 30px;
   height: auto;
-  margin: 5px;
+  margin: 25px 5px 5px 5px;
   z-index: 999;
 }
 
@@ -134,7 +135,7 @@ p {
   position: absolute;
   left: 50%;
   /* 부모 요소의 정중앙을 기준으로 좌측으로 이동 */
-  top: 50%;
+  top: 65%;
   /* 부모 요소의 정중앙을 기준으로 상단으로 이동 */
   transform: translate(-50%, -60%);
   /* 이미지를 가운데 정렬하기 위해 translate 사용 */
