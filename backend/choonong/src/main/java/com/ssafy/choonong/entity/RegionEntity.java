@@ -40,6 +40,15 @@ public class RegionEntity {
     @Column(name = "child_care_facilities")
     private Double childCareFacilities;
 
+    @Column(name = "average_accesstime_traffic_facilities")
+    private Double averageAccesstimeTrafficFacilities; // 교통 시설 접근성
+
+    @Column(name = "average_accesstime_medical_facilities")
+    private Double averageAccesstimeMedicalFacilities; // 의료 시설 접근성
+
+    @Column(name = "average_accesstime_sales_facilities")
+    private Double averageAccesstimeSalesFacilities; // 판매 시설 접근성
+
     @Column(name = "average_accesstime_educational_facilities")
     private Double averageAccesstimeEducationalFacilities;
 
@@ -84,4 +93,12 @@ public class RegionEntity {
 
     @Column(name = "env_cluster")
     private Integer envCluster;
+
+    public void updateNewValues(int pediatrics, int kindergarden, int elementarySchool, int middleSchool) {
+        this.pediatrics = pediatrics;
+        this.kindergarden = kindergarden;
+        this.elementarySchool = elementarySchool;
+        this.middleSchool = middleSchool;
+//        return this;
+    }
 }
