@@ -61,6 +61,12 @@ const clickMenu = (menuNum) => {
 </script>
 
 <style scoped>
+p {
+  margin: 0;
+  height: 80px;
+  line-height: 80px;
+}
+
 .header-container {
   padding: 0 2vw;
   background-image: linear-gradient(to bottom, #ADE6F9, #ffffff);
@@ -72,8 +78,8 @@ const clickMenu = (menuNum) => {
 
 .header-wrapper {
   width: 1250px;
-  height: 150px;
-  margin: 15px auto;
+  height: 100px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -123,7 +129,7 @@ const clickMenu = (menuNum) => {
 }
 
 .cloud-image {
-  width: 200px;
+  width: 180px;
   height: auto;
   position: absolute;
   left: 50%;
