@@ -383,6 +383,10 @@ const options = {
 <style scoped>
 h3 {
   margin: 0;
+  text-decoration: underline;
+	text-decoration-color: rgba(233, 255, 185, 0.5);
+	text-decoration-thickness: 20px;
+	text-underline-offset: -15px;
 }
 
 p {
