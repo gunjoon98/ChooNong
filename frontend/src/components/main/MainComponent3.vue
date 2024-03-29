@@ -2,9 +2,9 @@
   <div class="third-container">
     <h2>다른 편리한 기능들도 이용해 보세요!</h2>
     <div>
-      <p>- 지역 정보 검색: 궁금한 지역의 정보를 직접 찾아볼 수 있습니다.</p>
-      <p>- 작물 수익 계산기: 작물과 재배 면적을 입력하면 예상 수익을 계산해 줍니다.</p>
-      <p>- 귀농 준비 체크리스트: 귀농 준비가 잘 되어있는지 체크해 볼 수 있습니다.</p>
+      <p><img src="@/assets/star.png" class="mark-image"> 지역 정보 검색: 궁금한 지역의 정보를 직접 찾아볼 수 있습니다.</p>
+      <p><img src="@/assets/star.png" class="mark-image"> 작물 수익 계산기: 작물과 재배 면적을 입력하면 예상 수익을 계산해 줍니다.</p>
+      <p><img src="@/assets/star.png" class="mark-image"> 귀농 준비 체크리스트: 귀농 준비가 잘 되어있는지 체크해 볼 수 있습니다.</p>
     </div>
     <div class="content-wrapper">
         <div class="content-container">
@@ -77,7 +77,7 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
   background-color: #ffffff;
   border: 2px solid #e9e9e9;
   border-radius: 15px;
-  margin: 10px;
+  /* margin: 10px; */
   padding: 10px;
   width: 350px;
   height: 300px;
@@ -85,6 +85,11 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.mark-image {
+  width: 20px;
+  height: auto;
 }
 
 .search-container {
