@@ -1,12 +1,14 @@
 package com.ssafy.choonong.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Table(name = "region")
@@ -93,12 +95,4 @@ public class RegionEntity {
 
     @Column(name = "env_cluster")
     private Integer envCluster;
-
-    public void updateNewValues(int pediatrics, int kindergarden, int elementarySchool, int middleSchool) {
-        this.pediatrics = pediatrics;
-        this.kindergarden = kindergarden;
-        this.elementarySchool = elementarySchool;
-        this.middleSchool = middleSchool;
-//        return this;
-    }
 }
