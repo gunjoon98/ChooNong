@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <canvas id="cropPieChart"></canvas>
+    <canvas id="cropPieChart" width="500px" height="500px"></canvas>
   </div>
 </template>
 
@@ -92,10 +92,15 @@ const initChart = (cropList) => {
         font: {
           size: 20, // 범례 글꼴 크기
           weight: 'bold'
-        }
+        },
+        padding: 20
       }
-    }
-  }
+    },
+    
+  },
+  layout: {
+            padding: 20
+        }
 }
 
   });
@@ -112,7 +117,7 @@ watch(() => regionDetail.value, (newValue) => {
 
 <style scoped>
 .card {
-  max-width: 330px;
+  max-width: 600px;
   margin: auto;
 }
 

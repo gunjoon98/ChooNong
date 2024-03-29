@@ -11,18 +11,25 @@
             <img :src="regionDetail.image_url" alt="test" class="region-img">
           </div>
         </div>
+
         <div class="info-policy-container">
           <div class="buttons-container">
             <button class="button-choose" @click="showInfo"
               :class="{ active: activeComponent === 'info' }">지역정보</button>
+
+              <button class="button-choose" @click="showChart"
+              :class="{ active: activeComponent === 'chart' }">지역작물</button>
+              
             <button class="button-choose" @click="showPolicy"
               :class="{ active: activeComponent === 'policy' }">지역정책</button>
             <button class="button-choose" @click="showMap" :class="{ active: activeComponent === 'map' }">지역지도</button>
           </div>
           <region-info-component :regionDetail="regionDetail" v-if="activeComponent === 'info'" />
+          <region-chart-component v-if="activeComponent === 'chart'" />
           <region-policy-component :regionDetail="regionDetail" v-if="activeComponent === 'policy'" />
-          <region-map-component :regionDetail="regionDetail" v-if="activeComponent === 'map'" />
+          <region-map-component :regionDetail="regionDetail" v-if="activeComponent === 'map'" class="map-component" />
         </div>
+        
       </div>
     </div>
 
@@ -34,6 +41,7 @@ import RegionInfoComponent from '@/components/region/RegionInfoComponent.vue';
 import RegionPolicyComponent from '@/components/region/RegionPolicyComponent.vue';
 import RegionSearchComponent from '@/components/region/RegionSearchComponent.vue';
 import RegionMapComponent from '@/components/region/RegionMapComponent.vue'
+import RegionChartComponent from '@/components/region/RegionChartComponent.vue';
 import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRegionStore } from '@/stores/regionStore';
@@ -69,6 +77,10 @@ const showPolicy = () => {
 
 const showMap = () => {
   activeComponent.value = 'map';
+};
+
+const showChart = () => {
+  activeComponent.value = 'chart';
 };
 </script>
 
@@ -165,5 +177,9 @@ const showMap = () => {
 .active {
   color: black;
   background-color: #ECF6EC;
+}
+
+.map-component {
+  margin-right: 20px;
 }
 </style>
