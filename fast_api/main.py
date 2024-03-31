@@ -57,7 +57,7 @@ def get_region_list(survey: schemas.Survey, db: Session = Depends(get_db)):
     region_list = crud.get_region_list(db, education_cluster, ground_cluster, resident_cluster, env_cluster_list)
 
     # 군집이 없으면 전체 지역 조회
-    if (len(region_list) == 0):
+    if (len(region_list) < 5):
         region_list = crud.get_region_list(db, None, None, None, None)
 
     return region_list
