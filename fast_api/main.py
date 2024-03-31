@@ -10,6 +10,8 @@ from numpy.linalg import norm
 from numpy import dot
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def get_db():
     db = SessionLocal()
@@ -57,7 +59,7 @@ def get_region_list(survey: schemas.Survey, db: Session = Depends(get_db)):
     region_list = crud.get_region_list(db, education_cluster, ground_cluster, resident_cluster, env_cluster_list)
 
     # 군집이 없으면 전체 지역 조회
-    if (len(region_list) == 0):
+    if (len(region_list) < 5):
         region_list = crud.get_region_list(db, None, None, None, None)
 
     return region_list
@@ -197,6 +199,18 @@ def get_average_accesstime_traffic_facilities_weight(survey: schemas.Survey):
     elif survey.four[2] == 4:
         return 2
 
+# 히트맵 시각화
+def similiarity_heatmap(similarity_matrix: np.ndarray, labels: list):
+    plt.figure(figsize=(10, 8))
+    sns.set(font_scale=1.2)
+
+    # 히트맵 생성
+    sns.heatmap(similarity_matrix, annot=True, cmap="YlGnBu", xticklabels=labels, yticklabels=labels, fmt=".2f")
+
+    plt.title("Similarity Heatmap")
+    plt.xlabel("Regions")
+    plt.ylabel("Regions")
+    plt.show()
 
 @app.post("/fapi/recommendation", response_model=List[schemas.Region])
 async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
@@ -223,6 +237,8 @@ async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
     # 스케일링된 nparr 생성
     scaler = StandardScaler()
     vector_nparr = scaler.fit_transform(vector_df)
+
+    similiarity_heatmap(vector_nparr, vector_df.columns.tolist())
 
     # 기준 벡터 생성
     riterion_vector = create_riterion_vector(survey, vector_df, vector_nparr)
