@@ -25,7 +25,7 @@
         <div>
           총 재배 면적<br>
           {{ totalExtent }}평<br>
-          ({{ totalExtent * 3.3 }} m^2)
+          ({{ totalExtent * 3.3 }} ㎡)
         </div>
       </div>
       <div class="crop-list-container">

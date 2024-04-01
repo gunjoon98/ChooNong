@@ -29,7 +29,7 @@
             <div>
               <h3>총 재배 면적</h3>
               {{ totalExtent.toLocaleString() }}평<br>
-              ({{ (totalExtent * 3.3).toLocaleString() }} m^2)
+              ({{ (totalExtent * 3.3).toLocaleString() }} ㎡)
             </div>
           </div>
           <div class="crop-list-container">

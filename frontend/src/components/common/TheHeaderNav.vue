@@ -28,7 +28,7 @@
         </router-link>
         <router-link to="/checklist" @click="clickMenu(4)" class="router-link"
           :class="{ 'clicked-menu': clickedMenu === 4 }" @mouseenter="isHovered = 4" @mouseleave="isHovered = 0">
-          <p>체크리스트</p><img src="@\assets\check.png" class="menu-icon" />
+          <p>체크리스트</p><img src="@\assets\book.png" class="menu-icon" />
           <img src="@/assets/cloud.png" class="cloud-image"
             v-if="clickedMenu === 4 || isHovered === 4">
         </router-link>

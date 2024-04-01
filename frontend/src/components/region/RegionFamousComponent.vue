@@ -12,8 +12,8 @@
       <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
         :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
         :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig"
-        :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper"
-        @mouseover="showNavigation = true" @mouseout="showNavigation = false">
+        :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
+        @mouseout="showNavigation = false">
 
         <swiper-slide v-for="(region, index) in famousRegionsInfo" :key="region.region_id"
           @click="handleSlideClick(index, region.region_id)">
@@ -49,6 +49,41 @@
         <swiper-slide v-for="(region, index) in increaseRegionInfo" :key="region.region_id"
           @click="handleSlideClick(index, region.region_id)">
           <div class="region-card">
+            <!-- 이미지를 배경으로 사용하는 컨테이너 -->
+            <div class="region-image-background" :style="{ backgroundImage: 'url(' + region.image_url + ')' }">
+              <!-- 데이터 표시 영역 -->
+              <h2 class="rank">{{ index + 1 }}위</h2>
+              <div class="region-info-overlay">
+                <!-- <h2>{{ index + 1 }}위</h2> -->
+                <h4>{{ region.province }}</h4>
+                <h3>{{ region.region_name }}</h3>
+                <p>귀농인 수: {{ region.returners }} 명({{ increaseRegionPeople[index] }}<img src="@/assets/up-arrow.png" class="arrow-up"/>)</p>
+                <!-- <p>증가한 귀농인 수: {{ increaseRegionPeople[index] }} 명</p>
+                <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (㎡)</p>
+                <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (㎡)</p> -->
+                <br>
+                <br>
+                <!-- <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (m^2)</p>
+        <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (m^2)</p> -->
+              </div>
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper>
+    </div>
+
+    <!-- 귀농인 증가 많은 지역 스와이퍼 -->
+    <!-- <div class="popular-regions-container" v-if="increaseRegionInfo.length > 0">
+      <h2 class="popular-regions-title">전년 대비 귀농인 많아진 지역!!</h2>
+      <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
+        :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
+        :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig"
+        :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
+        @mouseout="showNavigation = false">
+
+        <swiper-slide v-for="(region, index) in increaseRegionInfo" :key="region.region_id"
+          @click="handleSlideClick(index, region.region_id)">
+          <div class="region-card">
 
             <div class="region-info">
               <h2>{{ index + 1 }}위</h2>
@@ -68,7 +103,7 @@
           </div>
         </swiper-slide>
       </swiper>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -161,17 +196,22 @@ const autoplayOptions = {
 
 .popular-regions-container {
   width: 100%;
-  max-width: 1200px;
-  height: 450px;
-  margin-bottom: 50px;
+  padding: 25px;
+  /* max-width: 1200px; */
+  height: 550px;
+  margin-bottom: 100px;
   background: #fff;
   border: solid 3px #ECF6EC;
   border-radius: 1rem;
 }
 
 .popular-regions-title {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   text-align: center;
+}
+
+.swiper {
+  width: 1200px;
 }
 
 .region-card {
@@ -245,20 +285,41 @@ const autoplayOptions = {
 .region-info-overlay h4,
 .region-info-overlay p {
   margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .rank {
-  background-color: #FFD700;
-  color: black; /* 텍스트 색상 */
-  padding: 0px 10px; /* 패딩 */
-  border-radius: 50%; /* 원형 모양 */
-  font-weight: bold; /* 굵은 글씨 */
-  position: absolute; /* 절대 위치 */
-  left: 10px; /* 왼쪽에서 10px 떨어진 곳에 */
-  z-index: 10; /* 다른 요소들 위에 오도록 z-index 설정 */
-  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: rgb(255, 255, 255);
+  /* 텍스트 색상 */
+  padding: 5px 10px;
+  width: 80px;
+  height: 55px;
+  /* 패딩 */
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  /* 원형 모양 */
+  font-weight: bold;
+  line-height: 50px;
+  /* 굵은 글씨 */
+  z-index: 10;
+  /* 다른 요소들 위에 오도록 z-index 설정 */
+  margin: 0px;
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 0px;
+  left: 0px;
+}
+
+/* .increse-arrow {
+  color: #ff3838;
+} */
+
+.arrow-up {
+  width: 25px;
+  height: auto;
+  margin-bottom: 3px;
 }
 </style>
