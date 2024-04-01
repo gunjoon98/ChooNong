@@ -21,8 +21,8 @@
             <!-- 이미지를 배경으로 사용하는 컨테이너 -->
             <div class="region-image-background" :style="{ backgroundImage: 'url(' + region.image_url + ')' }">
               <!-- 데이터 표시 영역 -->
+              <h2 class="rank">{{ index + 1 }}위</h2>
               <div class="region-info-overlay">
-                <h2 class="rank">{{ index + 1 }}위</h2>
                 <h4>{{ region.province }}</h4>
                 <h3>{{ region.region_name }}</h3>
                 <p>귀농인 수: {{ region.returners }} 명</p>
@@ -162,6 +162,7 @@ const autoplayOptions = {
 .popular-regions-container {
   width: 100%;
   max-width: 1200px;
+  height: 450px;
   margin-bottom: 50px;
   background: #fff;
   border: solid 3px #ECF6EC;
@@ -196,7 +197,6 @@ const autoplayOptions = {
   padding-right: 20px;
 }
 
-.region-info h2,
 .region-info h3,
 .region-info h4 {
   margin: 5px 0;
@@ -209,30 +209,42 @@ const autoplayOptions = {
 
 .region-image-background {
   width: 100%;
-  height: 4%;
+  height: 350px;
   /* 이미지 높이 조절 */
   background-size: cover;
   background-position: center;
   opacity: 0.7;
   /* 이미지 투명도 설정 */
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   border-radius: 10px;
   /* 이미지 모서리 둥글게 */
-  padding-left: 20px;
-  padding-right: 20px;
+  /* padding-left: 20px;
+  padding-right: 20px; */
+  position: relative;
 }
 
 .region-info-overlay {
+  width: 100%;
+  height: 100px;
   color: #fff;
   /* 데이터 텍스트 색상 */
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1));
+  /* background-color: rgba(0, 0, 0, 0.5); */
   /* 데이터 배경 투명도 */
   border-radius: 10px;
   /* 데이터 영역 모서리 둥글게 */
   padding: 10px;
+  position: absolute;
+  bottom: 0;
+}
+
+.region-info-overlay h3,
+.region-info-overlay h4,
+.region-info-overlay p {
+  margin: 0;
 }
 
 .rank {
@@ -244,6 +256,9 @@ const autoplayOptions = {
   position: absolute; /* 절대 위치 */
   left: 10px; /* 왼쪽에서 10px 떨어진 곳에 */
   z-index: 10; /* 다른 요소들 위에 오도록 z-index 설정 */
-  margin-top: 10px
+  margin-top: 10px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 </style>
