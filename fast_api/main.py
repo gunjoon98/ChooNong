@@ -84,6 +84,7 @@ def dimension_Reduction(survey: schemas.Survey, vector_df: pd.DataFrame):
         remove_columns.append('elementary_school')
         remove_columns.append('middle_school')
         remove_columns.append('average_accesstime_educational_facilities')
+        remove_columns.append('pediatrics')
     return vector_df.drop(remove_columns, axis=1)
 
 
