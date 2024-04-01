@@ -98,19 +98,17 @@ watch(currentQuestion, (newQuestion) => {
 });
 
 const handleAnswer = (option, optionIndex) => {
-  responses.value[currentQuestion.value.id] = optionIndex + 1; // 옵션 인덱스 저장
-  if (optionIndex === 0 && currentQuestion.value.followUps) {
-    // "네, 있습니다"를 선택한 경우
+  responses.value[currentQuestion.value.id] = { optionIndex };
+  if (currentQuestion.value.followUps && optionIndex === 0) {
+    // "네, 있습니다"를 선택한 경우, 세부 문항을 준비하지만 바로 넘어가지 않음
     isAnsweringSubQuestions.value = true;
-    currentSubQuestionIndex.value = 0;
-    canProceed.value = true;
+    // isMainQuestionHidden 상태 변경 부분 삭제 또는 수정
+    // isMainQuestionHidden.value = false; // 주 질문과 선택지를 계속 보여줌
+    canProceed.value = true; // "다음" 버튼 활성화, 세부 문항으로 넘어가기 전
   } else {
-    // "없습니다"를 선택한 경우 또는 세부 문항이 없는 경우
+    // "아니오"를 선택한 경우 또는 세부 문항이 없는 경우
     isAnsweringSubQuestions.value = false;
-    canProceed.value = true;
-    if (currentQuestion.value.followUps) {
-      responses.value[currentQuestion.value.id + "_sub"] = [null, null, null];
-    }
+    canProceed.value = true; // 다음 버튼 활성화
   }
 };
 
