@@ -7,11 +7,9 @@
   4. 추가 문제 생각하기 
   5. 닫기 어떻게 할지 생각
   -->
-          
-
   <div class="main-div">
     <div class="steppy">
-      <h2 class="step-title">문제 {{ currentQuestion + 1 }}/{{ questions.length }}</h2>
+      <h2 class="step-title">문제 {{ currentQuestion + 1 }} / {{ questions.length }}</h2>
       <h3 class="question-text">{{ questions[currentQuestion].question }}</h3>
       <ul class="options-container">
         <li v-for="(answer, index) in questions[currentQuestion].answers" :key="index"
@@ -24,7 +22,7 @@
 
     <Dialog v-model:visible="showModal" class="custom-dialog" :style="{ width: '50vw' }">
       <template #header>
-        <h3>{{ showAnswer ? '정답 확인' : '문제 결과' }}</h3>
+        <h3>{{ dialogTitle }}</h3>
       </template>
       <div class="dialog-content">
         <p>{{ modalMessage }}</p>
@@ -33,10 +31,11 @@
       </div>
       <template #footer>
         <div class="buttons-container">
-          <button v-if="!showAnswer && !isCorrectAnswer" @click="retryQuestion" class="retry-button">다시 풀어보기</button>
-          <button v-if="!showAnswer" @click="revealAnswer" class="show-answer-button">정답 보기</button>
-          <button v-if="isCorrectAnswer || showAnswer" @click="nextQuestion" class="next-button">다음 문제 풀기</button>
-          <button v-if="showAnswer" @click="closeModal" class="next-button">닫기</button>
+          <button v-if="showRetryQuestionButton" @click="retryQuestion" class="retry-button">다시 풀어보기</button>
+          <button v-if="showRevealAnswerButton" @click="revealAnswer" class="show-answer-button">정답 보기</button>
+          <button v-if="showNextQuestionButton" @click="nextQuestion" class="next-button">다음 문제 풀기</button>
+          <button v-if="showRetryQuizButton" @click="retryQuiz" class="retry-button">다시하기</button>
+          <button v-if="showMainButton" @click="goToMain" class="main-button">메인으로</button>
         </div>
       </template>
     </Dialog>
@@ -47,6 +46,7 @@
 <script setup>
 import { ref } from 'vue';
 import Dialog from 'primevue/dialog';
+import { useRouter } from 'vue-router';
 
 const questions = ref([
   {
@@ -117,81 +117,157 @@ const questions = ref([
 
 const currentQuestion = ref(0);
 const showModal = ref(false);
+const dialogTitle = ref("");
 const modalMessage = ref("");
 const isCorrectAnswer = ref(false);
 const showAnswer = ref(false);
 const answerReason = ref("");
 const additionalAnswerReason = ref("");
-const attemptCounter = ref(0);
-let lastSelectedAnswerIndex = -1;
+const correctAnswersCount = ref(0);
+let lastSelectedAnswerIndex = ref(-1); // 이 부분을 ref로 감싸주었습니다.
+let attemptCounter = ref(0);
 
-const checkAnswer = function (answer, index) {
+// 버튼 표시를 위한 상태 변수
+const showRetryQuestionButton = ref(false);
+const showRevealAnswerButton = ref(false);
+const showNextQuestionButton = ref(false);
+const showRetryQuizButton = ref(false);
+const showMainButton = ref(false);
+
+const router = useRouter();
+
+const checkAnswer = (answer, index) => {
   showModal.value = true;
-  lastSelectedAnswerIndex = index;
+  lastSelectedAnswerIndex.value = index; // ref로 변경된 부분에 맞게 접근 수정
+
   if (answer.correct) {
-    correctAnswerActions(answer);
+    correctAnswersCount.value++;
+    correctAnswerActions();
   } else {
-    incorrectAnswerActions(answer);
+    if (attemptCounter.value < 1) {
+      attemptCounter.value++;
+      incorrectAnswerActions();
+    } else {
+      revealAnswer(true);
+    }
   }
 };
 
-const correctAnswerActions = function (answer) {
+const correctAnswerActions = () => {
   isCorrectAnswer.value = true;
-  modalMessage.value = "정답입니다!";
-  answerReason.value = answer.reason || "잘했습니다! 다음 문제로 넘어갑시다.";
-  additionalAnswerReason.value = "";
   showAnswer.value = true;
-  attemptCounter.value = 0;
-};
+  dialogTitle.value = "정답입니다!";
+  modalMessage.value = "잘 했어요! 다음 문제로 넘어갑시다.";
 
-const incorrectAnswerActions = function (answer) {
-  if (attemptCounter.value < 1) {
-    attemptCounter.value++;
-    isCorrectAnswer.value = false;
-    modalMessage.value = "틀렸습니다. 한 번 더 시도해보세요.";
-    answerReason.value = answer.reason;
-    additionalAnswerReason.value = "";
-    showAnswer.value = false;
+  // 문제가 끝났는지 체크하여 다음 단계 결정
+  if (currentQuestion.value === questions.value.length - 1) {
+    modalMessage.value = `축하합니다! 모든 문제를 완료했습니다. 총 ${correctAnswersCount.value}개 문제를 맞췄습니다.`;
+    showRetryQuizButton.value = true;
+    showMainButton.value = true;
+    showNextQuestionButton.value = false; // 마지막 문제에서는 다음 문제 풀기 버튼을 보이지 않게 합니다.
+
+    showAnswer.value = false; // 마지막 문제에서는 reason을 숨깁니다.
+    answerReason.value = ""; // reason을 비웁니다.
+    additionalAnswerReason.value = ""; 
   } else {
-    revealAnswer();
+    showNextQuestionButton.value = true; // 마지막 문제가 아니라면 다음 문제로 넘어갈 수 있게 버튼을 활성화합니다.
   }
+
+  showRetryQuestionButton.value = false;
+  showRevealAnswerButton.value = false;
 };
 
-const revealAnswer = function () {
+
+const incorrectAnswerActions = () => {
+  isCorrectAnswer.value = false;
+  showAnswer.value = false;
+  dialogTitle.value = "오답입니다.";
+  modalMessage.value = "다시 시도해 보세요.";
+  showRetryQuestionButton.value = true;
+  showRevealAnswerButton.value = true; // 항상 "정답 보기" 버튼을 활성화합니다.
+};
+
+const revealAnswer = (forced = false) => {
   const correctAnswer = questions.value[currentQuestion.value].answers.find(a => a.correct);
   isCorrectAnswer.value = false;
   showAnswer.value = true;
-  modalMessage.value = "정답은 다음과 같습니다:";
-  answerReason.value = `정답: ${correctAnswer.text}`;
-  additionalAnswerReason.value = lastSelectedAnswerIndex !== -1 ? questions.value[currentQuestion.value].answers[lastSelectedAnswerIndex].reason : correctAnswer.reason || "";
-  showModal.value = true;
-  attemptCounter.value = 0;
+  answerReason.value = correctAnswer.reason || "";
+
+  if (lastSelectedAnswerIndex.value >= 0 && !questions.value[currentQuestion.value].answers[lastSelectedAnswerIndex.value].correct) {
+    additionalAnswerReason.value = questions.value[currentQuestion.value].answers[lastSelectedAnswerIndex.value].reason || "";
+  } else {
+    additionalAnswerReason.value = "";
+  }
+
+  // 마지막 문제에서만 정답 확인 후 메시지에 현재까지 맞힌 정답 개수 표시
+  if (currentQuestion.value === questions.value.length - 1) {
+    modalMessage.value = `정답은 '${correctAnswer.text}'입니다. 총 ${correctAnswersCount.value}개의 문제를 맞췄습니다.`;
+  } else {
+    modalMessage.value = `정답은 '${correctAnswer.text}'입니다.`;
+  }
+
+  resetButtons();
+
+  if (currentQuestion.value === questions.value.length - 1) {
+    showRetryQuizButton.value = true; // 다시하기 버튼 활성화
+    showMainButton.value = true; // 메인으로 버튼 활성화
+    showNextQuestionButton.value = false; // 마지막 문제이므로 다음 문제 버튼 비활성화
+    // 마지막 문제에서 정답 또는 오답 확인 후 더 이상 reason을 표시하지 않음
+    showAnswer.value = false;
+    answerReason.value = "";
+    additionalAnswerReason.value = "";
+  } else {
+    showNextQuestionButton.value = true; // 다음 문제로 넘어가기 버튼 활성화
+  }
+
+  // 오답을 선택한 후 정답을 확인하는 경우에는 다시 풀어보기 버튼과 정답 보기 버튼을 숨김
+  showRevealAnswerButton.value = false;
+  showRetryQuestionButton.value = false;
 };
 
-const nextQuestion = function () {
+const nextQuestion = () => {
   if (currentQuestion.value < questions.value.length - 1) {
-    currentQuestion.value++;
+    currentQuestion.value++; // 현재 문제 번호 증가
+    resetQuestionState(); // 다이얼로그 숨기기 및 관련 상태 초기화
+    attemptCounter.value = 0; // 시도 횟수 초기화
+    lastSelectedAnswerIndex.value = -1; // 마지막 선택한 답변 인덱스 초기화
   } else {
-    modalMessage.value = "모든 문제를 완료했습니다!";
+    // 마지막 문제를 완료한 후 처리할 로직 (예: 퀴즈 종료 메시지 표시 등)
+    console.log("퀴즈 완료");
   }
+};
+
+
+const resetQuestionState = () => {
+  showModal.value = false;
+  showAnswer.value = false;
+  resetButtons();
+};
+
+const resetButtons = () => {
+  showRetryQuestionButton.value = false;
+  showRevealAnswerButton.value = false;
+  showNextQuestionButton.value = false;
+  showRetryQuizButton.value = false;
+  showMainButton.value = false;
+};
+
+const retryQuestion = () => {
+  showModal.value = false;
+  showAnswer.value = false;
+};
+
+const retryQuiz = () => {
+  currentQuestion.value = 0;
+  correctAnswersCount.value = 0;
   resetQuestionState();
 };
 
-const resetQuestionState = function () {
-  showModal.value = false;
-  showAnswer.value = false;
-  isCorrectAnswer.value = false;
-  answerReason.value = "";
-  additionalAnswerReason.value = "";
-  attemptCounter.value = 0;
-  lastSelectedAnswerIndex = -1;
-};
-
-const retryQuestion = function () {
-  showModal.value = false;
-  showAnswer.value = false;
+const goToMain = () => {
+  router.push({ path: '/' });
 };
 </script>
+
 
 <style scoped>
 .main-div {
@@ -208,12 +284,10 @@ const retryQuestion = function () {
 
 .dialog-content {
   font-size: 1.25em;
-  /* Dialog 내용의 폰트 크기를 증가시킴 */
 }
 
 .custom-dialog .p-dialog-content {
   max-height: 60vh;
-  /* Dialog 내용의 최대 높이 조정 */
 }
 
 .steppy {
@@ -269,14 +343,12 @@ const retryQuestion = function () {
 .retry-button,
 .show-answer-button {
   padding: 12px 18px;
-  /* 버튼의 크기를 증가시킴 */
   border: none;
   border-radius: 5px;
   background: #f0f0f0;
   color: #333;
   cursor: pointer;
   font-size: 1.25em;
-  /* 버튼 내부의 폰트 크기를 증가시킴 */
   transition: background-color 0.3s;
 }
 
@@ -285,4 +357,5 @@ const retryQuestion = function () {
 .show-answer-button:hover {
   background: #ddd;
 }
+
 </style>
