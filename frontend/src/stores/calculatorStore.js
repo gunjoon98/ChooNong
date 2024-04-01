@@ -22,7 +22,7 @@ export const useCalculatorStore = defineStore("calculator", () => {
   const getCropList = async function () {
     await axios({
       method: "GET",
-      url: `${import.meta.env.VITE_API_URL}/cropcalculation`,
+      url: `https://choonong.store/api/cropcalculation`,
     }).then((response) => {
       cropList.value = [];
       for (let a of response.data) {
