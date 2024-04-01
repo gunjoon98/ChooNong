@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
-import models, schemas
+import models
 
 
 def get_region_list(db: Session, education_cluster: int = None, ground_cluster: int = None, residential_cluster: int = None, env_cluster_list: list = None):
