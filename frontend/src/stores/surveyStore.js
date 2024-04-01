@@ -36,7 +36,7 @@ export const useSurveyStore = defineStore('survey', () => {
   const getSurveyResult = async function () {
     await axios({
       method: "GET",
-      url: `${import.meta.env.VITE_API_URL}/region/survey?edu=0&ground=0&resident=0&env=0`,
+      url: `https://choonong.store/api/region/survey?edu=0&ground=0&resident=0&env=0`,
     }).then((response) => {
       resultList.value = response.data;
     });
