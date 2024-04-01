@@ -102,7 +102,7 @@ const router = createRouter({
         {
           path: "/checklist",
           name: "checklistComponent",
-          component: CheckListComponent,
+          component: CheckListComponentC,
         },
         {
           path: "/checklist/result",
