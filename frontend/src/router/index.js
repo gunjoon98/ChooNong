@@ -27,7 +27,7 @@ const router = createRouter({
       children: [
         {
           path: "/",
-          name: "main",
+          name: "mainComponent",
           component: MainComponent,
         },
       ],
@@ -39,7 +39,7 @@ const router = createRouter({
       children: [
         {
           path: "/survey",
-          name: "survey",
+          name: "surveyComponent",
           component: SurveyComponent,
         },
         {
@@ -63,7 +63,7 @@ const router = createRouter({
       children: [
         {
           path: "/region",
-          name: "region",
+          name: "regionFamousComponent",
           props: true,
           component: RegionFamousComponent,
         },
@@ -82,7 +82,7 @@ const router = createRouter({
       children: [
         {
           path: "/calculator",
-          name: "calculator",
+          name: "calculatorComponent",
           props: true,
           component: CalculatorComponent,
         },
@@ -101,8 +101,8 @@ const router = createRouter({
       children: [
         {
           path: "/checklist",
-          name: "checklist",
-          component: CheckListComponentC,
+          name: "checklistComponent",
+          component: CheckListComponent,
         },
         {
           path: "/checklist/result",
