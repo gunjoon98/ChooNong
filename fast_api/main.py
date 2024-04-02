@@ -78,7 +78,7 @@ def dimension_Reduction(survey: schemas.Survey, vector_df: pd.DataFrame):
             remove_columns.append('kindergarden')
             remove_columns.append('elementary_school')
 
-        if survey.one_sub[1] == 3:
+        if survey.one_sub[1] == 3 and len(vector_df) < 128:
             remove_columns.append('average_accesstime_educational_facilities')
     else:
         remove_columns.append('kindergarden')
@@ -107,7 +107,7 @@ def create_riterion_vector(survey: schemas, vector_df: pd.DataFrame, vector_npar
         elif vector_df.columns[i] == 'middle_school':
             riterion_vector[i] += get_middle_school_weight() * vector_weights[i]
         elif vector_df.columns[i] == 'average_accesstime_educational_facilities':
-            riterion_vector[i] += get_average_accesstime_educational_facilities_weight(survey) * vector_weights[i]
+            riterion_vector[i] += get_average_accesstime_educational_facilities_weight(survey, vector_df) * vector_weights[i]
         elif vector_df.columns[i] == 'pediatrics':
             riterion_vector[i] += get_pediatrics_weight(survey) * vector_weights[i]
         elif vector_df.columns[i] == 'water_quality':
@@ -118,6 +118,13 @@ def create_riterion_vector(survey: schemas, vector_df: pd.DataFrame, vector_npar
             riterion_vector[i] += get_average_accesstime_sales_facilities_weight(survey) * vector_weights[i]
         elif vector_df.columns[i] == 'average_accesstime_traffic_facilities':
             riterion_vector[i] += get_average_accesstime_traffic_facilities_weight(survey) * vector_weights[i]
+        elif vector_df.columns[i] == 'population_density':
+            riterion_vector[i] += get_population_density_weight(survey) * vector_weights[i]
+        elif vector_df.columns[i] == 'average_price_farmland':
+            riterion_vector[i] += get_average_price_farmland_weight(survey) * vector_weights[i]
+        elif vector_df.columns[i] == 'average_housing_price':
+            riterion_vector[i] += get_average_housing_price_weight(survey) * vector_weights[i]
+
     return riterion_vector
 
 
@@ -134,7 +141,11 @@ def get_middle_school_weight():
     return 3
 
 # 교육 시설 접근 시간 가중치 계수 반환
-def get_average_accesstime_educational_facilities_weight(survey: schemas.Survey):
+def get_average_accesstime_educational_facilities_weight(survey: schemas.Survey, vector_df: pd.DataFrame):
+   # 클러스터가 없음, 아이가 있다면 교육 시설 접근성에 가중치 부여
+    if(len(vector_df) >= 128 and survey.one == 1 and survey.one_sub[1] == 3):
+        return -3
+
     if survey.one_sub[1] == 1:
         return -3
     elif survey.one_sub[1] == 2:
@@ -142,13 +153,13 @@ def get_average_accesstime_educational_facilities_weight(survey: schemas.Survey)
 
 # 소아과 가중치 계수 반환
 def get_pediatrics_weight(survey: schemas.Survey):
-    if survey.one_sub[2] == 0:
+    if survey.one_sub[2] == 1:
         return -1
-    elif survey.one_sub[2] == 1:
-        return 1.5
     elif survey.one_sub[2] == 2:
-        return 2
+        return 1.5
     elif survey.one_sub[2] == 3:
+        return 2
+    elif survey.one_sub[2] == 4:
         return 2.5
 
 # 수질 가중치 계수 반환
@@ -199,11 +210,27 @@ def get_average_accesstime_traffic_facilities_weight(survey: schemas.Survey):
     elif survey.four[2] == 4:
         return -2
 
-# 산점도 행렬 시각화
-def similiarity_heatmap(vector_nparr: np.ndarray, riterion_vector: np.ndarray, labels: list):
-    #plt.rcParams['font.family'] = 'NanumGothic'
-    #plt.rcParams['axes.unicode_minus'] = False
+# 인구 밀도 계수 반환
+def get_population_density_weight(Survey: schemas.Survey):
+    if(Survey.four[0] == 1):
+        return -1;
+    return 3;
 
+# 농지 가격 계수 반환
+def get_average_price_farmland_weight(Survey: schemas.Survey):
+    if(Survey.two == 1):
+        return -3;
+    return 3;
+
+# 주거 가격 계수 반환
+def get_average_housing_price_weight(Survey: schemas.Survey):
+    if(Survey.two == 1):
+        return -3;
+    return 3;
+
+
+# 산점도 행렬 시각화
+def similiarity(vector_nparr: np.ndarray, riterion_vector: np.ndarray, labels: list):
     empty_nparr = np.zeros(shape=vector_nparr.shape[0])
     column_size = vector_nparr.shape[1]
 
@@ -233,27 +260,34 @@ async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
         dic_list.append(dic)
 
     origin_df = pd.DataFrame(dic_list)
+    vector_df = origin_df
 
-    # origin_df의 개수가 128개면 -> 비용, 인구밀집도 컬럼 추가 (2번 4번 항목 값에 따라 가중치 조정)
-    # 1번은?, 아이가 있다면 교육 시설 접근이 추가 될것. 여기에 가중치 추가?
-    # 가능한 모든 설문 경우의 수마다 추천 지역, 유사도를 한번 계산하기
-
-    vector_df = origin_df.drop(['region_id', 'area', 'household', 'province', 'region_name',
-                                'returners', 'image_url', 'child_care_facilities', 'average_price_farmland',
-                                'average_housing_price', 'average_accesstime_amenities','education_cluster', 'population_density',
-                                'ground_cluster', 'resident_cluster', 'env_cluster', 'average_accesstime_medical_facilities'], axis=1)
+    if(len(origin_df) >= 128):
+        # 클러스터가 없다면, 비용, 인구밀집도 컬럼 추가, 아이가 있다면 교육 시설 접근성에 가중치 부여
+        vector_df = origin_df.drop(['region_id', 'area', 'household', 'province', 'region_name',
+                                    'returners', 'image_url', 'child_care_facilities', 'average_accesstime_amenities',
+                                    'education_cluster', 'ground_cluster', 'resident_cluster', 'env_cluster',
+                                    'average_accesstime_medical_facilities'], axis=1)
+    else:
+        vector_df = origin_df.drop(['region_id', 'area', 'household', 'province', 'region_name',
+                                    'returners', 'image_url', 'child_care_facilities', 'average_price_farmland',
+                                    'average_housing_price', 'average_accesstime_amenities', 'education_cluster',
+                                    'population_density', 'ground_cluster', 'resident_cluster', 'env_cluster',
+                                    'average_accesstime_medical_facilities'], axis=1)
 
     # 설문에 맞춰 차원 축소
     vector_df = dimension_Reduction(survey, vector_df)
 
     # 스케일링된 nparr 생성
-    scaler = StandardScaler()
-    vector_nparr = scaler.fit_transform(vector_df)
+    # scaler = StandardScaler()
+    # vector_nparr = scaler.fit_transform(vector_df)
+    vector_nparr = vector_df.values;
 
     # 기준 벡터 생성
     riterion_vector = create_riterion_vector(survey, vector_df, vector_nparr)
 
-    similiarity_heatmap(vector_nparr, riterion_vector, vector_df.columns.tolist())
+    # 시각화
+    similiarity(vector_nparr, riterion_vector, vector_df.columns.tolist())
 
     # 유사도 계산, 랭킹
     result = []
