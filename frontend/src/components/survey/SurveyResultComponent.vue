@@ -15,7 +15,7 @@
       :pagination="{ clickable: true }" @swiper="onSwiper" @mouseover="showNavigation = true"
       @mouseout="showNavigation = false">
 
-      <swiper-slide v-for="(region, index) in regionStore.resultList" :key="region.region_id"
+      <swiper-slide v-for="(region, index) in resultList" :key="region.region_id"
         @click="handleSlideClick(index, region.region_name)">
         <div class="content-container">
           <div class="upper-container">
