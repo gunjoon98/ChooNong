@@ -92,7 +92,9 @@ def dimension_Reduction(survey: schemas.Survey, vector_df: pd.DataFrame):
 def create_riterion_vector(survey: schemas, vector_df: pd.DataFrame, vector_nparr: np.ndarray):
     # 가중치 계산, 10퍼
     max_values = np.max(vector_nparr, axis=0)
+    print(max_values)
     min_values = np.min(vector_nparr, axis=0)
+    print(min_values)
     vector_weights = (max_values - min_values) / 10
 
     # 기준 벡터 생성
@@ -211,6 +213,9 @@ def similiarity_heatmap(vector_nparr: np.ndarray, riterion_vector: np.ndarray, l
         nparr.sort()
         plt.plot(nparr, empty_nparr, 'b')
         plt.plot(riterion_vector[idx], [0], 'r', marker='*', markersize=10)
+        print(labels[idx])
+        print(nparr.mean())
+        plt.plot([nparr.std()], [0], 'g', marker='x', markersize=10)
         #plt.plot(np.arange(0, len(nparr)), nparr)
 
         plt.title(labels[idx])
