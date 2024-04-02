@@ -11,7 +11,7 @@
       <h2 class="popular-regions-title">귀농인이 많은 지역!!</h2>
       <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
         :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
-        :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig"
+        :loop-fill-group-with-blank="true" :navigation="true" :pagination="paginationConfig"
         :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
         @mouseout="showNavigation = false">
 
@@ -28,8 +28,7 @@
                 <p>귀농인 수: {{ region.returners }} 명</p>
                 <br>
                 <br>
-                <!-- <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (m^2)</p>
-        <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (m^2)</p> -->
+
               </div>
             </div>
           </div>
@@ -42,7 +41,7 @@
       <h2 class="popular-regions-title">전년 대비 귀농인 많아진 지역!!</h2>
       <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
         :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
-        :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig"
+        :loop-fill-group-with-blank="true" :navigation="true" :pagination="paginationConfig"
         :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
         @mouseout="showNavigation = false">
 
@@ -58,13 +57,10 @@
                 <h4>{{ region.province }}</h4>
                 <h3>{{ region.region_name }}</h3>
                 <p>귀농인 수: {{ region.returners }} 명({{ increaseRegionPeople[index] }}<img src="@/assets/up-arrow.png" class="arrow-up"/>)</p>
-                <!-- <p>증가한 귀농인 수: {{ increaseRegionPeople[index] }} 명</p>
-                <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (㎡)</p>
-                <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (㎡)</p> -->
+
                 <br>
                 <br>
-                <!-- <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (m^2)</p>
-        <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (m^2)</p> -->
+
               </div>
             </div>
           </div>
@@ -72,38 +68,6 @@
       </swiper>
     </div>
 
-    <!-- 귀농인 증가 많은 지역 스와이퍼 -->
-    <!-- <div class="popular-regions-container" v-if="increaseRegionInfo.length > 0">
-      <h2 class="popular-regions-title">전년 대비 귀농인 많아진 지역!!</h2>
-      <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
-        :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
-        :loop-fill-group-with-blank="true" :navigation="navigationEnabled" :pagination="paginationConfig"
-        :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
-        @mouseout="showNavigation = false">
-
-        <swiper-slide v-for="(region, index) in increaseRegionInfo" :key="region.region_id"
-          @click="handleSlideClick(index, region.region_id)">
-          <div class="region-card">
-
-            <div class="region-info">
-              <h2>{{ index + 1 }}위</h2>
-              <h4>{{ region.province }}</h4>
-              <h3>{{ region.region_name }}</h3>
-            </div>
-            <div class="region-image-container">
-              <img :src="region.image_url" alt="지역 이미지" class="region-image">
-            </div>
-            <div class="region-additional-info">
-              <p>귀농인 수: {{ region.returners }} 명</p>
-              <p>증가한 귀농인 수: {{ increaseRegionPeople[index] }} 명</p>
-              <p>평균 농지가격: {{ region.average_price_farmland * 1000 }} 원 (m^2)</p>
-              <p>평균 주택가격: {{ region.average_housing_price * 1000 }} 원 (m^2)</p>
-            </div>
-
-          </div>
-        </swiper-slide>
-      </swiper>
-    </div> -->
   </div>
 </template>
 
@@ -321,5 +285,34 @@ const autoplayOptions = {
   width: 25px;
   height: auto;
   margin-bottom: 3px;
+}
+
+::v-deep(.swiper-button-next),
+::v-deep(.swiper-button-prev) {
+  color: #000;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  transform: translateY(0%);
+  z-index: 10;
+  opacity: 0;
+  /* 기본적으로 안 보이게 */
+  transition: opacity 0.5s;
+  /* 서서히 보이게 */
+  display: block;
+}
+
+.swiper:hover ::v-deep(.swiper-button-next),
+.swiper:hover ::v-deep(.swiper-button-prev) {
+  opacity: 1;
+}
+
+::v-deep(.swiper-button-next) {
+  right: -10px;
+}
+
+::v-deep(.swiper-button-prev) {
+  left: 15px;
 }
 </style>
