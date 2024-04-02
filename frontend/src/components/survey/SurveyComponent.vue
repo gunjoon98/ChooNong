@@ -140,7 +140,7 @@ const resetSurvey = function () {
   currentStep.value = 0;
   canProceed.value = false;
   responses.value = []; // responses 초기화
-  surveyStore.resetStructuredResponses(); // store의 structuredResponses 초기화 함수 호출
+  structuredResponses.value = {} // structuredResponses 초기화
   // 서브 질문 숨기기 초기화
   surveyQuestions.value.forEach((question, index) => {
     if (question.hidden) {

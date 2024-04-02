@@ -34,13 +34,8 @@ export const useSurveyStore = defineStore('survey', () => {
     });
   };
 
-  const resetStructuredResponses = function() {
-    structuredResponses.value = {};
-  };
-
   return {
     resultList,
     getSurveyResult,
-    resetStructuredResponses,
   }
 });
