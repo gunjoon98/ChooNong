@@ -19,19 +19,11 @@ export const useSurveyStore = defineStore('survey', () => {
   };
 
   const structuredResponsesToJson = (structuredResponses) => {
-    // Convert structuredResponses to JSON format
     console.log(JSON.stringify(structuredResponses));
     return JSON.stringify(structuredResponses);
   };
 
   return {
-    // steps,
-    // selectedAnswers,
-    // selectAnswer,
-    // isAnswerSelected,
-    // isUnanswered,
-    // allAnswersSelected,
-    // resetAnswers,
     resultList,
     getSurveyResult
   }

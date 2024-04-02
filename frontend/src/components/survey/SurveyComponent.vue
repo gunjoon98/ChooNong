@@ -95,6 +95,8 @@ const handleAnswer = function (optionIndex) {
       structuredResponses.value["one_sub"] = [];
     }
     structuredResponses.value["one_sub"].push(optionIndex + 1);
+  } else if (questionId === "two") {
+    structuredResponses.value[questionId] = optionIndex + 1;
   } else {
     // 나머지 질문의 응답 처리
     // 카테고리 식별 (예: "two", "three_1")
