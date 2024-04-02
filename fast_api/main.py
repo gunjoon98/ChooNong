@@ -10,14 +10,11 @@ from numpy.linalg import norm
 from numpy import dot
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:5173",
-    "*"
-]
+origins = ['*']
 
 app.add_middleware(
     CORSMiddleware,
