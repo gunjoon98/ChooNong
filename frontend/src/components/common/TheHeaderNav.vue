@@ -22,13 +22,13 @@
         </router-link>
         <router-link to="/calculator" @click="clickMenu(3)" class="router-link"
           :class="{ 'clicked-menu': clickedMenu === 3 }" @mouseenter="isHovered = 3" @mouseleave="isHovered = 0">
-          <p>작물 수익 계산기</p><img src="@\assets\math.png" class="menu-icon" />
+          <p>모의 작물 재배</p><img src="@\assets\math.png" class="menu-icon" />
           <img src="@/assets/cloud.png" class="cloud-image"
             v-if="clickedMenu === 3 || isHovered === 3">
         </router-link>
         <router-link to="/checklist" @click="clickMenu(4)" class="router-link"
           :class="{ 'clicked-menu': clickedMenu === 4 }" @mouseenter="isHovered = 4" @mouseleave="isHovered = 0">
-          <p>체크리스트</p><img src="@\assets\book.png" class="menu-icon" />
+          <p>귀농 지식 퀴즈</p><img src="@\assets\book.png" class="menu-icon" />
           <img src="@/assets/cloud.png" class="cloud-image"
             v-if="clickedMenu === 4 || isHovered === 4">
         </router-link>

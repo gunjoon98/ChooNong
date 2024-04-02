@@ -81,8 +81,7 @@ const handleSlideClick = (index, regionName) => {
 };
 
 const resultList = ref([]);
-onMounted(async () => {
-  await surveyStore.getSurveyResult();
+onMounted(() => {
   resultList.value = surveyStore.resultList;
   console.log(resultList.value);
 })

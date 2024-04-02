@@ -119,19 +119,21 @@ const showChart = () => {
   border: 3px solid #ECF6EC;
   border-radius: 1rem;
   margin-bottom: 20px;
+  padding: 50px;
 }
 
 .region-details {
   display: grid;
   grid-template-columns: 300px auto;
   grid-gap: 20px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
 }
 
 .info-policy-container {
   flex: 2;
   display: flex;
   flex-direction: column;
+  padding-left: 40px;
 }
 
 .buttons-container {
@@ -139,7 +141,7 @@ const showChart = () => {
   justify-content: center;
   gap: 20px;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .region-img {

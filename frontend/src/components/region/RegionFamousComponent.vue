@@ -16,7 +16,7 @@
         @mouseout="showNavigation = false">
 
         <swiper-slide v-for="(region, index) in famousRegionsInfo" :key="region.region_id"
-          @click="handleSlideClick(index, region.region_id)">
+          @click="handleSlideClick(index, region.region_id)" class="swiper-slide">
           <div class="region-card">
             <!-- 이미지를 배경으로 사용하는 컨테이너 -->
             <div class="region-image-background" :style="{ backgroundImage: 'url(' + region.image_url + ')' }">
@@ -175,8 +175,14 @@ const autoplayOptions = {
 }
 
 .swiper {
-  width: 1200px;
+  width: 1300px;
+  padding: 0 70px;
 }
+
+/* .swiper-slide {
+  margin: 0 10px;
+  width: 50px
+} */
 
 .region-card {
   display: flex;
@@ -227,6 +233,7 @@ const autoplayOptions = {
   /* padding-left: 20px;
   padding-right: 20px; */
   position: relative;
+  cursor: pointer;
 }
 
 .region-info-overlay {
@@ -291,28 +298,31 @@ const autoplayOptions = {
 ::v-deep(.swiper-button-prev) {
   color: #000;
   width: 50px;
-  height: 50px;
-  background: rgba(0, 0, 0, 0);
-  border-radius: 50%;
-  transform: translateY(0%);
+  height: 360px;
+  background: #ffffff;
+  /* border-radius: 50%; */
+  transform: translateY(-43%);
   z-index: 10;
-  opacity: 0;
-  /* 기본적으로 안 보이게 */
-  transition: opacity 0.5s;
-  /* 서서히 보이게 */
+  opacity: 1; /* 항상 보이도록 설정 */
   display: block;
+  transition: opacity 0.5s; /* 호버 효과를 위한 트랜지션은 유지 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.swiper:hover ::v-deep(.swiper-button-next),
-.swiper:hover ::v-deep(.swiper-button-prev) {
+/* 호버 효과에 대한 스타일 삭제 */
+.swiper ::v-deep(.swiper-button-next),
+.swiper ::v-deep(.swiper-button-prev) {
   opacity: 1;
 }
 
 ::v-deep(.swiper-button-next) {
-  right: -10px;
+  right: 0px;
 }
 
 ::v-deep(.swiper-button-prev) {
-  left: 15px;
+  left: 0px;
 }
+
 </style>

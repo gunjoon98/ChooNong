@@ -8,15 +8,11 @@
       <div class="question">
         <h3>{{ currentQuestion.question }}</h3>
         <div>
-  <button
-    v-for="(option, index) in currentQuestion.options"
-    :key="index"
-    @click="handleAnswer(index)"
-    :class="{'option-button': true, 'selected': responses[currentQuestion.id] === index}"
-  >
-    {{ option }}
-  </button>
-</div>
+          <button v-for="(option, index) in currentQuestion.options" :key="index" @click="handleAnswer(index)"
+            :class="{ 'option-button': true, 'selected': responses[currentQuestion.id] === index }">
+            {{ option }}
+          </button>
+        </div>
       </div>
       <button @click="nextStep" v-if="canProceed" class="nav-button">다음</button>
     </div>
@@ -29,7 +25,13 @@
 
 
 <script setup>
+// import router from '@/router';
 import { ref, computed, onMounted } from 'vue';
+import { useRouter } from "vue-router";
+import { useSurveyStore } from '@/stores/surveyStore';
+
+const router = useRouter();
+const surveyStore = useSurveyStore();
 
 const surveyQuestions = ref([
   {
@@ -79,31 +81,31 @@ const progress = computed(() => {
   return Math.min(progressPercentage, 100);
 });
 
-const handleAnswer = function(optionIndex) {
-    // 기존 로직을 유지하면서 structuredResponses 업데이트
-    let questionId = currentQuestion.value.id;
-    responses.value[questionId] = optionIndex;
+const handleAnswer = function (optionIndex) {
+  // 기존 로직을 유지하면서 structuredResponses 업데이트
+  let questionId = currentQuestion.value.id;
+  responses.value[questionId] = optionIndex;
 
-    if (questionId === "one") {
-        // "one" 질문의 응답 처리
-        structuredResponses.value[questionId] = optionIndex + 1;
-    } else if (questionId.includes("one_sub")) {
-        // "one_sub" 질문의 응답 처리
-        if (!structuredResponses.value["one_sub"]) {
-            structuredResponses.value["one_sub"] = [];
-        }
-        structuredResponses.value["one_sub"].push(optionIndex + 1);
-    } else {
-        // 나머지 질문의 응답 처리
-        // 카테고리 식별 (예: "two", "three_1")
-        let category = questionId.split('_')[0];
-        if (!structuredResponses.value[category]) {
-            structuredResponses.value[category] = [];
-        }
-        structuredResponses.value[category].push(optionIndex + 1);
+  if (questionId === "one") {
+    // "one" 질문의 응답 처리
+    structuredResponses.value[questionId] = optionIndex + 1;
+  } else if (questionId.includes("one_sub")) {
+    // "one_sub" 질문의 응답 처리
+    if (!structuredResponses.value["one_sub"]) {
+      structuredResponses.value["one_sub"] = [];
     }
+    structuredResponses.value["one_sub"].push(optionIndex + 1);
+  } else {
+    // 나머지 질문의 응답 처리
+    // 카테고리 식별 (예: "two", "three_1")
+    let category = questionId.split('_')[0];
+    if (!structuredResponses.value[category]) {
+      structuredResponses.value[category] = [];
+    }
+    structuredResponses.value[category].push(optionIndex + 1);
+  }
 
-    canProceed.value = true;
+  canProceed.value = true;
 };
 
 const nextStep = function () {
@@ -123,11 +125,13 @@ const nextStep = function () {
   }
 };
 
-const showResults = function () {
+const showResults = async function () {
   // 결과 보여주기 (실제 구현 필요)
   console.log("structuredResponses", structuredResponses.value);
-    console.log("responses", responses.value);
+  console.log("responses", responses.value);
   console.log("결과 보기");
+  await surveyStore.getSurveyResult(structuredResponses.value);
+  router.push({ name: "surveyResult" });
 };
 
 const resetSurvey = function () {
@@ -154,7 +158,7 @@ const resetSurvey = function () {
   padding: 20px;
   background: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
   margin: 40px auto;
@@ -169,7 +173,7 @@ const resetSurvey = function () {
 
 .progress-bar {
   height: 20px;
-  background-color: #28a745;
+  background-color: #C6EB74;
   border-radius: 20px;
   transition: width 0.4s ease;
 }
@@ -189,35 +193,60 @@ const resetSurvey = function () {
 .option-button {
   margin: 10px 5px;
   padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  background-color: #007BFF;
-  color: white;
+  border: solid 2px #C6EB74;
+  border-radius: 15px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .option-button:hover {
-  background-color: #0056b3;
+  background-color: #C6EB74;
 }
 
 .nav-button {
+  display: block;
+  margin: 20px auto;
   padding: 10px 20px;
-  margin-top: 20px;
-  background-color: #28a745;
-  color: white;
+  /* margin-top: 20px; */
+  background-color: #C6EB74;
+  color: rgb(0, 0, 0);
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .nav-button:hover {
-  background-color: #218838;
+  /* border: solid 2px #C6EB74;
+  border-radius: 15px;
+  background-color: #ffffff; */
+  /* box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); */
+  box-shadow: 7px 7px 5px 0px #0002, 4px 4px 5px 0px #0001;
 }
 
 .selected {
-  background-color: #0056b3; /* 선택된 버튼의 배경색 */
-  color: white;
+  background-color: #C6EB74;
+  /* 선택된 버튼의 배경색 */
+  color: rgb(0, 0, 0);
+}
+
+.result-button {
+  display: block;
+  margin: 20px auto;
+  width: 110px;
+  height: 50px;
+  background-color: #C6EB74;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  /* 커서 포인터로 변경 */
+  /* transition: background-color 0.3s ease; */
+  /* 배경색 변화에 대한 전환 */
+  /* color: #000000; */
+  /* text-decoration: none; */
+  text-align: center;
+  line-height: 40px;
 }
 </style>
