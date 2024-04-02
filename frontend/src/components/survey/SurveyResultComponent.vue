@@ -15,7 +15,7 @@
       :pagination="{ clickable: true }" @swiper="onSwiper" @mouseover="showNavigation = true"
       @mouseout="showNavigation = false">
 
-      <swiper-slide v-for="(region, index) in regionStore.dummyRegionList" :key="region.region_id"
+      <swiper-slide v-for="(region, index) in regionStore.resultList" :key="region.region_id"
         @click="handleSlideClick(index, region.region_name)">
         <div class="content-container">
           <div class="upper-container">
@@ -23,7 +23,7 @@
               <h2>{{ index + 1 }}순위</h2>
               <h3> {{ region.province }}</h3>
               <h3> {{ region.region_name }}</h3>
-              <h3>적합도: {{ (region.suitability * 100).toFixed(0) }}%</h3>
+              <!-- <h3>적합도: {{ (region.suitability * 100).toFixed(0) }}%</h3> -->
             </div>
             <img src="@/assets/cropimage.png" alt="지역 이미지" class="img-swiper">
           </div>
