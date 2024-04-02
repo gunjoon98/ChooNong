@@ -233,6 +233,11 @@ async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
         dic_list.append(dic)
 
     origin_df = pd.DataFrame(dic_list)
+
+    # origin_df의 개수가 128개면 -> 비용, 인구밀집도 컬럼 추가 (2번 4번 항목 값에 따라 가중치 조정)
+    # 1번은?, 아이가 있다면 교육 시설 접근이 추가 될것. 여기에 가중치 추가?
+    # 가능한 모든 설문 경우의 수마다 추천 지역, 유사도를 한번 계산하기
+
     vector_df = origin_df.drop(['region_id', 'area', 'household', 'province', 'region_name',
                                 'returners', 'image_url', 'child_care_facilities', 'average_price_farmland',
                                 'average_housing_price', 'average_accesstime_amenities','education_cluster', 'population_density',
