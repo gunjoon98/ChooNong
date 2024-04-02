@@ -10,6 +10,19 @@ from numpy.linalg import norm
 from numpy import dot
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+from starlette.middleware.cors import CORSMiddleware
+
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def get_db():
     db = SessionLocal()
