@@ -12,6 +12,8 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from starlette.middleware.cors import CORSMiddleware
 
+app = FastAPI()
+
 origins = [
     "*"
 ]
