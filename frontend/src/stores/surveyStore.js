@@ -12,6 +12,7 @@ export const useSurveyStore = defineStore('survey', () => {
       method: "POST",
       url: "https://www.choonong.store/fapi/recommendation",
       data: structuredResponsesToJson(structuredResponses),
+      contentType: "application/json",
     }).then((response) => {
       resultList.value = response.data;
       console.log("응답 결과" + resultList.value);
