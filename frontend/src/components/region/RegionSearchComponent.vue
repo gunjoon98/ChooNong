@@ -4,12 +4,12 @@
       class="search-input"
       :value="searchQuery"
       @input="handleInput"
-      @keyup.enter="searchRegion"
+      @keyup.enter="searchRegionDebounced"
       placeholder="검색..."
       @focus="onFocus"
       @blur="onBlur"
     />
-    <img src="@/assets/search.png" @click="searchRegion" alt="검색" class="search-icon" />
+    <img src="@/assets/search.png" @click="searchRegionDebounced" alt="검색" class="search-icon" />
     <ul v-if="dropdownVisible" class="dropdown">
       <template v-if="filteredData.length">
         <li 
@@ -78,6 +78,15 @@ const searchRegion = () => {
     return;
   }
   router.push({ name: 'regionDetail', params: { id: index + 1 } });
+};
+
+// 디바운싱
+let debounceTimeout = null;
+const searchRegionDebounced = () => {
+  clearTimeout(debounceTimeout);
+  debounceTimeout = setTimeout(() => {
+    searchRegion(); // searchRegion 함수를 직접 호출하지 않고, 디바운싱을 통해 호출
+  }, 300); // 사용자가 입력을 멈춘 후 300ms 후에 실행
 };
 
 const onFocus = () => {
