@@ -19,7 +19,7 @@ export const useSurveyStore = defineStore('survey', () => {
         "Content-Type": "application/json",
       },
     }).then((response) => {
-      resultList.value = response.data;
+      resultList.value = response.data.map(item => item.region_id);
       console.log("응답 결과", resultList.value);
       return response.data;
     }).catch((error) => {
