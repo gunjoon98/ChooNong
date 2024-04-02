@@ -65,7 +65,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { useRegionStore } from '@/stores/regionStore';
 import { useSurveyStore } from '@/stores/surveyStore';
@@ -78,7 +78,7 @@ import 'swiper/css/effect-coverflow';
 
 const regionStore = useRegionStore();
 const surveyStore = useSurveyStore();
-const modules = ref([Pagination, Navigation]);
+const modules = ref([Pagination, Navigation, Autoplay]);
 const router = useRouter();
 
 const showNavigation = ref(false);
@@ -91,19 +91,22 @@ const onSwiper = (swiper) => {
 };
 
 // 클릭 이벤트 핸들러
-const handleSlideClick = (index, regionName) => {
+const handleSlideClick = (index, regionId) => {
   // 현재 활성 슬라이드의 실제 인덱스 얻기
   let realIndex = swiperInstance.value.realIndex;
   if (realIndex === index) {
-    console.log(regionName);
-    router.push({ name: 'regionDetail'})
+    router.push({ name: 'regionDetail', params: { id: regionId } });
   } else {
     // 비활성 슬라이드 클릭시 슬라이드 넘김
     swiperInstance.value.slideToLoop(index);
   }
 };
 
-const resultList = ref([]);
+const autoplayOptions = {
+  delay: 2000, // 2초 간격으로 자동 전환
+  disableOnInteraction: false, // 사용자 상호작용 후에도 자동 재생 계속
+};
+
 onMounted(() => {
   resultList.value = surveyStore.resultList;
   console.log(resultList.value);
