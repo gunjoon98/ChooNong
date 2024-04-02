@@ -107,6 +107,7 @@ const autoplayOptions = {
   disableOnInteraction: false, // 사용자 상호작용 후에도 자동 재생 계속
 };
 
+const resultList = ref([]);
 onMounted(() => {
   resultList.value = surveyStore.resultList;
   console.log(resultList.value);
