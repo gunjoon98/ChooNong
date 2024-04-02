@@ -21,10 +21,12 @@ export const useSurveyStore = defineStore('survey', () => {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((response) => {
+    }).then(async (response) => {
       const resultRegionIds= response.data.map(item => item.region_id);
       console.log("응답 결과", resultRegionIds);
-      resultList.value = regionStore.getRegionsDetailList(resultRegionIds);
+      await regionStore.getRegionsDetailList(resultRegionIds);
+      resultList.value = regionsDetailList;
+      console.log("지역 정보 리스트" + resultList.value);
       // return response.data;
     }).catch((error) => {
       console.error("요청 실패:", error);
