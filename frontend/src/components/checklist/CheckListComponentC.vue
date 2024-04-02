@@ -239,6 +239,7 @@ const nextQuestion = () => {
 
 
 const resetQuestionState = () => {
+  additionalAnswerReason.value = "";
   showModal.value = false;
   showAnswer.value = false;
   resetButtons();
