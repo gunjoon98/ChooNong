@@ -23,10 +23,10 @@ export const useSurveyStore = defineStore('survey', () => {
       },
     }).then(async (response) => {
       const resultRegionIds= response.data.map(item => item.region_id);
-      console.log("응답 결과", resultRegionIds);
+      console.log(resultRegionIds);
       await regionStore.getRegionsDetailList(resultRegionIds);
       resultList.value = regionStore.regionsDetailList;
-      console.log("지역 정보 리스트" + resultList.value);
+      console.log(resultList.value);
       // return response.data;
     }).catch((error) => {
       console.error("요청 실패:", error);
