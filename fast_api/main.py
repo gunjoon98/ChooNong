@@ -11,7 +11,6 @@ from numpy import dot
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 def get_db():
     db = SessionLocal()
@@ -199,18 +198,24 @@ def get_average_accesstime_traffic_facilities_weight(survey: schemas.Survey):
     elif survey.four[2] == 4:
         return 2
 
-# 히트맵 시각화
-def similiarity_heatmap(similarity_matrix: np.ndarray, labels: list):
-    plt.figure(figsize=(10, 8))
-    sns.set(font_scale=1.2)
+# 산점도 행렬 시각화
+def similiarity_heatmap(vector_nparr: np.ndarray, riterion_vector: np.ndarray, labels: list):
+    #plt.rcParams['font.family'] = 'NanumGothic'
+    #plt.rcParams['axes.unicode_minus'] = False
 
-    # 히트맵 생성
-    sns.heatmap(similarity_matrix, annot=True, cmap="YlGnBu", xticklabels=labels, yticklabels=labels, fmt=".2f")
+    empty_nparr = np.zeros(shape=vector_nparr.shape[0])
+    column_size = vector_nparr.shape[1]
 
-    plt.title("Similarity Heatmap")
-    plt.xlabel("Regions")
-    plt.ylabel("Regions")
-    plt.show()
+    for idx in range(column_size):
+        nparr = vector_nparr[:, idx]
+        nparr.sort()
+        plt.plot(nparr, empty_nparr, 'b')
+        plt.plot(riterion_vector[idx], [0], 'r', marker='*', markersize=10)
+        #plt.plot(np.arange(0, len(nparr)), nparr)
+
+        plt.title(labels[idx])
+        plt.show()
+
 
 @app.post("/fapi/recommendation", response_model=List[schemas.Region])
 async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
@@ -238,10 +243,10 @@ async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
     scaler = StandardScaler()
     vector_nparr = scaler.fit_transform(vector_df)
 
-    similiarity_heatmap(vector_nparr, vector_df.columns.tolist())
-
     # 기준 벡터 생성
     riterion_vector = create_riterion_vector(survey, vector_df, vector_nparr)
+
+    similiarity_heatmap(vector_nparr, riterion_vector, vector_df.columns.tolist())
 
     # 유사도 계산, 랭킹
     result = []
