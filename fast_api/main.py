@@ -85,6 +85,7 @@ def dimension_Reduction(survey: schemas.Survey, vector_df: pd.DataFrame):
         remove_columns.append('elementary_school')
         remove_columns.append('middle_school')
         remove_columns.append('average_accesstime_educational_facilities')
+        remove_columns.append('pediatrics')
     return vector_df.drop(remove_columns, axis=1)
 
 
@@ -124,22 +125,22 @@ def create_riterion_vector(survey: schemas, vector_df: pd.DataFrame, vector_npar
 
 # 유치원 개수 가중치 계수 반환
 def get_kindergarden_weight():
-    return 2
+    return 3
 
 # 초등학교 개수 가중치 계수 반환
 def get_elementary_school_weight():
-    return 2
+    return 3
 
 # 중학교 개수 가중치 계수 반환
 def get_middle_school_weight():
-    return 2
+    return 3
 
 # 교육 시설 접근 시간 가중치 계수 반환
 def get_average_accesstime_educational_facilities_weight(survey: schemas.Survey):
     if survey.one_sub[1] == 1:
-        return -2
+        return -3
     elif survey.one_sub[1] == 2:
-        return -1
+        return -2
 
 # 소아과 가중치 계수 반환
 def get_pediatrics_weight(survey: schemas.Survey):
@@ -181,24 +182,24 @@ def get_dust_concentration_weight(survey: schemas.Survey):
 # 판매시설 접근 시간 계수 반환
 def get_average_accesstime_sales_facilities_weight(survey: schemas.Survey):
     if survey.four[1] == 1:
-        return -2
-    elif survey.four[1] == 2:
-        return -1
-    elif survey.four[1] == 3:
-        return 1
-    elif survey.four[1] == 4:
         return 2
+    elif survey.four[1] == 2:
+        return 1
+    elif survey.four[1] == 3:
+        return -1
+    elif survey.four[1] == 4:
+        return -2
 
 # 교통시설 접근 시간 계수 반환
 def get_average_accesstime_traffic_facilities_weight(survey: schemas.Survey):
     if survey.four[2] == 1:
-        return -2
-    elif survey.four[2] == 2:
-        return -1
-    elif survey.four[2] == 3:
-        return 1
-    elif survey.four[2] == 4:
         return 2
+    elif survey.four[2] == 2:
+        return 1
+    elif survey.four[2] == 3:
+        return -1
+    elif survey.four[2] == 4:
+        return -2
 
 # 산점도 행렬 시각화
 def similiarity_heatmap(vector_nparr: np.ndarray, riterion_vector: np.ndarray, labels: list):
@@ -213,9 +214,7 @@ def similiarity_heatmap(vector_nparr: np.ndarray, riterion_vector: np.ndarray, l
         nparr.sort()
         plt.plot(nparr, empty_nparr, 'b')
         plt.plot(riterion_vector[idx], [0], 'r', marker='*', markersize=10)
-        print(labels[idx])
-        print(nparr.mean())
-        plt.plot([nparr.std()], [0], 'g', marker='x', markersize=10)
+        plt.plot([nparr.mean()], [0], 'g', marker='x', markersize=10)
         #plt.plot(np.arange(0, len(nparr)), nparr)
 
         plt.title(labels[idx])
@@ -238,7 +237,7 @@ async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
     origin_df = pd.DataFrame(dic_list)
     vector_df = origin_df.drop(['region_id', 'area', 'household', 'province', 'region_name',
                                 'returners', 'image_url', 'child_care_facilities', 'average_price_farmland',
-                                'average_housing_price', 'average_accesstime_amenities','education_cluster',
+                                'average_housing_price', 'average_accesstime_amenities','education_cluster', 'population_density',
                                 'ground_cluster', 'resident_cluster', 'env_cluster', 'average_accesstime_medical_facilities'], axis=1)
 
     # 설문에 맞춰 차원 축소
@@ -264,5 +263,6 @@ async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
 
     sorted_result = sorted(result, key=lambda x: x['cosine_similartiy'], reverse=True)[:5]
     for item in sorted_result:
+        print(item['cosine_similartiy'])
         del(item['cosine_similartiy'])
     return sorted_result
