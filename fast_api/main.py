@@ -93,9 +93,7 @@ def dimension_Reduction(survey: schemas.Survey, vector_df: pd.DataFrame):
 def create_riterion_vector(survey: schemas, vector_df: pd.DataFrame, vector_nparr: np.ndarray):
     # 가중치 계산, 10퍼
     max_values = np.max(vector_nparr, axis=0)
-    print(max_values)
     min_values = np.min(vector_nparr, axis=0)
-    print(min_values)
     vector_weights = (max_values - min_values) / 10
 
     # 기준 벡터 생성
