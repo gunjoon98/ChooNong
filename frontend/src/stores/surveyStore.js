@@ -25,7 +25,7 @@ export const useSurveyStore = defineStore('survey', () => {
       const resultRegionIds= response.data.map(item => item.region_id);
       console.log("응답 결과", resultRegionIds);
       await regionStore.getRegionsDetailList(resultRegionIds);
-      resultList.value = regionsDetailList;
+      resultList.value = regionStore.regionsDetailList;
       console.log("지역 정보 리스트" + resultList.value);
       // return response.data;
     }).catch((error) => {
