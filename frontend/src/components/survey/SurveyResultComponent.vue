@@ -4,7 +4,7 @@
     <h3>설문 답변 리스트 : {{ surveyStore.selectedAnswers }}</h3>
     <h4>답변은 답변의 인덱스값</h4>
 
-    <div class="popular-regions-container" v-if="increaseRegionInfo.length > 0">
+    <div class="popular-regions-container" v-if="resultList.length > 0">
       <h2 class="popular-regions-title">귀농인이 많은 지역!!</h2>
       <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
         :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"

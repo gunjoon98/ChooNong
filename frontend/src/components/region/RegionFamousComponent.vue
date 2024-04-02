@@ -7,7 +7,7 @@
     </div>
 
     <!-- 인기 귀농지 스와이퍼 -->
-    <div class="popular-regions-container" v-if="increaseRegionInfo.length > 0">
+    <div class="popular-regions-container" v-if="famousRegionsInfo.length > 0">
       <h2 class="popular-regions-title">귀농인이 많은 지역!!</h2>
       <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
         :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
