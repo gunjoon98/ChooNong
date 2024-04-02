@@ -7,13 +7,17 @@ export const useSurveyStore = defineStore('survey', () => {
   
   const resultList = ref([]);
   const getSurveyResult = async function (structuredResponses) {
-    await axios({
-      method: "POST",
-      url: `https://www.choonong.store/fapi/recommendation`,
-      data: structuredResponses,
-    }).then((response) => {
+    try {
+      const response = await axios.post("https://www.choonong.store/fapi/recommendation", structuredResponsesToJson(structuredResponses));
       resultList.value = response.data;
-    });
+    } catch (error) {
+      console.error("Error fetching survey result:", error);
+    }
+  };
+
+  const structuredResponsesToJson = (structuredResponses) => {
+    // Convert structuredResponses to JSON format
+    return JSON.stringify(structuredResponses);
   };
 
   return {
