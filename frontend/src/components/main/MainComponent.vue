@@ -39,6 +39,7 @@ onMounted(() => {
 .content-container {
   /* width: 1200px; */
   /* min-height: 500px; */
+  /* height: 710px; */
   display: flex;
   justify-content: center;
   align-items: center;

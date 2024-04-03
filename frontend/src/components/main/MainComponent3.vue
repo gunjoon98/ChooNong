@@ -56,7 +56,8 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
 .third-container {
   background-color: #eff9ec;
   width: 100%;
-  padding: 60px 100px;
+  height: 700px;
+  padding: 50px 120px;
   /* 가로 전체 화면 */
   /* max-width: 1500px; */
   /* 최대 너비 제한 */
