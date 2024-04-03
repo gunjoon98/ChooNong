@@ -22,8 +22,8 @@
           </router-link>
         </div>
         <div class="content-container">
-          <img src="@\assets\checklist.png" class="checklist-icon">
-          <div>귀농 준비 체크리스트</div>
+          <img src="@\assets\quiz.png" class="checklist-icon">
+          <div>귀농 지식 퀴즈</div>
           <router-link to="/checklist">
             <button type="button">시작하기</button>
           </router-link>
