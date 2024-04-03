@@ -129,8 +129,8 @@ import "swiper/css/effect-coverflow";
 const regionStore = useRegionStore();
 // const famousRegionIds = [92, 51, 26, 13, 78, 132, 41, 67]// 의성 상주 김천 고흥 영천 해남 밀양 양평 영동 // 귀농인 가장 많은 지역
 const famousRegionIds = [92, 51, 26, 13, 78];
-const increaseRegionPeople = [25, 20, 28, 13, 13, 13, 11, 11, 11];
-const increaseRegionIds = [1, 26, 123, 64, 122, 65, 66, 70, 22];
+const increaseRegionPeople = [25, 20, 18, 13, 13];
+const increaseRegionIds = [1, 26, 123, 64, 122];
 //가평 25, 김천20, 평창18, 양산13, 파주13, 양양13, 양주11, 연천11, 군위 11 // 21년 대비 귀농인 증가 많은 순
 
 //남양주158, 제주39, 가평 35, 양산 26, 영동24, 평창19, 파주16, 양주16 // 21년 대비 귀농 가구원 증가많은 순
