@@ -338,28 +338,6 @@ onMounted (async () => {
 	scrollbar-width: thin;
   scrollbar-color: #dddddd transparent; /* 스크롤바 색상 설정 */
 }
-/* 스크롤바 화살표 숨기기 */
-.crop-list-container::-webkit-scrollbar,
-.added-crop-list-container::-webkit-scrollbar {
-  width: 8px; /* 스크롤바 너비 */
-}
-
-.crop-list-container::-webkit-scrollbar-track,
-.added-crop-list-container::-webkit-scrollbar-track {
-  background: transparent; /* 스크롤바 트랙 배경색 */
-}
-
-.crop-list-container::-webkit-scrollbar-thumb,
-.added-crop-list-container::-webkit-scrollbar-thumb {
-  background-color: #dbdbdb; /* 스크롤바 색상 */
-  border-radius: 20px; /* 스크롤바 모서리 반경 */
-  border: 2px solid transparent; /* 스크롤바 경계선 */
-}
-
-.crop-list-container::-webkit-scrollbar-button,
-.crop-list-container::-webkit-scrollbar-button {
-  display: none; /* 위 아래 화살표 숨김 */
-}
 
 .crop-list-container {
 	padding: 20px 15px;

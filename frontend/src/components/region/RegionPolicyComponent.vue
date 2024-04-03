@@ -79,6 +79,10 @@ const toggleDetail = (policy_id) => {
 .policy-container {
   max-height: 500px;
   overflow-y: auto;
+	overflow-x: hidden;
+	scrollbar-width: thin;
+  scrollbar-color: #dddddd transparent; /* 스크롤바 색상 설정 */
+  margin-left: 10px;
 }
 
 .policy-item {
@@ -103,13 +107,13 @@ const toggleDetail = (policy_id) => {
 
 .detail-content {
   box-sizing: border-box;
-  border: 1px solid #4BAF47;
+  /* border: 1px solid #4BAF47; */
   border-radius: 1rem;
   margin-right: 20px;
   margin-bottom: 5px;
-  width: 100%;
+  width: 99%;
   overflow: hidden;
-  padding: 5px;
+  padding: 10px;
 }
 
 .detail-content th {
@@ -129,20 +133,22 @@ const toggleDetail = (policy_id) => {
 
 
 .policy-button button {
-  border: 1px solid #4BAF47;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
-  width: 90px;
-  height: 30px;
+  width: 100px;
+  height: 40px;
   background-color: white;
   color: black;
   outline: none;
   margin: 10px;
   font-weight: bold;
   padding: 0px;
+  cursor: pointer;
 }
 
 .policy-button button:hover {
-  background-color: #ECF6EC;
+  background-color: #C6EB74;
   /* 마우스를 올리거나 포커스되었을 때의 배경색 */
 }
 

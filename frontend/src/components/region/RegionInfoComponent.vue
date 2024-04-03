@@ -121,7 +121,7 @@ const props = defineProps({
   gap: 15px; /* 요소 간 간격 줄임 */
 }
 
-.region-info-detail, .region-chart {
+.region-chart {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -129,15 +129,26 @@ const props = defineProps({
   gap: 15px; /* 요소 간 간격 줄임 */
 }
 
-.info-group {
-  width: 100%;
-  padding: 15px; /* 패딩 줄임 */
-  background-color: #f7f7f7; /* 배경색 */
-  border-radius: 8px; /* 모서리 둥글게 */
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1); /* 그림자 효과 */
+.region-info-detail {
+  width: 1000px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  /* gap: 15px; 요소 간 간격 줄임 */
+}
+
+.info-group {
+  width: calc((100% / 2) - 5px);
+  padding: 15px; /* 패딩 줄임 */
+  margin: 5px 0;
+  background-color: #f6f9f6; /* 배경색 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  border: solid 1px #e9e9e9;
+  /* box-shadow: 0 3px 6px rgba(0,0,0,0.1); 그림자 효과 */
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between; */
 }
 
 .group-title {
@@ -147,14 +158,20 @@ const props = defineProps({
   font-weight: bold;
   margin-bottom: 10px; /* 타이틀과 항목 간의 간격 줄임 */
   color: #333; /* 글자 색상 */
+  /* text-decoration: underline;
+	text-decoration-color: rgba(233, 255, 185, 0.5);
+	text-decoration-thickness: 20px;
+	text-underline-offset: -20px; */
 }
 
 .info-item {
-  width: calc((100% / 3) - 20px); /* 항목 너비 설정 */
+  width: 100%; /* 항목 너비 설정 */
   padding: 10px; /* 패딩 줄임 */
+  margin: 5px 0;
   background-color: #ffffff; /* 배경색 */
+  border: solid 1px #e9e9e9;
   border-radius: 8px; /* 모서리 둥글게 */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 그림자 효과 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   gap: 8px; /* 내부 요소 간 간격 줄임 */
@@ -162,7 +179,7 @@ const props = defineProps({
 
 .info-content-unit {
   display: flex;
-  justify-content: space-between; /* 내용과 단위를 양 끝으로 정렬 */
+  justify-content: right; /* 내용과 단위를 양 끝으로 정렬 */
   align-items: center;
   width: 100%;
 }
@@ -175,14 +192,14 @@ const props = defineProps({
 
 .info-content {
   flex-grow: 1; /* 내용이 단위 옆에 붙도록 남은 공간을 채움 */
-  text-align: center;
+  text-align: right;
 }
 
 .info-unit {
   /* 내용과 단위 사이의 간격을 줄임 */
-  margin-left: 5px; /* 왼쪽 마진을 추가하여 간격 조정 */
+  margin-left: 15px; /* 왼쪽 마진을 추가하여 간격 조정 */
   color: #888;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .info-content, .info-unit {

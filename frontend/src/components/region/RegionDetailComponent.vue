@@ -24,10 +24,12 @@
               :class="{ active: activeComponent === 'policy' }">지역정책</button>
             <button class="button-choose" @click="showMap" :class="{ active: activeComponent === 'map' }">지역지도</button>
           </div>
+          <div class="info-container">
           <region-info-component :regionDetail="regionDetail" v-if="activeComponent === 'info'" />
           <region-chart-component v-if="activeComponent === 'chart'" />
           <region-policy-component :regionDetail="regionDetail" v-if="activeComponent === 'policy'" />
           <region-map-component :regionDetail="regionDetail" v-if="activeComponent === 'map'" class="map-component" />
+          </div>
         </div>
         
       </div>
@@ -115,8 +117,8 @@ const showChart = () => {
 .content-container {
   display: flex;
   flex-direction: row;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border: 3px solid #ECF6EC;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  /* border: 3px solid #ECF6EC; */
   border-radius: 1rem;
   margin-bottom: 20px;
   padding: 50px;
@@ -127,13 +129,18 @@ const showChart = () => {
   grid-template-columns: 300px auto;
   grid-gap: 20px;
   /* margin-left: 50px; */
+  /* border: solid 2px #e9e9e9; */
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  /* padding: 20px; */
 }
 
 .info-policy-container {
   flex: 2;
   display: flex;
   flex-direction: column;
-  padding-left: 40px;
+  padding: 20px 0 0 40px;
 }
 
 .buttons-container {
@@ -144,41 +151,49 @@ const showChart = () => {
   margin-bottom: 30px;
 }
 
+.info-container {
+  border: solid 5px #ECF6EC;
+  border-radius: 15px;
+  padding: 5px;
+}
+
 .region-img {
   width: 300px;
   height: 390px;
   max-width: 100%;
+  border-radius: 15px;
 }
 
-.active {
-  color: black;
-  background-color: #ECF6EC;
-}
-
-.region-details h3 {
-  margin-bottom: 0px;
+.region-details h1 {
+  /* text-decoration: underline;
+	text-decoration-color: rgba(233, 255, 185, 0.5);
+	text-decoration-thickness: 40px;
+	text-underline-offset: -30px; */
 }
 
 .button-choose {
-  border: 1px solid #4BAF47;
-  border-radius: 1rem;
-  width: 100px;
-  height: 40px;
+  border: none;
+  /* border-radius: 1rem; */
+  /* width: 120px;
+  height: 50px; */
   background-color: white;
   color: black;
   outline: none;
-  font-weight: bold;
+  font-size: 2rem;
   padding: 0px;
-  margin-top: 0px;
+  margin: 0 5px;
+  cursor: pointer;
 }
 
 .buttons-container button:hover {
-  background-color: #ECF6EC;
+  /* background-color: #C6EB74; */
+  border-bottom: solid 5px #d2e6d2;
 }
 
 .active {
   color: black;
-  background-color: #ECF6EC;
+  /* background-color: #C6EB74; */
+  border-bottom: solid 5px #d2e6d2;
 }
 
 .map-component {
