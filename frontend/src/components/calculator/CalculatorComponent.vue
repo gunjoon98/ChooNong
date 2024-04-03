@@ -7,11 +7,13 @@
 				<div class="extent-input-wrapper">
 					<div v-if="unit == 'p'">
 						<input type="number" class="extent-input-box" v-model="totalExtentP"> 평
-						= <div v-if="!isNaN(totalExtentM)" class="unit-changed-extent">{{ Math.round(totalExtentM*100)/100 }}</div> ㎡
+						= <div v-if="!isNaN(totalExtentM)" class="unit-changed-extent">{{ Math.round(totalExtentM * 100) / 100 }}</div>
+						㎡
 					</div>
 					<div v-if="unit == 'm'">
 						<input type="number" class="extent-input-box" v-model="totalExtentM"> ㎡
-						= <div v-if="!isNaN(totalExtentP)" class="unit-changed-extent">{{ Math.round(totalExtentP*100)/100 }}</div> 평
+						= <div v-if="!isNaN(totalExtentP)" class="unit-changed-extent">{{ Math.round(totalExtentP * 100) / 100 }}</div>
+						평
 					</div>
 					<button type="button" @click="changeUnit()" class="change-unit-button"><img
 							src="@/assets/change.png"></button>
@@ -48,7 +50,7 @@
 							</thead>
 							<tbody v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body">
 								<tr>
-									<td class="crop-image-column" rowspan="2"><img :src="crop.imageUrl" class="crop-image"/></td>
+									<td class="crop-image-column" rowspan="2"><img :src="crop.imageUrl" class="crop-image" /></td>
 									<td class="crop-name-column crop-name-cell" colspan="2">{{ crop.cropName }}</td>
 								</tr>
 								<tr>
@@ -60,7 +62,7 @@
 							</tbody>
 							<tbody v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body">
 								<tr>
-									<td class="crop-image-column" rowspan="2"><img :src="filteredCrop.imageUrl" class="crop-image"/></td>
+									<td class="crop-image-column" rowspan="2"><img :src="filteredCrop.imageUrl" class="crop-image" /></td>
 									<td class="crop-name-column crop-name-cell" colspan="2">{{ filteredCrop.cropName }}</td>
 								</tr>
 								<tr>
@@ -73,7 +75,7 @@
 						</table>
 					</div>
 					<div class="arrow-wrapper">
-						<img src="@\assets\right-arrow.png" class="arrow-icon"/>
+						<img src="@\assets\right-arrow.png" class="arrow-icon" />
 					</div>
 					<div class="added-crop-list-container">
 						<ul v-for="(crop, index) in addedCropList" :key="index">
@@ -97,7 +99,9 @@
 									<div class="slider-wrapper">
 										<Slider v-model="crop.cropExtentRatio" :min="0" :max="100" :step="5" />
 									</div>
-									<InputText v-model.number="crop.cropExtentRatio" />%
+									<div>
+										<InputText v-model.number="crop.cropExtentRatio" />%
+									</div>
 								</div>
 							</li>
 						</ul>
@@ -131,12 +135,12 @@ const searchCrop = function (event) {
 	// 	filteredCropList.value = sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value))
 	// });
 	watch([sortedCropList, searchQuery], ([sortedCropListValue, searchQueryValue]) => {
-  filteredCropList.value = sortedCropListValue.filter(item => item.cropName.includes(searchQueryValue));
-});
+		filteredCropList.value = sortedCropListValue.filter(item => item.cropName.includes(searchQueryValue));
+	});
 	// filteredCropList.value = computed(() => {return sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value))})
-// 	filteredCropList.value = computed(() => {
-//   return sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value));
-// });
+	// 	filteredCropList.value = computed(() => {
+	//   return sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value));
+	// });
 }
 
 const sortByCropName = function () {
@@ -169,11 +173,11 @@ const totalExtentP = ref();
 // })
 
 watch(totalExtentM, function (newValue) {
-	totalExtentP.value = Math.round((newValue / 3.3) *100) / 100;
+	totalExtentP.value = Math.round((newValue / 3.3) * 100) / 100;
 })
 
 watch(totalExtentP, function (newValue) {
-	totalExtentM.value = Math.round((newValue * 3.3) *100) / 100;
+	totalExtentM.value = Math.round((newValue * 3.3) * 100) / 100;
 })
 
 const unit = ref("p");
@@ -232,7 +236,7 @@ const showResult = async function () {
 	router.push({ name: 'calculatorResult' })
 }
 
-onMounted (async () => {
+onMounted(async () => {
 	window.scrollTo(0, 0);
 	await calculatorStore.getCropList();
 	cropList.value = calculatorStore.cropList;
@@ -348,7 +352,8 @@ onMounted (async () => {
 	overflow-y: auto;
 	overflow-x: hidden;
 	scrollbar-width: thin;
-  scrollbar-color: #dddddd transparent; /* 스크롤바 색상 설정 */
+	scrollbar-color: #dddddd transparent;
+	/* 스크롤바 색상 설정 */
 }
 
 .crop-list-container {
@@ -374,9 +379,13 @@ onMounted (async () => {
 	/* 아래쪽 테두리 추가 */
 }
 
+.table-header tr th {
+	padding: 7px 0;
+}
+
 .crop-image-column {
 	width: 50%;
-	padding: 5px;
+	padding-top: 5px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
 	vertical-align: middle;
@@ -385,7 +394,8 @@ onMounted (async () => {
 .crop-name-column {
 	width: 50%;
 	/* 각 셀의 너비를 25%로 설정 */
-	padding: 5px;
+	min-height: 100px;
+	padding: 0px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
 	vertical-align: middle;
@@ -394,7 +404,7 @@ onMounted (async () => {
 .profit-rate-column {
 	/* width: 48%; */
 	/* 각 셀의 너비를 25%로 설정 */
-	padding: 5px;
+	padding: 0px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
 	vertical-align: middle;
@@ -403,25 +413,25 @@ onMounted (async () => {
 .add-button-column {
 	/* width: 17%; */
 	/* 각 셀의 너비를 25%로 설정 */
-	padding: 5px;
+	/* padding: 5px; */
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
 	vertical-align: middle;
 }
 
 .crop-name-cell {
-	height: 84px;
+	height: 75px;
 	border-bottom: solid 3px #ECF6EC;
 }
 
 .profit-rate-cell {
-	height: 84px;
+	height: 75px;
 	border-right: solid 3px #ECF6EC;
 }
 
 .crop-image {
 	width: 100%;
-	height: 150px;
+	height: 146px;
 	object-fit: cover;
 }
 
@@ -429,7 +439,7 @@ onMounted (async () => {
 	border-bottom: solid 3px #ECF6EC;
 } */
 
-.table-body tr td{
+.table-body tr td {
 	border-bottom: solid 3px #ECF6EC;
 }
 
@@ -516,7 +526,7 @@ onMounted (async () => {
 }
 
 .p-slider-horizontal {
-	width: 250px;
+	width: 330px;
 	/* Set the desired width */
 	margin-right: 60px;
 	position: relative;
@@ -536,6 +546,7 @@ onMounted (async () => {
 .p-inputtext {
 	width: 65px;
 	height: 40px;
+	margin-right: 10px;
 	font-size: 1.3rem;
 }
 
