@@ -19,7 +19,7 @@
         <div>
           <h3>연간 예상 순수익</h3>
           <p>{{ yearlyEarnings.toLocaleString() }}원</p>
-          <p>(월 {{ monthlyEarnings.toLocaleString() }}원)</p>
+          <p>(월 {{ (Math.round(monthlyEarnings / 1000) * 1000).toLocaleString() }}원)</p>
         </div>
       </div>
       <div class="extent-crop-list-pie-graph-wrapper">
