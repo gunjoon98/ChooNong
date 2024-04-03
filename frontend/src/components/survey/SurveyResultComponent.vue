@@ -2,7 +2,7 @@
   <div class="main-container">
     <h1>설문 결과</h1>
     <div class="popular-regions-container" v-if="resultList.length > 0">
-      <h2 class="popular-regions-title">당신에게 알맞은 최적의 귀농지 TOP5!!</h2>
+      <h2 class="popular-regions-title">당신을 위한 최적의 귀농지 TOP5!!</h2>
       <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
         :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
         :loop-fill-group-with-blank="true" :navigation="true" :pagination="paginationConfig"
