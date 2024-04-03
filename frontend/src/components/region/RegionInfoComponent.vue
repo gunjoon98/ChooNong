@@ -1,5 +1,6 @@
 <template>
   <div class="info-chart-container">
+    <h2 class="info-title">지역의 기본 정보입니다.</h2>
     <div class="region-info">
       <div class="region-info-detail">
         <!-- 지역정보 -->
@@ -111,6 +112,10 @@ const props = defineProps({
 </script>
 
 <style scoped>
+.info-title {
+  text-align: center;
+}
+
 .info-chart-container {
   display: flex;
   flex-direction: column;

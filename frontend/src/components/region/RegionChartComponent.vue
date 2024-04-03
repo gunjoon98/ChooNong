@@ -1,4 +1,5 @@
 <template>
+  <h2 class="chart-title">지역에서 가장 많이 재배되는 작물 목록입니다.</h2>
   <div class="card">
     <canvas id="cropPieChart" width="500px" height="500px"></canvas>
   </div>
@@ -116,6 +117,10 @@ watch(() => regionDetail.value, (newValue) => {
 </script>
 
 <style scoped>
+.chart-title {
+  text-align: center;
+}
+
 .card {
   max-width: 600px;
   margin: auto;

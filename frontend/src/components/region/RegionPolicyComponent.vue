@@ -1,8 +1,9 @@
 <template>
   <div class="policy-container">
+    <h2 class="policy-title">지자체에서 제공하는 귀농 정책 목록입니다.</h2>
     <!-- 정책 리스트가 있을 때 -->
     <div v-if="regionDetail.policy_list && regionDetail.policy_list.length > 0">
-      <h2>귀농 정책 갯수: {{ regionDetail.policy_list.length }}개</h2>
+      <h4 class="policy-count">귀농 정책 갯수: {{ regionDetail.policy_list.length }}개</h4>
       <div v-for="detail in regionDetail.policy_list" :key="detail.policy_id" class="policy-item">
         <div class="policy-header">
           <div class="policy-title">
@@ -83,6 +84,15 @@ const toggleDetail = (policy_id) => {
 	scrollbar-width: thin;
   scrollbar-color: #dddddd transparent; /* 스크롤바 색상 설정 */
   margin-left: 10px;
+}
+
+.policy-title {
+  text-align: center;
+}
+
+.policy-count {
+  text-align: right;
+  margin-right: 20px;
 }
 
 .policy-item {
