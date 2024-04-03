@@ -14,7 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = ['*']
+origins = ['https://choonong.store']
 
 app.add_middleware(
     CORSMiddleware,
