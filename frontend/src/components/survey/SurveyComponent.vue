@@ -141,8 +141,14 @@ const handleAnswer = function (optionIndex) {
   responses.value[questionId] = optionIndex;
   if (questionId === "one") {
     structuredResponses.value[questionId] = optionIndex + 1;
-    // "one_sub" 질문이 세 개 있으므로, 초기화 시 [null, null, null] 사용
-    structuredResponses.value["one_sub"] = [null, null, null];
+    if (optionIndex === 1) {
+      // "아니요" 선택 시
+      // "one_sub" 관련 데이터를 구조화된 응답에서 제외합니다.
+      // structuredResponses.value["one_sub"]을 설정하지 않음
+    } else {
+      // "one_sub" 질문이 세 개 있으므로, 초기화 시 [null, null, null] 사용
+      structuredResponses.value["one_sub"] = [null, null, null];
+    }
   } else if (questionId.startsWith("one_sub")) {
     let index = parseInt(questionId.split("_")[2]) - 1;
     structuredResponses.value["one_sub"][index] = optionIndex + 1;
