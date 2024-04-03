@@ -36,6 +36,6 @@ export const useSurveyStore = defineStore('survey', () => {
 
   return {
     resultList,
-    getSurveyResult
+    getSurveyResult,
   }
 });
