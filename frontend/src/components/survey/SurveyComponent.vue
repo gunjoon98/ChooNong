@@ -1,4 +1,5 @@
 <template>
+  <h2 class="survey-title">간단한 설문을 하면 적합한 귀농지를 추천해 드려요!</h2>
   <div class="survey-container">
     <div class="progress-bar-container">
       <div class="progress-bar" :style="{ width: progress + '%' }"></div>
@@ -127,6 +128,7 @@ const responses = ref([]);
 const structuredResponses = ref({});
 
 onMounted(function () {
+  window.scrollTo(0, 0);
   resetSurvey();
 });
 
@@ -214,6 +216,10 @@ const resetSurvey = function () {
 <style scoped>
 .main-div {
   margin: 0px;
+}
+
+.survey-title {
+  text-align: center;
 }
 
 .survey-container {

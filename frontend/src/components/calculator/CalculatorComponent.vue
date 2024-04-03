@@ -222,6 +222,7 @@ const showResult = async function () {
 }
 
 onMounted (async () => {
+	window.scrollTo(0, 0);
 	await calculatorStore.getCropList();
 	cropList.value = calculatorStore.cropList;
 	console.log(cropList.value);

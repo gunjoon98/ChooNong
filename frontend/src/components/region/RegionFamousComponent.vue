@@ -99,6 +99,8 @@ const famousRegionsInfo = ref([]);
 const increaseRegionInfo = ref([])
 
 onMounted(async () => {
+  window.scrollTo(0, 0);
+  
   const famousDetails = await regionStore.getRegionsDetailList(famousRegionIds);
   famousRegionsInfo.value = famousDetails.value;
 
