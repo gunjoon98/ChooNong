@@ -194,6 +194,7 @@ h2 {
 .region-img {
   width: 300px;
   height: 390px;
+  object-fit: cover;
   max-width: 100%;
   border-radius: 15px;
 }
