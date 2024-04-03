@@ -9,26 +9,46 @@
     <!-- 인기 귀농지 스와이퍼 -->
     <div class="popular-regions-container" v-if="famousRegionsInfo.length > 0">
       <h2 class="popular-regions-title">귀농인이 많은 지역!!</h2>
-      <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
-        :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
-        :loop-fill-group-with-blank="true" :navigation="true" :pagination="paginationConfig"
-        :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
-        @mouseout="showNavigation = false">
-
-        <swiper-slide v-for="(region, index) in famousRegionsInfo" :key="region.region_id"
-          @click="handleSlideClick(index, region.region_id)" class="swiper-slide">
+      <swiper
+        class="swiper"
+        :modules="modules"
+        :effect="'coverflow'"
+        :slides-per-view="3"
+        :centered-slides="true"
+        :coverflow-effect="coverflowEffect"
+        :space-between="30"
+        :slides-per-group="1"
+        :loop="true"
+        :loop-fill-group-with-blank="true"
+        :navigation="true"
+        :pagination="paginationConfig"
+        :autoplay="autoplayOptions"
+        :speed="1000"
+        @swiper="onSwiper"
+        @mouseover="showNavigation = true"
+        @mouseout="showNavigation = false"
+        :initial-slide="1"
+      >
+        <swiper-slide
+          v-for="(region, index) in famousRegionsInfo"
+          :key="region.region_id"
+          @click="handleSlideClick(index, region.region_id)"
+          class="swiper-slide"
+        >
           <div class="region-card">
             <!-- 이미지를 배경으로 사용하는 컨테이너 -->
-            <div class="region-image-background" :style="{ backgroundImage: 'url(' + region.image_url + ')' }">
+            <div
+              class="region-image-background"
+              :style="{ backgroundImage: 'url(' + region.image_url + ')' }"
+            >
               <!-- 데이터 표시 영역 -->
               <h2 class="rank">{{ index + 1 }}위</h2>
               <div class="region-info-overlay">
                 <h4>{{ region.province }}</h4>
                 <h3>{{ region.region_name }}</h3>
                 <p>귀농인 수: {{ region.returners }} 명</p>
-                <br>
-                <br>
-
+                <br />
+                <br />
               </div>
             </div>
           </div>
@@ -39,72 +59,94 @@
     <!-- 귀농인 증가 많은 지역 스와이퍼 -->
     <div class="popular-regions-container" v-if="increaseRegionInfo.length > 0">
       <h2 class="popular-regions-title">전년 대비 귀농인 많아진 지역!!</h2>
-      <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
-        :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
-        :loop-fill-group-with-blank="true" :navigation="true" :pagination="paginationConfig"
-        :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
-        @mouseout="showNavigation = false">
-
-        <swiper-slide v-for="(region, index) in increaseRegionInfo" :key="region.region_id"
-          @click="handleSlideClick(index, region.region_id)">
+      <swiper
+        class="swiper"
+        :modules="modules"
+        :effect="'coverflow'"
+        :slides-per-view="3"
+        :centered-slides="true"
+        :coverflow-effect="coverflowEffect"
+        :space-between="30"
+        :slides-per-group="1"
+        :loop="true"
+        :loop-fill-group-with-blank="true"
+        :navigation="true"
+        :pagination="paginationConfig"
+        :autoplay="autoplayOptions"
+        :speed="1000"
+        @swiper="onSwiper"
+        @mouseover="showNavigation = true"
+        @mouseout="showNavigation = false"
+        :initial-slide="1"
+      >
+        <swiper-slide
+          v-for="(region, index) in increaseRegionInfo"
+          :key="region.region_id"
+          @click="handleSlideClick(index, region.region_id)"
+        >
           <div class="region-card">
             <!-- 이미지를 배경으로 사용하는 컨테이너 -->
-            <div class="region-image-background" :style="{ backgroundImage: 'url(' + region.image_url + ')' }">
+            <div
+              class="region-image-background"
+              :style="{ backgroundImage: 'url(' + region.image_url + ')' }"
+            >
               <!-- 데이터 표시 영역 -->
               <h2 class="rank">{{ index + 1 }}위</h2>
               <div class="region-info-overlay">
                 <!-- <h2>{{ index + 1 }}위</h2> -->
                 <h4>{{ region.province }}</h4>
                 <h3>{{ region.region_name }}</h3>
-                <p>귀농인 수: {{ region.returners }} 명({{ increaseRegionPeople[index] }}<img src="@/assets/up-arrow.png" class="arrow-up"/>)</p>
+                <p>
+                  귀농인 수: {{ region.returners }} 명({{
+                    increaseRegionPeople[index]
+                  }}<img src="@/assets/up-arrow.png" class="arrow-up" />)
+                </p>
 
-                <br>
-                <br>
-
+                <br />
+                <br />
               </div>
             </div>
           </div>
         </swiper-slide>
       </swiper>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import RegionSearchComponent from '../region/RegionSearchComponent.vue';
-import { ref, onMounted } from 'vue';
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { useRegionStore } from '@/stores/regionStore';
-import { useRouter } from 'vue-router';
+import RegionSearchComponent from "../region/RegionSearchComponent.vue";
+import { ref, onMounted } from "vue";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { useRegionStore } from "@/stores/regionStore";
+import { useRouter } from "vue-router";
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/effect-coverflow';
-
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/effect-coverflow";
 
 const regionStore = useRegionStore();
 // const famousRegionIds = [92, 51, 26, 13, 78, 132, 41, 67]// 의성 상주 김천 고흥 영천 해남 밀양 양평 영동 // 귀농인 가장 많은 지역
-const famousRegionIds = [92, 51, 26, 13, 78]
-const increaseRegionPeople = [25, 20, 28, 13, 13, 13, 11, 11, 11]
-const increaseRegionIds = [1, 26, 123, 64, 122, 65, 66, 70, 22]
+const famousRegionIds = [92, 51, 26, 13, 78];
+const increaseRegionPeople = [25, 20, 28, 13, 13, 13, 11, 11, 11];
+const increaseRegionIds = [1, 26, 123, 64, 122, 65, 66, 70, 22];
 //가평 25, 김천20, 평창18, 양산13, 파주13, 양양13, 양주11, 연천11, 군위 11 // 21년 대비 귀농인 증가 많은 순
-
 
 //남양주158, 제주39, 가평 35, 양산 26, 영동24, 평창19, 파주16, 양주16 // 21년 대비 귀농 가구원 증가많은 순
 //남양주270, 제주206, 가평 81, 양산 60, 영동200, 평창131, 파주97, 양주 48, 아산210, 해남 200 // 22년 귀농가구원수 많은 지역
 const famousRegionsInfo = ref([]);
-const increaseRegionInfo = ref([])
+const increaseRegionInfo = ref([]);
 
 onMounted(async () => {
   window.scrollTo(0, 0);
-  
+
   const famousDetails = await regionStore.getRegionsDetailList(famousRegionIds);
   famousRegionsInfo.value = famousDetails.value;
 
-  const increaseDetails = await regionStore.getRegionsDetailList(increaseRegionIds);
+  const increaseDetails = await regionStore.getRegionsDetailList(
+    increaseRegionIds
+  );
   increaseRegionInfo.value = increaseDetails.value;
 });
 
@@ -125,7 +167,7 @@ const handleSlideClick = (index, regionId) => {
   // 현재 활성 슬라이드의 실제 인덱스 얻기
   let realIndex = swiperInstance.value.realIndex;
   if (realIndex === index) {
-    router.push({ name: 'regionDetail', params: { id: regionId } });
+    router.push({ name: "regionDetail", params: { id: regionId } });
   } else {
     // 비활성 슬라이드 클릭시 슬라이드 넘김
     swiperInstance.value.slideToLoop(index);
@@ -136,8 +178,6 @@ const autoplayOptions = {
   delay: 2000, // 2초 간격으로 자동 전환
   disableOnInteraction: false, // 사용자 상호작용 후에도 자동 재생 계속
 };
-
-
 </script>
 
 <style scoped>
@@ -152,7 +192,6 @@ const autoplayOptions = {
   width: 100%;
   max-width: 800px;
   margin-bottom: 40px;
-
 }
 
 .search-title {
@@ -167,7 +206,7 @@ const autoplayOptions = {
   height: 550px;
   margin-bottom: 100px;
   background: #fff;
-  border: solid 3px #ECF6EC;
+  border: solid 3px #ecf6ec;
   border-radius: 1rem;
 }
 
@@ -198,7 +237,7 @@ const autoplayOptions = {
   display: flex;
   justify-content: center;
   margin: 0px;
-  padding: 0px
+  padding: 0px;
 }
 
 .region-image {
@@ -244,7 +283,11 @@ const autoplayOptions = {
   color: #fff;
   /* 데이터 텍스트 색상 */
   text-align: center;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1));
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 1)
+  );
   /* background-color: rgba(0, 0, 0, 0.5); */
   /* 데이터 배경 투명도 */
   border-radius: 10px;
@@ -326,5 +369,4 @@ const autoplayOptions = {
 ::v-deep(.swiper-button-prev) {
   left: 0px;
 }
-
 </style>

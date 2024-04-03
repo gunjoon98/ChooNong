@@ -3,25 +3,45 @@
     <h1>설문 결과</h1>
     <div class="popular-regions-container" v-if="resultList.length > 0">
       <h2 class="popular-regions-title">당신을 위한 최적의 귀농지 TOP5!!</h2>
-      <swiper class="swiper" :modules="modules" :effect="'coverflow'" :slides-per-view="3" :centered-slides="true"
-        :coverflow-effect="coverflowEffect" :space-between="30" :slides-per-group="1" :loop="true"
-        :loop-fill-group-with-blank="true" :navigation="true" :pagination="paginationConfig"
-        :autoplay="autoplayOptions" :speed="1000" @swiper="onSwiper" @mouseover="showNavigation = true"
-        @mouseout="showNavigation = false">
-
-        <swiper-slide v-for="(region, index) in resultList" :key="region.region_id"
-          @click="handleSlideClick(index, region.region_id)" class="swiper-slide">
+      <swiper
+        class="swiper"
+        :modules="modules"
+        :effect="'coverflow'"
+        :slides-per-view="3"
+        :centered-slides="true"
+        :coverflow-effect="coverflowEffect"
+        :space-between="30"
+        :slides-per-group="1"
+        :loop="true"
+        :loop-fill-group-with-blank="true"
+        :navigation="true"
+        :pagination="paginationConfig"
+        :autoplay="autoplayOptions"
+        :speed="1000"
+        @swiper="onSwiper"
+        @mouseover="showNavigation = true"
+        @mouseout="showNavigation = false"
+        :initial-slide="1"
+      >
+        <swiper-slide
+          v-for="(region, index) in resultList"
+          :key="region.region_id"
+          @click="handleSlideClick(index, region.region_id)"
+          class="swiper-slide"
+        >
           <div class="region-card">
             <!-- 이미지를 배경으로 사용하는 컨테이너 -->
-            <div class="region-image-background" :style="{ backgroundImage: 'url(' + region.image_url + ')' }">
+            <div
+              class="region-image-background"
+              :style="{ backgroundImage: 'url(' + region.image_url + ')' }"
+            >
               <!-- 데이터 표시 영역 -->
               <h2 class="rank">{{ index + 1 }}위</h2>
               <div class="region-info-overlay">
                 <h4>{{ region.province }}</h4>
                 <h3>{{ region.region_name }}</h3>
-                <br>
-                <br>
-
+                <br />
+                <br />
               </div>
             </div>
           </div>
@@ -32,17 +52,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { useRegionStore } from '@/stores/regionStore';
-import { useSurveyStore } from '@/stores/surveyStore';
-import { useRouter } from 'vue-router';
+import { ref, onMounted } from "vue";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { useRegionStore } from "@/stores/regionStore";
+import { useSurveyStore } from "@/stores/surveyStore";
+import { useRouter } from "vue-router";
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/effect-coverflow';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/effect-coverflow";
 
 const regionStore = useRegionStore();
 const surveyStore = useSurveyStore();
@@ -63,7 +83,7 @@ const handleSlideClick = (index, regionId) => {
   // 현재 활성 슬라이드의 실제 인덱스 얻기
   let realIndex = swiperInstance.value.realIndex;
   if (realIndex === index) {
-    router.push({ name: 'regionDetail', params: { id: regionId } });
+    router.push({ name: "regionDetail", params: { id: regionId } });
   } else {
     // 비활성 슬라이드 클릭시 슬라이드 넘김
     swiperInstance.value.slideToLoop(index);
@@ -80,7 +100,7 @@ onMounted(() => {
   window.scrollTo(0, 0);
   resultList.value = surveyStore.resultList;
   console.log(resultList.value);
-})
+});
 </script>
 
 <style scoped>
@@ -98,7 +118,7 @@ onMounted(() => {
   height: 550px;
   margin-bottom: 100px;
   background: #fff;
-  border: solid 3px #ECF6EC;
+  border: solid 3px #ecf6ec;
   border-radius: 1rem;
 }
 
@@ -129,7 +149,7 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   margin: 0px;
-  padding: 0px
+  padding: 0px;
 }
 
 .region-image {
@@ -175,7 +195,11 @@ onMounted(() => {
   color: #fff;
   /* 데이터 텍스트 색상 */
   text-align: center;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1));
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 1)
+  );
   /* background-color: rgba(0, 0, 0, 0.5); */
   /* 데이터 배경 투명도 */
   border-radius: 10px;
