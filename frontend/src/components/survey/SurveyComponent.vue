@@ -140,23 +140,27 @@ const handleAnswer = function (optionIndex) {
   let questionId = currentQuestion.value.id;
   responses.value[questionId] = optionIndex;
   if (questionId === "one") {
-    // "one" 질문의 응답 처리
     structuredResponses.value[questionId] = optionIndex + 1;
-    // 하위 질문의 초기화를 위해 "one_sub" 배열 재설정
-    structuredResponses.value["one_sub"] = [null, null, null]; // 하위 질문이 3개 있다고 가정
+    // "one_sub" 질문이 세 개 있으므로, 초기화 시 [null, null, null] 사용
+    structuredResponses.value["one_sub"] = [null, null, null];
   } else if (questionId.startsWith("one_sub")) {
-    // "one_sub" 질문의 응답 처리: 하위 질문이 세 개 있음을 고려
-    let index = parseInt(questionId.split("_")[2]) - 1; // "one_sub_x"에서 x를 인덱스로 변환
-    structuredResponses.value["one_sub"][index] = optionIndex + 1; // 해당 인덱스 위치에 답변 저장/업데이트
-  } else if (questionId === "two") {
-    structuredResponses.value[questionId] = optionIndex + 1;
+    let index = parseInt(questionId.split("_")[2]) - 1;
+    structuredResponses.value["one_sub"][index] = optionIndex + 1;
   } else {
-    // 나머지 질문의 응답 처리
-    let category = questionId.split("_")[0];
-    structuredResponses.value[category] =
-      structuredResponses.value[category] || [];
-    // 카테고리별 단일 응답 처리 (확장성을 위해 배열 사용, 필요에 따라 변경 가능)
-    structuredResponses.value[category] = [optionIndex + 1];
+    let parts = questionId.split("_");
+    let category = parts[0];
+    let subId = parts[1] ? parseInt(parts[1]) - 1 : 0;
+
+    if (category === "two") {
+      structuredResponses.value[category] = optionIndex + 1;
+    } else {
+      if (!structuredResponses.value[category]) {
+        // "three"와 "four" 카테고리의 경우 미리 정의된 배열 크기 할당
+        structuredResponses.value[category] =
+          category === "three" ? [null, null] : [null, null, null];
+      }
+      structuredResponses.value[category][subId] = optionIndex + 1;
+    }
   }
   canProceed.value = true;
 };
