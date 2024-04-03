@@ -56,7 +56,7 @@
 								<li class="table-column">{{ filteredCrop.cropName }}</li>
 								<li class="profit-rate-column">{{ filteredCrop.profitRate }}</li>
 								<li class="table-column">
-									<button type="button" class="add-button" @click="addCrop(crop)">추가</button>
+									<button type="button" class="add-button" @click="addCrop(filteredCrop)">추가</button>
 								</li>
 							</ul>
 						</div>
@@ -438,7 +438,7 @@ onMounted (async () => {
 	border-radius: 15px;
 	padding: 5px 30px 0px 30px;
 	margin: 0 auto;
-	width: 546px;
+	width: 584px;
 	height: 210px;
 	margin: 0 15px;
 	position: relative;
