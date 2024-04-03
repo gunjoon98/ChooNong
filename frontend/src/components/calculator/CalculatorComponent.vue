@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<!-- <h1 class="container-title">작물 수익 계산기</h1> -->
 		<h2 class="container-title">작물과 재배 면적을 입력하면 예상 수익을 계산해 줍니다.</h2>
 		<div class="calculator-container">
 			<div>
@@ -8,11 +7,11 @@
 				<div class="extent-input-wrapper">
 					<div v-if="unit == 'p'">
 						<input type="number" class="extent-input-box" v-model="totalExtentP"> 평
-						= <div v-if="!isNaN(totalExtentM)" class="unit-changed-extent">{{ Math.round(totalExtentM) }}</div> ㎡
+						= <div v-if="!isNaN(totalExtentM)" class="unit-changed-extent">{{ Math.round(totalExtentM*100)/100 }}</div> ㎡
 					</div>
 					<div v-if="unit == 'm'">
 						<input type="number" class="extent-input-box" v-model="totalExtentM"> ㎡
-						= <div v-if="!isNaN(totalExtentP)" class="unit-changed-extent">{{ Math.round(totalExtentP) }}</div> 평
+						= <div v-if="!isNaN(totalExtentP)" class="unit-changed-extent">{{ Math.round(totalExtentP*100)/100 }}</div> 평
 					</div>
 					<button type="button" @click="changeUnit()" class="change-unit-button"><img
 							src="@/assets/change.png"></button>
@@ -36,67 +35,42 @@
 								<button type="button" class="sort-button" @click="sortByProfitRate()">수익률순</button>
 							</div>
 						</div>
-						<table class="crop-list"> <!-- Change: table 태그 추가 -->
-							<thead class="table-header"> <!-- Change: thead 태그로 변경 -->
-								<tr> <!-- Change: tr 태그로 변경 -->
-									<th class="crop-image-column" rowspan="2">작물 사진</th> <!-- Change: th 태그로 변경 -->
-									<th class="crop-name-column" colspan="2">작물명</th> <!-- Change: th 태그로 변경 -->
+						<table class="crop-list">
+							<thead class="table-header">
+								<tr>
+									<th class="crop-image-column" rowspan="2">작물 사진</th>
+									<th class="crop-name-column" colspan="2">작물명</th>
 								</tr>
-								<tr> <!-- Change: tr 태그로 변경 -->
-									<th class="profit-rate-column">수익률(%)</th> <!-- Change: th 태그로 변경 -->
-									<th class="add-button-column">추가하기</th> <!-- Change: th 태그로 변경 -->
+								<tr>
+									<th class="profit-rate-column">수익률(%)</th>
+									<th class="add-button-column">추가하기</th>
 								</tr>
 							</thead>
-							<tbody v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body"> <!-- Change: tbody 태그로 변경 -->
-								<tr> <!-- Change: tr 태그로 변경 -->
-									<td class="crop-image-column" rowspan="2"><img :src="crop.imageUrl" class="crop-image"/></td> <!-- Change: td 태그로 변경 -->
-									<td class="crop-name-column crop-name-cell" colspan="2">{{ crop.cropName }}</td> <!-- Change: td 태그로 변경 -->
-								</tr> <!-- Change: tr 태그로 변경 -->
-								<tr> <!-- Change: tr 태그로 변경 -->
-									<td class="profit-rate-column profit-rate-cell">{{ crop.profitRate }}</td> <!-- Change: td 태그로 변경 -->
+							<tbody v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body">
+								<tr>
+									<td class="crop-image-column" rowspan="2"><img :src="crop.imageUrl" class="crop-image"/></td>
+									<td class="crop-name-column crop-name-cell" colspan="2">{{ crop.cropName }}</td>
+								</tr>
+								<tr>
+									<td class="profit-rate-column profit-rate-cell">{{ crop.profitRate }}</td>
 									<td class="add-button-column">
 										<button type="button" class="add-button" @click="addCrop(crop)">추가</button>
-									</td> <!-- Change: td 태그로 변경 -->
-								</tr> <!-- Change: tr 태그로 변경 -->
-							</tbody> <!-- Change: tbody 태그로 변경 -->
-							<tbody v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body"> <!-- Change: tbody 태그로 변경 -->
-								<tr> <!-- Change: tr 태그로 변경 -->
-									<td class="crop-image-column" rowspan="2"><img :src="filteredCrop.imageUrl" class="crop-image"/></td> <!-- Change: td 태그로 변경 -->
-									<td class="crop-name-column crop-name-cell" colspan="2">{{ filteredCrop.cropName }}</td> <!-- Change: td 태그로 변경 -->
-								</tr> <!-- Change: tr 태그로 변경 -->
-								<tr> <!-- Change: tr 태그로 변경 -->
-									<td class="profit-rate-column profit-rate-cell">{{ filteredCrop.profitRate }}</td> <!-- Change: td 태그로 변경 -->
+									</td>
+								</tr>
+							</tbody>
+							<tbody v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body">
+								<tr>
+									<td class="crop-image-column" rowspan="2"><img :src="filteredCrop.imageUrl" class="crop-image"/></td>
+									<td class="crop-name-column crop-name-cell" colspan="2">{{ filteredCrop.cropName }}</td>
+								</tr>
+								<tr>
+									<td class="profit-rate-column profit-rate-cell">{{ filteredCrop.profitRate }}</td>
 									<td class="add-button-column">
 										<button type="button" class="add-button" @click="addCrop(filteredCrop)">추가</button>
-									</td> <!-- Change: td 태그로 변경 -->
-								</tr> <!-- Change: tr 태그로 변경 -->
-							</tbody> <!-- Change: tbody 태그로 변경 -->
-						</table> <!-- Change: table 태그 추가 -->
-
-						<!-- <div class="crop-list">
-							<ul class="table-header">
-								<li class="crop-image-column">작물 사진</li>
-								<li class="table-column">작물명</li>
-								<li class="profit-rate-column">수익률(%)</li>
-								<li class="table-column">추가하기</li>
-							</ul>
-							<ul v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body">
-								<li class="crop-image-column"><img :src="crop.imageUrl" class="crop-image"/></li>
-								<li class="table-column">{{ crop.cropName }}</li>
-								<li class="profit-rate-column">{{ crop.profitRate }}</li>
-								<li class="table-column">
-									<button type="button" class="add-button" @click="addCrop(crop)">추가</button>
-								</li>
-							</ul>
-							<ul v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body">
-								<li class="crop-image-column"><img :src="filteredCrop.imageUrl" class="crop-image"/></li>
-								<li class="table-column">{{ filteredCrop.cropName }}</li>
-								<li class="profit-rate-column">{{ filteredCrop.profitRate }}</li>
-								<li class="table-column">
-									<button type="button" class="add-button" @click="addCrop(filteredCrop)">추가</button>
-								</li>
-							</ul>
-						</div> -->
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 					<div class="arrow-wrapper">
 						<img src="@\assets\right-arrow.png" class="arrow-icon"/>
@@ -195,11 +169,11 @@ const totalExtentP = ref();
 // })
 
 watch(totalExtentM, function (newValue) {
-	totalExtentP.value = newValue / 3.3;
+	totalExtentP.value = Math.round((newValue / 3.3) *100) / 100;
 })
 
 watch(totalExtentP, function (newValue) {
-	totalExtentM.value = newValue * 3.3;
+	totalExtentM.value = Math.round((newValue * 3.3) *100) / 100;
 })
 
 const unit = ref("p");
@@ -400,17 +374,11 @@ onMounted (async () => {
 	/* 아래쪽 테두리 추가 */
 }
 
-.crop-list ul {
-	list-style-type: none;
-	display: table-row;
-}
-
 .crop-image-column {
 	width: 50%;
 	padding: 5px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
-	display: table-cell;
 	vertical-align: middle;
 }
 
@@ -420,7 +388,6 @@ onMounted (async () => {
 	padding: 5px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
-	display: table-cell;
 	vertical-align: middle;
 }
 
@@ -430,7 +397,6 @@ onMounted (async () => {
 	padding: 5px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
-	display: table-cell;
 	vertical-align: middle;
 }
 
@@ -440,7 +406,6 @@ onMounted (async () => {
 	padding: 5px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
-	display: table-cell;
 	vertical-align: middle;
 }
 
