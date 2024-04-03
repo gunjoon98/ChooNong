@@ -64,6 +64,7 @@ body {
 .clustering-image-wrapper {
   background-color: #ffffff;
   border-radius: 15px;
+  border: 2px solid #e9e9e9;
   /* width: 1200px; */
   padding: 20px;
   display: flex;
