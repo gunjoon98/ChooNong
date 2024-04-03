@@ -4,10 +4,10 @@
     <div class="progress-bar-container">
       <div class="progress-bar" :style="{ width: progress + '%' }"></div>
     </div>
-    <h2 class="survey-title">간단한 설문조사</h2>
-    <div v-if="currentStep < surveyQuestions.length">
+    <h3 v-if="!(currentStep === surveyQuestions.length)">{{ currentStep + 1 }} / {{ surveyQuestions.length }}</h3>
+    <div v-if="currentStep < surveyQuestions.length" class="question-wrapper">
       <div class="question">
-        <h3>{{ currentQuestion.question }}</h3>
+        <h2>{{ currentQuestion.question }}</h2>
         <div>
           <button
             v-for="(option, index) in currentQuestion.options"
@@ -22,11 +22,11 @@
           </button>
         </div>
       </div>
-      <button @click="nextStep" v-if="canProceed" class="nav-button">
+      <button @click="nextStep" v-if="canProceed" class="next-button">
         다음
       </button>
     </div>
-    <div v-if="currentStep === surveyQuestions.length">
+    <div v-if="currentStep === surveyQuestions.length" class="result-retry-buttons">
       <button @click="showResults" class="nav-button">결과 보기</button>
       <button @click="resetSurvey" class="nav-button">다시 시작하기</button>
     </div>
@@ -219,20 +219,24 @@ const resetSurvey = function () {
 }
 
 .survey-title {
+  color: #333;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .survey-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 40px;
   background: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 600px;
+  width: 1000px;
+  height: 600px;
   margin: 40px auto;
+  position: relative;
 }
 
 .progress-bar-container {
@@ -249,20 +253,32 @@ const resetSurvey = function () {
   transition: width 0.4s ease;
 }
 
-.survey-title {
-  color: #333;
-  text-align: center;
-  margin-bottom: 20px;
+.question-wrapper {
+  height: 550px;
+  position: relative;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  /* gap: 50px; */
 }
 
-.question h3 {
+.question {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.question h2 {
   color: #333;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
   text-align: center;
 }
 
 .option-button {
-  margin: 10px 5px;
+  margin: 10px 7px;
   padding: 10px 20px;
   border: solid 2px #c6eb74;
   border-radius: 15px;
@@ -276,9 +292,26 @@ const resetSurvey = function () {
   background-color: #c6eb74;
 }
 
+.next-button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  /* margin-top: 20px; */
+  background-color: #c6eb74;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .nav-button {
   display: block;
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 10px 20px;
   /* margin-top: 20px; */
   background-color: #c6eb74;
@@ -319,5 +352,12 @@ const resetSurvey = function () {
   /* text-decoration: none; */
   text-align: center;
   line-height: 40px;
+}
+
+.result-retry-buttons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

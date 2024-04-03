@@ -18,11 +18,16 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import MainComponent1 from '../main/MainComponent1.vue';
 import MainComponent2 from '../main/MainComponent2.vue';
 import MainComponent3 from '../main/MainComponent3.vue';
 import MainComponent4 from '../main/MainComponent4.vue';
 import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+})
 </script>
 
 <style scoped>
