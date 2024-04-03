@@ -279,9 +279,8 @@ async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
     vector_df = dimension_Reduction(survey, vector_df)
 
     # 스케일링된 nparr 생성
-    # scaler = StandardScaler()
-    # vector_nparr = scaler.fit_transform(vector_df)
-    vector_nparr = vector_df.values;
+    scaler = StandardScaler()
+    vector_nparr = scaler.fit_transform(vector_df)
 
     # 기준 벡터 생성
     riterion_vector = create_riterion_vector(survey, vector_df, vector_nparr)
@@ -299,7 +298,11 @@ async def recommend(survey: schemas.Survey, db: Session = Depends(get_db)):
                        "cosine_similartiy": cosine_similarity(riterion_vector, vector)})
 
     sorted_result = sorted(result, key=lambda x: x['cosine_similartiy'], reverse=True)[:5]
+    idx = 1
     for item in sorted_result:
+        print(idx, end=". ")
+        idx += 1
+        print(item['region_name'], end = " ")
         print(item['cosine_similartiy'])
         del(item['cosine_similartiy'])
     return sorted_result
