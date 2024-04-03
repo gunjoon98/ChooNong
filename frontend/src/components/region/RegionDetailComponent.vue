@@ -6,53 +6,82 @@
       <div class="content-container">
         <div class="region-details">
           <div>
-            <h2>{{regionDetail.province}} </h2>
+            <h2>{{ regionDetail.province }}</h2>
             <h1>{{ regionDetail.region_name }}</h1>
-            <img :src="regionDetail.image_url" alt="test" class="region-img">
+            <img :src="regionDetail.image_url" alt="test" class="region-img" />
           </div>
         </div>
 
         <div class="info-policy-container">
           <div class="buttons-container">
-            <button class="button-choose" @click="showInfo"
-              :class="{ active: activeComponent === 'info' }">지역정보</button>
+            <button
+              class="button-choose"
+              @click="showInfo"
+              :class="{ active: activeComponent === 'info' }"
+            >
+              지역정보
+            </button>
 
-              <button class="button-choose" @click="showChart"
-              :class="{ active: activeComponent === 'chart' }">지역작물</button>
-              
-            <button class="button-choose" @click="showPolicy"
-              :class="{ active: activeComponent === 'policy' }">지역정책</button>
-            <button class="button-choose" @click="showMap" :class="{ active: activeComponent === 'map' }">지역지도</button>
+            <button
+              class="button-choose"
+              @click="showChart"
+              :class="{ active: activeComponent === 'chart' }"
+            >
+              지역작물
+            </button>
+
+            <button
+              class="button-choose"
+              @click="showPolicy"
+              :class="{ active: activeComponent === 'policy' }"
+            >
+              지역정책
+            </button>
+            <button
+              class="button-choose"
+              @click="showMap"
+              :class="{ active: activeComponent === 'map' }"
+            >
+              지역지도
+            </button>
           </div>
           <div class="info-container">
-          <region-info-component :regionDetail="regionDetail" v-if="activeComponent === 'info'" />
-          <region-chart-component v-if="activeComponent === 'chart'" />
-          <region-policy-component :regionDetail="regionDetail" v-if="activeComponent === 'policy'" />
-          <region-map-component :regionDetail="regionDetail" v-if="activeComponent === 'map'" class="map-component" />
+            <region-info-component
+              :regionDetail="regionDetail"
+              v-if="activeComponent === 'info'"
+            />
+            <region-chart-component v-if="activeComponent === 'chart'" />
+            <region-policy-component
+              :regionDetail="regionDetail"
+              v-if="activeComponent === 'policy'"
+            />
+            <region-map-component
+              :regionDetail="regionDetail"
+              v-if="activeComponent === 'map'"
+              class="map-component"
+            />
           </div>
         </div>
-        
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import RegionInfoComponent from '@/components/region/RegionInfoComponent.vue';
-import RegionPolicyComponent from '@/components/region/RegionPolicyComponent.vue';
-import RegionSearchComponent from '@/components/region/RegionSearchComponent.vue';
-import RegionMapComponent from '@/components/region/RegionMapComponent.vue'
-import RegionChartComponent from '@/components/region/RegionChartComponent.vue';
-import { ref, watch, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-import { useRegionStore } from '@/stores/regionStore';
+import RegionInfoComponent from "@/components/region/RegionInfoComponent.vue";
+import RegionPolicyComponent from "@/components/region/RegionPolicyComponent.vue";
+import RegionSearchComponent from "@/components/region/RegionSearchComponent.vue";
+import RegionMapComponent from "@/components/region/RegionMapComponent.vue";
+import RegionChartComponent from "@/components/region/RegionChartComponent.vue";
+import { ref, watch, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { useRegionStore } from "@/stores/regionStore";
 
 const route = useRoute();
 const regionStore = useRegionStore();
 const regionDetail = ref({});
 
-const activeComponent = ref('info');
+const activeComponent = ref("info");
 
 const fetchRegionDetail = async (id) => {
   await regionStore.getRegionDetail(id);
@@ -60,29 +89,33 @@ const fetchRegionDetail = async (id) => {
 };
 
 // 컴포넌트가 마운트될 때 첫 번째 지역 정보를 가져옵니다.
-onMounted(() => { 
+onMounted(() => {
+  window.scrollTo(0, 0);
   fetchRegionDetail(route.params.id);
 });
 
 // route.params.id가 변경될 때마다 지역 정보를 가져옵니다.
-watch(() => route.params.id, (newId) => {
-  fetchRegionDetail(newId);
-});
+watch(
+  () => route.params.id,
+  (newId) => {
+    fetchRegionDetail(newId);
+  }
+);
 
 const showInfo = () => {
-  activeComponent.value = 'info';
+  activeComponent.value = "info";
 };
 
 const showPolicy = () => {
-  activeComponent.value = 'policy';
+  activeComponent.value = "policy";
 };
 
 const showMap = () => {
-  activeComponent.value = 'map';
+  activeComponent.value = "map";
 };
 
 const showChart = () => {
-  activeComponent.value = 'chart';
+  activeComponent.value = "chart";
 };
 </script>
 
@@ -106,7 +139,8 @@ const showChart = () => {
   margin-top: 20px;
 }
 
-.container h1, h2{
+.container h1,
+h2 {
   text-align: center;
 }
 
@@ -152,7 +186,7 @@ const showChart = () => {
 }
 
 .info-container {
-  border: solid 5px #ECF6EC;
+  border: solid 5px #ecf6ec;
   border-radius: 15px;
   padding: 5px;
 }

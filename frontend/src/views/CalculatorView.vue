@@ -1,13 +1,18 @@
 <template>
   <div class="router-container">
     <RouterView class="router-view" />
-    <img src="../assets/chicken.png" class="bottom-picture">
+    <img src="../assets/chicken.png" class="bottom-picture" />
   </div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router';
+import { RouterView } from "vue-router";
+import { onMounted } from "vue";
 
+onMounted(() => {
+  // 페이지를 맨 위로 스크롤하는 로직
+  window.scrollTo(0, 0);
+});
 </script>
 
 <style scoped>
