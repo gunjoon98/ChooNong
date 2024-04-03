@@ -36,7 +36,44 @@
 								<button type="button" class="sort-button" @click="sortByProfitRate()">수익률순</button>
 							</div>
 						</div>
-						<div class="crop-list">
+						<table class="crop-list"> <!-- Change: table 태그 추가 -->
+							<thead class="table-header"> <!-- Change: thead 태그로 변경 -->
+								<tr> <!-- Change: tr 태그로 변경 -->
+									<th class="crop-image-column" rowspan="2">작물 사진</th> <!-- Change: th 태그로 변경 -->
+									<th class="table-column" colspan="2">작물명</th> <!-- Change: th 태그로 변경 -->
+								</tr>
+								<tr> <!-- Change: tr 태그로 변경 -->
+									<th class="table-column">수익률(%)</th> <!-- Change: th 태그로 변경 -->
+									<th class="add-button-column">추가하기</th> <!-- Change: th 태그로 변경 -->
+								</tr>
+							</thead>
+							<tbody v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body"> <!-- Change: tbody 태그로 변경 -->
+								<tr> <!-- Change: tr 태그로 변경 -->
+									<td class="crop-image-column" rowspan="2"><img :src="crop.imageUrl" class="crop-image"/></td> <!-- Change: td 태그로 변경 -->
+									<td class="table-column crop-name-cell" colspan="2">{{ crop.cropName }}</td> <!-- Change: td 태그로 변경 -->
+								</tr> <!-- Change: tr 태그로 변경 -->
+								<tr> <!-- Change: tr 태그로 변경 -->
+									<td class="table-column profit-rate-cell">{{ crop.profitRate }}</td> <!-- Change: td 태그로 변경 -->
+									<td class="add-button-column">
+										<button type="button" class="add-button" @click="addCrop(crop)">추가</button>
+									</td> <!-- Change: td 태그로 변경 -->
+								</tr> <!-- Change: tr 태그로 변경 -->
+							</tbody> <!-- Change: tbody 태그로 변경 -->
+							<tbody v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body"> <!-- Change: tbody 태그로 변경 -->
+								<tr> <!-- Change: tr 태그로 변경 -->
+									<td class="crop-image-column" rowspan="2"><img :src="filteredCrop.imageUrl" class="crop-image"/></td> <!-- Change: td 태그로 변경 -->
+									<td class="table-column crop-name-cell" colspan="2">{{ filteredCrop.cropName }}</td> <!-- Change: td 태그로 변경 -->
+								</tr> <!-- Change: tr 태그로 변경 -->
+								<tr> <!-- Change: tr 태그로 변경 -->
+									<td class="table-column profit-rate-cell">{{ filteredCrop.profitRate }}</td> <!-- Change: td 태그로 변경 -->
+									<td class="add-button-column">
+										<button type="button" class="add-button" @click="addCrop(filteredCrop)">추가</button>
+									</td> <!-- Change: td 태그로 변경 -->
+								</tr> <!-- Change: tr 태그로 변경 -->
+							</tbody> <!-- Change: tbody 태그로 변경 -->
+						</table> <!-- Change: table 태그 추가 -->
+
+						<!-- <div class="crop-list">
 							<ul class="table-header">
 								<li class="crop-image-column">작물 사진</li>
 								<li class="table-column">작물명</li>
@@ -59,7 +96,7 @@
 									<button type="button" class="add-button" @click="addCrop(filteredCrop)">추가</button>
 								</li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 					<div class="arrow-wrapper">
 						<img src="@\assets\right-arrow.png" class="arrow-icon"/>
@@ -369,17 +406,7 @@ onMounted (async () => {
 }
 
 .crop-image-column {
-	width: 42%;
-	padding: 5px;
-	text-align: center;
-	/* border-bottom: 1px solid #cacaca; */
-	display: table-cell;
-	vertical-align: middle;
-}
-
-.profit-rate-column {
-	width: 22%;
-	/* 각 셀의 너비를 25%로 설정 */
+	width: 35%;
 	padding: 5px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
@@ -388,7 +415,7 @@ onMounted (async () => {
 }
 
 .table-column {
-	width: 18%;
+	width: 48%;
 	/* 각 셀의 너비를 25%로 설정 */
 	padding: 5px;
 	text-align: center;
@@ -397,15 +424,41 @@ onMounted (async () => {
 	vertical-align: middle;
 }
 
+.add-button-column {
+	width: 17%;
+	/* 각 셀의 너비를 25%로 설정 */
+	padding: 5px;
+	text-align: center;
+	/* border-bottom: 1px solid #cacaca; */
+	display: table-cell;
+	vertical-align: middle;
+}
+
+/* .crop-name-cell {
+	border-bottom: solid 3px #ECF6EC;
+} */
+
+.profit-rate-cell {
+	border-right: solid 3px #ECF6EC;
+}
+
 .crop-image {
 	width: 100%;
-	height: 170px;
+	height: 150px;
 	object-fit: cover;
 }
 
-.table-body li {
-	border-bottom: 1px solid #cacaca;
+/* tbody{
+	border-bottom: solid 3px #ECF6EC;
+} */
+
+.table-body tr td{
+	border-bottom: solid 3px #ECF6EC;
 }
+
+/* .table-body li {
+	border-bottom: solid #cacaca;
+} */
 
 .crop-list ul li img {
 	max-width: 220px;
