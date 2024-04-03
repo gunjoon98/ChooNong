@@ -68,7 +68,7 @@ html, body {
 
 .the-header-nav {
   width: 100%;
-  /* min-width: 1340px; */
+  min-width: 1050px;
   height: 110px;
   position: fixed;
   top: 0px;

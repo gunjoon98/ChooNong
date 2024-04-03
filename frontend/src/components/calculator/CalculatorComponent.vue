@@ -44,7 +44,7 @@
 								<li class="table-column">추가하기</li>
 							</ul>
 							<ul v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body">
-								<li class="crop-image-column"><img :src="crop.imageUrl"/></li>
+								<li class="crop-image-column"><img :src="crop.imageUrl" class="crop-image"/></li>
 								<li class="table-column">{{ crop.cropName }}</li>
 								<li class="profit-rate-column">{{ crop.profitRate }}</li>
 								<li class="table-column">
@@ -52,7 +52,7 @@
 								</li>
 							</ul>
 							<ul v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body">
-								<li class="crop-image-column"><img :src="filteredCrop.imageUrl"/></li>
+								<li class="crop-image-column"><img :src="filteredCrop.imageUrl" class="crop-image"/></li>
 								<li class="table-column">{{ filteredCrop.cropName }}</li>
 								<li class="profit-rate-column">{{ filteredCrop.profitRate }}</li>
 								<li class="table-column">
@@ -395,6 +395,12 @@ onMounted (async () => {
 	/* border-bottom: 1px solid #cacaca; */
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.crop-image {
+	width: 100%;
+	height: 170px;
+	object-fit: cover;
 }
 
 .table-body li {
