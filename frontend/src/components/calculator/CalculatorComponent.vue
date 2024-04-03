@@ -40,20 +40,20 @@
 							<thead class="table-header"> <!-- Change: thead 태그로 변경 -->
 								<tr> <!-- Change: tr 태그로 변경 -->
 									<th class="crop-image-column" rowspan="2">작물 사진</th> <!-- Change: th 태그로 변경 -->
-									<th class="table-column" colspan="2">작물명</th> <!-- Change: th 태그로 변경 -->
+									<th class="crop-name-column" colspan="2">작물명</th> <!-- Change: th 태그로 변경 -->
 								</tr>
 								<tr> <!-- Change: tr 태그로 변경 -->
-									<th class="table-column">수익률(%)</th> <!-- Change: th 태그로 변경 -->
+									<th class="profit-rate-column">수익률(%)</th> <!-- Change: th 태그로 변경 -->
 									<th class="add-button-column">추가하기</th> <!-- Change: th 태그로 변경 -->
 								</tr>
 							</thead>
 							<tbody v-if="searchQuery === ''" v-for="(crop, index) in sortedCropList" :key="crop" class="table-body"> <!-- Change: tbody 태그로 변경 -->
 								<tr> <!-- Change: tr 태그로 변경 -->
 									<td class="crop-image-column" rowspan="2"><img :src="crop.imageUrl" class="crop-image"/></td> <!-- Change: td 태그로 변경 -->
-									<td class="table-column crop-name-cell" colspan="2">{{ crop.cropName }}</td> <!-- Change: td 태그로 변경 -->
+									<td class="crop-name-column crop-name-cell" colspan="2">{{ crop.cropName }}</td> <!-- Change: td 태그로 변경 -->
 								</tr> <!-- Change: tr 태그로 변경 -->
 								<tr> <!-- Change: tr 태그로 변경 -->
-									<td class="table-column profit-rate-cell">{{ crop.profitRate }}</td> <!-- Change: td 태그로 변경 -->
+									<td class="profit-rate-column profit-rate-cell">{{ crop.profitRate }}</td> <!-- Change: td 태그로 변경 -->
 									<td class="add-button-column">
 										<button type="button" class="add-button" @click="addCrop(crop)">추가</button>
 									</td> <!-- Change: td 태그로 변경 -->
@@ -62,10 +62,10 @@
 							<tbody v-else v-for="(filteredCrop, index) in filteredCropList" :key="filteredCrop" class="table-body"> <!-- Change: tbody 태그로 변경 -->
 								<tr> <!-- Change: tr 태그로 변경 -->
 									<td class="crop-image-column" rowspan="2"><img :src="filteredCrop.imageUrl" class="crop-image"/></td> <!-- Change: td 태그로 변경 -->
-									<td class="table-column crop-name-cell" colspan="2">{{ filteredCrop.cropName }}</td> <!-- Change: td 태그로 변경 -->
+									<td class="crop-name-column crop-name-cell" colspan="2">{{ filteredCrop.cropName }}</td> <!-- Change: td 태그로 변경 -->
 								</tr> <!-- Change: tr 태그로 변경 -->
 								<tr> <!-- Change: tr 태그로 변경 -->
-									<td class="table-column profit-rate-cell">{{ filteredCrop.profitRate }}</td> <!-- Change: td 태그로 변경 -->
+									<td class="profit-rate-column profit-rate-cell">{{ filteredCrop.profitRate }}</td> <!-- Change: td 태그로 변경 -->
 									<td class="add-button-column">
 										<button type="button" class="add-button" @click="addCrop(filteredCrop)">추가</button>
 									</td> <!-- Change: td 태그로 변경 -->
@@ -406,7 +406,7 @@ onMounted (async () => {
 }
 
 .crop-image-column {
-	width: 35%;
+	width: 50%;
 	padding: 5px;
 	text-align: center;
 	/* border-bottom: 1px solid #cacaca; */
@@ -414,8 +414,18 @@ onMounted (async () => {
 	vertical-align: middle;
 }
 
-.table-column {
-	width: 48%;
+.crop-name-column {
+	width: 50%;
+	/* 각 셀의 너비를 25%로 설정 */
+	padding: 5px;
+	text-align: center;
+	/* border-bottom: 1px solid #cacaca; */
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.profit-rate-column {
+	/* width: 48%; */
 	/* 각 셀의 너비를 25%로 설정 */
 	padding: 5px;
 	text-align: center;
@@ -425,7 +435,7 @@ onMounted (async () => {
 }
 
 .add-button-column {
-	width: 17%;
+	/* width: 17%; */
 	/* 각 셀의 너비를 25%로 설정 */
 	padding: 5px;
 	text-align: center;
