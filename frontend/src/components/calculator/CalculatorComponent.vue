@@ -410,12 +410,12 @@ onMounted (async () => {
 }
 
 .crop-name-cell {
-	height: 65px;
+	height: 84px;
 	border-bottom: solid 3px #ECF6EC;
 }
 
 .profit-rate-cell {
-	height: 65px;
+	height: 84px;
 	border-right: solid 3px #ECF6EC;
 }
 
