@@ -1,11 +1,8 @@
-import { computed, ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router';
 import axios from 'axios'
 
 export const useRegionStore = defineStore('region', () => {
-	// 내부 값 다 변경
-	// 지금은 예시 코드만
 	const regionInfoList = ref([])
 	const regionDetail = ref()
 	const regionsDetailList = ref([])
@@ -34,7 +31,7 @@ export const useRegionStore = defineStore('region', () => {
 	}
 
 	const getRegionsDetailList = async function(ids) {
-		regionsDetailList.value = []; // 리스트를 먼저 비웁니다.
+		regionsDetailList.value = [];
 		try {
 			for (const id of ids) {
 				const response = await axios.get(`https://choonong.store/api/region/${id}`);

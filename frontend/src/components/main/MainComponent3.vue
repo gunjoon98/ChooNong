@@ -29,43 +29,18 @@
           </router-link>
         </div>
       </div>
-    <!-- <div class="main-container"> -->
-      <!-- <div class="search-container">
-        <div>귀농지 검색하기</div>
-        <RegionSearchComponentVue class="search-box"/> -->
-        <!-- 
-          <input type="search">
-          <button type="button">검색</button> -->
-      <!-- </div> -->
-      
-      
-    <!-- </div> -->
   </div>
 </template>
 
 <script setup>
-import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
 </script>
 
 <style scoped>
-/* body {
-  display: flex;
-  justify-content: center;
-} */
-
 .third-container {
   background-color: #eff9ec;
   width: 100%;
   height: 700px;
   padding: 50px 120px;
-  /* 가로 전체 화면 */
-  /* max-width: 1500px; */
-  /* 최대 너비 제한 */
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-  /* width: 100vw; */
-  /* overflow-x: hidden; */
 }
 
 .explanation-wrapper {
@@ -82,7 +57,6 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
   background-color: #ffffff;
   border: 2px solid #e9e9e9;
   border-radius: 15px;
-  /* margin: 10px; */
   padding: 10px;
   width: 350px;
   height: 300px;
@@ -97,26 +71,6 @@ import RegionSearchComponentVue from '../region/RegionSearchComponent.vue';
   height: auto;
 }
 
-.search-container {
-  border: 2px solid #e9e9e9;
-  border-radius: 15px;
-  margin: 10px;
-  padding: 10px;
-  /* flex: 1; */
-  /* text-align: center; */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.search-box {
-  /* height: 300px; */
-  padding: 0px;
-  border: none;
-  margin: 0;
-}
-
 button {
   display: block;
   margin: 0 auto;
@@ -126,19 +80,8 @@ button {
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  /* 커서 포인터로 변경 */
-  /* transition: background-color 0.3s ease; */
-  /* 배경색 변화에 대한 전환 */
-  /* color: #000000; */
-  /* text-decoration: none; */
   text-align: center;
   line-height: 40px;
-}
-
-.location-icon {
-  width: 250px;
-  height: 150px;
-  margin: 0 auto;
 }
 
 .search-icon,

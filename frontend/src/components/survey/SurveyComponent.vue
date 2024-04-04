@@ -34,7 +34,6 @@
 </template>
 
 <script setup>
-// import router from '@/router';
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useSurveyStore } from "@/stores/surveyStore";
@@ -191,7 +190,6 @@ const nextStep = function () {
 };
 
 const showResults = async function () {
-  // 결과 보여주기 (실제 구현 필요)
   console.log("structuredResponses", structuredResponses.value);
   console.log("responses", responses.value);
   console.log("결과 보기");
@@ -202,8 +200,8 @@ const showResults = async function () {
 const resetSurvey = function () {
   currentStep.value = 0;
   canProceed.value = false;
-  responses.value = []; // responses 초기화
-  structuredResponses.value = {}; // structuredResponses 초기화
+  responses.value = [];
+  structuredResponses.value = {};
   // 서브 질문 숨기기 초기화
   surveyQuestions.value.forEach((question, index) => {
     if (question.hidden) {
@@ -256,11 +254,6 @@ const resetSurvey = function () {
 .question-wrapper {
   height: 550px;
   position: relative;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-  /* gap: 50px; */
 }
 
 .question {
@@ -273,7 +266,6 @@ const resetSurvey = function () {
 
 .question h2 {
   color: #333;
-  /* font-size: 1.5rem; */
   text-align: center;
 }
 
@@ -296,7 +288,6 @@ const resetSurvey = function () {
   display: block;
   margin: 0 auto;
   padding: 10px 20px;
-  /* margin-top: 20px; */
   background-color: #c6eb74;
   color: rgb(0, 0, 0);
   border: none;
@@ -313,7 +304,6 @@ const resetSurvey = function () {
   display: block;
   margin: 40px auto;
   padding: 10px 20px;
-  /* margin-top: 20px; */
   background-color: #c6eb74;
   color: rgb(0, 0, 0);
   border: none;
@@ -323,16 +313,11 @@ const resetSurvey = function () {
 }
 
 .nav-button:hover {
-  /* border: solid 2px #C6EB74;
-  border-radius: 15px;
-  background-color: #ffffff; */
-  /* box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); */
   box-shadow: 7px 7px 5px 0px #0002, 4px 4px 5px 0px #0001;
 }
 
 .selected {
   background-color: #c6eb74;
-  /* 선택된 버튼의 배경색 */
   color: rgb(0, 0, 0);
 }
 
@@ -345,11 +330,6 @@ const resetSurvey = function () {
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  /* 커서 포인터로 변경 */
-  /* transition: background-color 0.3s ease; */
-  /* 배경색 변화에 대한 전환 */
-  /* color: #000000; */
-  /* text-decoration: none; */
   text-align: center;
   line-height: 40px;
 }

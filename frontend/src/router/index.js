@@ -11,8 +11,6 @@ import CheckListComponent from "@/components/checklist/CheckListComponent.vue";
 import CheckListResultComponent from "../components/checklist/CheckListResultComponent.vue";
 import SurveyComponent from "@/components/survey/SurveyComponent.vue";
 import SurveyResultComponent from "@/components/survey/SurveyResultComponent.vue";
-// import MainComponent from "@/components/main/MainComponent.vue";
-// import MainComponentCC from "@/components/main/MainComponentCC.vue";
 import RegionDetailComponent from "@/components/region/RegionDetailComponent.vue";
 import RegionFamousComponent from "@/components/region/RegionFamousComponent.vue";
 
@@ -50,12 +48,6 @@ const router = createRouter({
         },
       ]
     },
-    // {
-    //   path: "/region/:regionId",
-    //   name: "region",
-    //   props: true,
-    //   component: RegionView,
-    // },
     {
       path: "/region",
       name: "region",

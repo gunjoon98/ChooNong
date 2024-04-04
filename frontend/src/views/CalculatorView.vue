@@ -6,13 +6,7 @@
 </template>
 
 <script setup>
-import { RouterView } from "vue-router";
-import { onMounted } from "vue";
-
-onMounted(() => {
-  // 페이지를 맨 위로 스크롤하는 로직
-  window.scrollTo(0, 0);
-});
+import { RouterView } from 'vue-router';
 </script>
 
 <style scoped>

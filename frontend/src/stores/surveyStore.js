@@ -28,11 +28,10 @@ export const useSurveyStore = defineStore("survey", () => {
         await regionStore.getRegionsDetailList(resultRegionIds);
         resultList.value = regionStore.regionsDetailList;
         console.log(resultList.value);
-        // return response.data;
       })
       .catch((error) => {
         console.error("요청 실패:", error);
-        throw error; // 이 부분은 필요에 따라 변경할 수 있습니다.
+        throw error;
       });
   };
 

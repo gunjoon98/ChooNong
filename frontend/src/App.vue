@@ -13,15 +13,10 @@ import { RouterView } from 'vue-router';
 </script>
 
 <style>
-/* 전역 스타일 */
-/* './assets/so.png' */
 body {
-  font-size: 24px; /* 기본 텍스트 크기 */
+  font-size: 24px;
   color: #323437;
   font-family: 'TTLaundryGothicB';
-  /* 커서 변경 */
-  /* cursor : url('./assets/search.png') 54 54 , auto; */
-  
 }
 
 button {
@@ -46,11 +41,6 @@ button {
 </style>
 
 <style scoped>
-/* app {
-  min-height: 100%;
-  position: relative;
-  background-color: brown;
-} */
 button {
   font-size: 1.3rem;
 }
@@ -79,24 +69,12 @@ html, body {
   width: 1519.2px;
   padding: 50px 25px 100px 25px;
   margin: 150px auto 0 auto;
-  /* flex-grow: 1; */
-  /* margin-bottom: 50px; */
   min-height: calc(100vh - 190px);
 }
-
-/* .bottom-picture {
-  width: 80%;
-  position: relative;
-  top: 7px;
-  left: 10vw;
-} */
 
 .the-footer {
   width: 100%;
   min-width: 1340px;
   height: 65px;
-  /* position: absolute;
-  bottom: 0; */
-  /* margin-top: auto; */
 }
 </style>

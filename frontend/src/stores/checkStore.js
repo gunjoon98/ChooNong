@@ -1,10 +1,8 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
 export const useCheckStore = defineStore('check', () => {
-	// 내부 값 다 변경
-	// 지금은 예시 코드만
 
 	const checkList = ref([
 		{

@@ -108,13 +108,11 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 20px; */
 }
 
 .popular-regions-container {
   width: 100%;
   padding: 25px;
-  /* max-width: 1200px; */
   height: 550px;
   margin-bottom: 100px;
   background: #fff;
@@ -131,11 +129,6 @@ onMounted(() => {
   width: 1300px;
   padding: 0 70px;
 }
-
-/* .swiper-slide {
-  margin: 0 10px;
-  width: 50px
-} */
 
 .region-card {
   display: flex;
@@ -173,18 +166,10 @@ onMounted(() => {
 .region-image-background {
   width: 100%;
   height: 350px;
-  /* 이미지 높이 조절 */
   background-size: cover;
   background-position: center;
   opacity: 0.7;
-  /* 이미지 투명도 설정 */
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   border-radius: 10px;
-  /* 이미지 모서리 둥글게 */
-  /* padding-left: 20px;
-  padding-right: 20px; */
   position: relative;
   cursor: pointer;
 }
@@ -193,17 +178,13 @@ onMounted(() => {
   width: 100%;
   height: 100px;
   color: #fff;
-  /* 데이터 텍스트 색상 */
   text-align: center;
   background-image: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.1),
     rgba(0, 0, 0, 1)
   );
-  /* background-color: rgba(0, 0, 0, 0.5); */
-  /* 데이터 배경 투명도 */
   border-radius: 10px;
-  /* 데이터 영역 모서리 둥글게 */
   padding: 10px;
   position: absolute;
   bottom: 0;
@@ -222,28 +203,18 @@ onMounted(() => {
 .rank {
   background-color: rgba(0, 0, 0, 0.7);
   color: rgb(255, 255, 255);
-  /* 텍스트 색상 */
   padding: 5px 10px;
   width: 80px;
   height: 55px;
-  /* 패딩 */
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  /* 원형 모양 */
-  font-weight: bold;
   line-height: 50px;
-  /* 굵은 글씨 */
   z-index: 10;
-  /* 다른 요소들 위에 오도록 z-index 설정 */
   margin: 0px;
   position: absolute;
   top: 0px;
   left: 0px;
 }
-
-/* .increse-arrow {
-  color: #ff3838;
-} */
 
 .arrow-up {
   width: 25px;
@@ -257,7 +228,6 @@ onMounted(() => {
   width: 50px;
   height: 360px;
   background: #ffffff;
-  /* border-radius: 50%; */
   transform: translateY(-43%);
   z-index: 10;
   opacity: 1; /* 항상 보이도록 설정 */

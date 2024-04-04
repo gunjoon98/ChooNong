@@ -186,8 +186,6 @@ const changeUnit = function () {
 	unit.value = unit.value === 'p' ? 'm' : 'p';
 }
 
-
-
 const addedCropList = ref([]);
 const addCrop = function (crop) {
 	if (totalExtentM.value == null || totalExtentM.value <= 0) {
@@ -224,8 +222,6 @@ const showResult = async function () {
 		sumOfCropExtentRatio += crop.cropExtentRatio
 	}
 
-	// console.log(sumOfCropExtentRatio);
-
 	if (sumOfCropExtentRatio !== 100) {
 		window.alert("작물 재배 면적의 합계가 100이 되도록 설정해주세요.")
 		return;
@@ -252,7 +248,6 @@ onMounted(async () => {
 }
 
 .calculator-container {
-	/* border-radius: 15px; */
 	padding: 45px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
@@ -330,10 +325,8 @@ onMounted(async () => {
 
 .search-icon {
 	width: 40px;
-	/* 이미지의 크기 설정 */
 	height: 40px;
 	vertical-align: middle;
-	/* 아이콘을 버튼의 중앙에 정렬 */
 }
 
 .sort-button {
@@ -353,7 +346,6 @@ onMounted(async () => {
 	overflow-x: hidden;
 	scrollbar-width: thin;
 	scrollbar-color: #dddddd transparent;
-	/* 스크롤바 색상 설정 */
 }
 
 .crop-list-container {
@@ -368,15 +360,9 @@ onMounted(async () => {
 
 .table-header {
 	background-color: #ECF6EC;
-	/* 배경색 지정 */
 	color: #333;
-	/* 텍스트 색상 지정 */
 	font-weight: bold;
-	/* 글꼴 굵기 설정 */
 	padding: 8px;
-	/* 셀 안쪽 여백 지정 */
-	/* border-bottom: 1px solid #ddd; */
-	/* 아래쪽 테두리 추가 */
 }
 
 .table-header tr th {
@@ -387,35 +373,25 @@ onMounted(async () => {
 	width: 50%;
 	padding-top: 5px;
 	text-align: center;
-	/* border-bottom: 1px solid #cacaca; */
 	vertical-align: middle;
 }
 
 .crop-name-column {
 	width: 50%;
-	/* 각 셀의 너비를 25%로 설정 */
 	min-height: 100px;
 	padding: 0px;
 	text-align: center;
-	/* border-bottom: 1px solid #cacaca; */
 	vertical-align: middle;
 }
 
 .profit-rate-column {
-	/* width: 48%; */
-	/* 각 셀의 너비를 25%로 설정 */
 	padding: 0px;
 	text-align: center;
-	/* border-bottom: 1px solid #cacaca; */
 	vertical-align: middle;
 }
 
 .add-button-column {
-	/* width: 17%; */
-	/* 각 셀의 너비를 25%로 설정 */
-	/* padding: 5px; */
 	text-align: center;
-	/* border-bottom: 1px solid #cacaca; */
 	vertical-align: middle;
 }
 
@@ -435,21 +411,12 @@ onMounted(async () => {
 	object-fit: cover;
 }
 
-/* tbody{
-	border-bottom: solid 3px #ECF6EC;
-} */
-
 .table-body tr td {
 	border-bottom: solid 3px #ECF6EC;
 }
 
-/* .table-body li {
-	border-bottom: solid #cacaca;
-} */
-
 .crop-list ul li img {
 	max-width: 220px;
-	/* 이미지 크기 제한 */
 }
 
 .add-button {
@@ -527,7 +494,6 @@ onMounted(async () => {
 
 .p-slider-horizontal {
 	width: 330px;
-	/* Set the desired width */
 	margin-right: 60px;
 	position: relative;
 	left: 10%;
@@ -536,7 +502,6 @@ onMounted(async () => {
 .crop-extent-wrapper {
 	display: flex;
 	flex-direction: row;
-	/* justify-content: right; */
 }
 
 .crop-extent {
@@ -559,11 +524,6 @@ onMounted(async () => {
 	border: none;
 	border-radius: 15px;
 	cursor: pointer;
-	/* 커서 포인터로 변경 */
-	/* transition: background-color 0.3s ease; */
-	/* 배경색 변화에 대한 전환 */
-	/* color: #000000; */
-	/* text-decoration: none; */
 	text-align: center;
 	line-height: 40px;
 }

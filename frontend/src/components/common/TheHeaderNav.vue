@@ -6,7 +6,6 @@
           <img src="@/assets/choonong-logo.png" class="logo-image">
         </router-link>
       </div>
-      <!-- <img src="@/assets/cloud.png" /> -->
       <div class="menu-container">
         <router-link to="/survey" @click="clickMenu(1)" class="router-link"
           :class="{ 'clicked-menu': clickedMenu === 1 }" @mouseenter="isHovered = 1" @mouseleave="isHovered = 0">
@@ -76,10 +75,6 @@ p {
 .header-container {
   padding: 0 2vw;
   background-image: linear-gradient(to bottom, #ADE6F9, #ffffff);
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative; */
 }
 
 .header-wrapper {
@@ -96,7 +91,6 @@ p {
   width: 140px;
   height: auto;
   position: absolute;
-  /* left: 2vw; */
   top: 10px;
 }
 
@@ -135,9 +129,7 @@ p {
   height: auto;
   position: absolute;
   left: 50%;
-  /* 부모 요소의 정중앙을 기준으로 좌측으로 이동 */
   top: 65%;
-  /* 부모 요소의 정중앙을 기준으로 상단으로 이동 */
   transform: translate(-50%, -60%);
   /* 이미지를 가운데 정렬하기 위해 translate 사용 */
   z-index: 1;
@@ -145,8 +137,6 @@ p {
 
 a {
   color: #000000;
-  /* 텍스트 색상 */
   text-decoration: none;
-  /* 밑줄 제거 */
 }
 </style>
