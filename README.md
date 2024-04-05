@@ -85,5 +85,30 @@
 
 ### 팀 역할
 
-![팀역할](image/팀원역할.PNG)
+<table>
+    <tr height="140px">
+        <td align="center" width="150px">
+            <img src="./image/정건준.jpg">팀장 정건준</img>
+        </td>
+        <td align="center" width="150px">
+            <img src="./image/김용준.png">팀원 김용준</img>
+        </td>
+        <td align="center" width="150px">
+            <img src="./image/김근형.jpg">팀원 김근형</img>
+        </td>
+        <td align="center" width="150px">
+            <img src="./image/김소연.png">팀원 김소연</img>
+        </td>
+        <td align="center" width="150px">
+            <img src="./image/송의찬.jpg">팀원 송의찬</img>
+        </td>
+    </tr>
+    <tr>
+        <td>API 개발, Infra, 분산 환경 구축</td>
+        <td>빅데이터 전처리, 클러스터링 수행</td>
+        <td>귀농지 정보 수집, API 개발</td>
+        <td>설문, 설문 결과, 지역 상세정보, 지식 퀴즈 페이지, 디자인 및 구현</td>
+        <td>메인, 모의 작물 재배, 설문 결과 페이지 디자인 및 구현</td>
+    </tr>
+</table>
 
