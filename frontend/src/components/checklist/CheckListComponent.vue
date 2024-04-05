@@ -6,31 +6,18 @@
       </h2>
       <h3 class="question-text">{{ questions[currentQuestion].question }}</h3>
       <ul class="options-container">
-        <li
-          v-for="(answer, index) in questions[currentQuestion].answers"
-          :key="index"
+        <li v-for="(answer, index) in questions[currentQuestion].answers" :key="index"
           @click="() => checkAnswer(answer, index)"
-          :class="{ option: true, selected: lastSelectedAnswerIndex === index }"
-        >
+          :class="{ option: true, selected: lastSelectedAnswerIndex === index }">
           {{ answer.text }}
         </li>
       </ul>
     </div>
 
-    <Dialog
-      v-model:visible="showModal"
-      class="custom-dialog"
-      :style="{ width: '50vw' }"
-      :closable="false"
-    >
+    <Dialog v-model:visible="showModal" class="custom-dialog" :style="{ width: '50vw' }" :closable="false">
       <template #header>
         <div class="dialog-header">
-          <img
-            v-if="resultImage"
-            :src="resultImage"
-            alt="Result Image"
-            class="header-image"
-          />
+          <img v-if="resultImage" :src="resultImage" alt="Result Image" class="header-image" />
           <div class="header-text">{{ dialogTitle }}</div>
         </div>
       </template>
@@ -45,32 +32,16 @@
       </div>
       <template #footer>
         <div class="buttons-container">
-          <button
-            v-if="showRetryQuestionButton"
-            @click="retryQuestion"
-            class="retry-button"
-          >
+          <button v-if="showRetryQuestionButton" @click="retryQuestion" class="retry-button">
             다시 풀어보기
           </button>
-          <button
-            v-if="showRevealAnswerButton"
-            @click="revealAnswer"
-            class="show-answer-button"
-          >
+          <button v-if="showRevealAnswerButton" @click="revealAnswer" class="show-answer-button">
             정답 보기
           </button>
-          <button
-            v-if="showNextQuestionButton"
-            @click="nextQuestion"
-            class="next-button"
-          >
+          <button v-if="showNextQuestionButton" @click="nextQuestion" class="next-button">
             다음 문제 풀기
           </button>
-          <button
-            v-if="showRetryQuizButton"
-            @click="retryQuiz"
-            class="retry-button"
-          >
+          <button v-if="showRetryQuizButton" @click="retryQuiz" class="retry-button">
             다시하기
           </button>
           <button v-if="showMainButton" @click="goToMain" class="goto-button">
@@ -86,9 +57,12 @@
 import { ref } from "vue";
 import Dialog from "primevue/dialog";
 import { useRouter } from "vue-router";
+
+// 이미지 경로
 import correctImage from "@/assets/correct.jpg";
 import incorrectImage from "@/assets/wrong.png";
 
+// 문제 목록
 const questions = ref([
   {
     question:
@@ -280,7 +254,7 @@ const showAnswer = ref(false);
 const answerReason = ref("");
 const additionalAnswerReason = ref("");
 const correctAnswersCount = ref(0);
-let lastSelectedAnswerIndex = ref(-1); // 이 부분을 ref로 감싸주었습니다.
+let lastSelectedAnswerIndex = ref(-1);
 let attemptCounter = ref(0);
 
 // 버튼 표시를 위한 상태 변수
@@ -294,14 +268,17 @@ const resultImage = ref("");
 
 const router = useRouter();
 
+// 정답 확인
 const checkAnswer = (answer, index) => {
   showModal.value = true;
   lastSelectedAnswerIndex.value = index;
 
+  // 정답시
   if (answer.correct) {
     correctAnswersCount.value++;
     correctAnswerActions();
     resultImage.value = correctImage; // 정답일 때 이미지 설정
+    // 오답시
   } else {
     if (attemptCounter.value < 1) {
       attemptCounter.value++;
@@ -313,6 +290,7 @@ const checkAnswer = (answer, index) => {
   }
 };
 
+// 정답시 실행
 const correctAnswerActions = () => {
   isCorrectAnswer.value = true;
   showAnswer.value = true;
@@ -337,6 +315,7 @@ const correctAnswerActions = () => {
   showRevealAnswerButton.value = false;
 };
 
+// 오답시 실행
 const incorrectAnswerActions = () => {
   isCorrectAnswer.value = false;
   showAnswer.value = false;
@@ -346,6 +325,7 @@ const incorrectAnswerActions = () => {
   showRevealAnswerButton.value = true; // 항상 "정답 보기" 버튼을 활성화합니다.
 };
 
+//  오답시 정답 알려주기 및 정답 갯수 표기
 const revealAnswer = (forced = false) => {
   const correctAnswer = questions.value[currentQuestion.value].answers.find(
     (a) => a.correct
@@ -394,6 +374,7 @@ const revealAnswer = (forced = false) => {
   showRetryQuestionButton.value = false;
 };
 
+// 다음 버튼 클릭시 
 const nextQuestion = () => {
   if (currentQuestion.value < questions.value.length - 1) {
     currentQuestion.value++; // 현재 문제 번호 증가
@@ -401,11 +382,11 @@ const nextQuestion = () => {
     attemptCounter.value = 0; // 시도 횟수 초기화
     lastSelectedAnswerIndex.value = -1; // 마지막 선택한 답변 인덱스 초기화
   } else {
-    // 마지막 문제를 완료한 후 처리할 로직 (예: 퀴즈 종료 메시지 표시 등)
-    console.log("퀴즈 완료");
+    // 마지막 문제를 완료한 후 처리할 로직
   }
 };
 
+// 다시하기시 질문 상태 초기화
 const resetQuestionState = () => {
   additionalAnswerReason.value = "";
   showModal.value = false;
@@ -413,6 +394,7 @@ const resetQuestionState = () => {
   resetButtons();
 };
 
+// 다시하기시 상태변수 초기화
 const resetButtons = () => {
   showRetryQuestionButton.value = false;
   showRevealAnswerButton.value = false;
@@ -421,17 +403,20 @@ const resetButtons = () => {
   showMainButton.value = false;
 };
 
+// 다시하기 질문 정답 상태 초기화
 const retryQuestion = () => {
   showModal.value = false;
   showAnswer.value = false;
 };
 
+// 다시하기 답변 초기화
 const retryQuiz = () => {
   currentQuestion.value = 0;
   correctAnswersCount.value = 0;
   resetQuestionState();
 };
 
+// 메인으로 
 const goToMain = () => {
   router.push({ path: "/" });
 };
@@ -521,18 +506,6 @@ const goToMain = () => {
 .custom-dialog .dialog-content {
   display: flex;
   flex-direction: column;
-}
-
-.response-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.result-image {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
 }
 
 .buttons-container {
