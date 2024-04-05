@@ -99,7 +99,6 @@ const resultList = ref([]);
 onMounted(() => {
   window.scrollTo(0, 0);
   resultList.value = surveyStore.resultList;
-  console.log(resultList.value);
 });
 </script>
 

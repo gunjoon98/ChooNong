@@ -7,7 +7,6 @@ export const useSurveyStore = defineStore("survey", () => {
   const regionStore = useRegionStore();
 
   const structuredResponsesToJson = (structuredResponses) => {
-    console.log(structuredResponses);
     return JSON.stringify(structuredResponses);
   };
 
@@ -24,10 +23,8 @@ export const useSurveyStore = defineStore("survey", () => {
     })
       .then(async (response) => {
         const resultRegionIds = response.data.map((item) => item.region_id);
-        console.log(resultRegionIds);
         await regionStore.getRegionsDetailList(resultRegionIds);
         resultList.value = regionStore.regionsDetailList;
-        console.log(resultList.value);
       })
       .catch((error) => {
         console.error("요청 실패:", error);

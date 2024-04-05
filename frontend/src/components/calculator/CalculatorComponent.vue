@@ -114,7 +114,7 @@
 </template>
 
 <script setup>
-import { watch, ref, computed, onMounted, watchEffect } from "vue";
+import { watch, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useCalculatorStore } from "@/stores/calculatorStore";
 import Slider from 'primevue/slider';
@@ -131,26 +131,17 @@ const filteredCropList = ref([]);
 
 const searchCrop = function (event) {
 	searchQuery.value = event.target.value;
-	// watchEffect(() => {
-	// 	filteredCropList.value = sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value))
-	// });
 	watch([sortedCropList, searchQuery], ([sortedCropListValue, searchQueryValue]) => {
 		filteredCropList.value = sortedCropListValue.filter(item => item.cropName.includes(searchQueryValue));
 	});
-	// filteredCropList.value = computed(() => {return sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value))})
-	// 	filteredCropList.value = computed(() => {
-	//   return sortedCropList.value.filter(item => item.cropName.includes(searchQuery.value));
-	// });
 }
 
 const sortByCropName = function () {
 	sortOption.value = "cropName";
-	console.log(sortOption.value)
 }
 
 const sortByProfitRate = function () {
 	sortOption.value = "profitRate";
-	console.log(sortOption.value)
 }
 
 const sortCropList = function () {
@@ -166,11 +157,6 @@ const sortCropList = function () {
 
 const totalExtentM = ref();
 const totalExtentP = ref();
-
-// watchEffect(() => {
-// 	totalExtentM.value = Math.round(totalExtentP.value * 3.3);
-// 	totalExtentP.value = Math.round(totalExtentM.value / 3.3)
-// })
 
 watch(totalExtentM, function (newValue) {
 	totalExtentP.value = Math.round((newValue / 3.3) * 100) / 100;
@@ -197,7 +183,6 @@ const addCrop = function (crop) {
 
 	if (!isAlreadyAdded) {
 		addedCropList.value.push({ ...crop, cropExtentRatio: 0 });
-		console.log(addedCropList)
 	} else {
 		window.alert("이미 추가된 작물입니다.")
 	}
@@ -236,7 +221,6 @@ onMounted(async () => {
 	window.scrollTo(0, 0);
 	await calculatorStore.getCropList();
 	cropList.value = calculatorStore.cropList;
-	console.log(cropList.value);
 	watch(sortOption, sortCropList, { immediate: true })
 })
 
@@ -250,6 +234,7 @@ onMounted(async () => {
 .calculator-container {
 	padding: 45px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	border-radius: 15px;
 }
 
 .extent-input-wrapper {

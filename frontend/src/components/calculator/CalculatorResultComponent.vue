@@ -90,7 +90,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watchEffect } from "vue";
+import { ref, onMounted } from "vue";
 import { useCalculatorStore } from "@/stores/calculatorStore";
 import Chart from "chart.js/auto";
 
@@ -107,65 +107,42 @@ const yearlyEarnings = ref(0);
 const monthlyEarnings = ref(0);
 
 const calculateYearlyAdministrationFee = function () {
-  // let cost = 0;
   for (let crop of addedCropList) {
     const cropYearlyAdministrationFee =
       ((totalExtent.value * crop.cropExtentRatio) / 100) *
       crop.administrationFee;
     yearlyAdministrationFee.value += cropYearlyAdministrationFee;
     cropYearlyAdministrationFeeList.value.push(cropYearlyAdministrationFee);
-    // cropCalculateResultList.value.push({...crop, cropYearlyAdministrationCost})
   }
-  // return yearlyAdministrationCost;
 };
 
 const calculateYearlySales = function () {
-  // let sales = 0;
-  console.log(addedCropList);
   for (let crop of addedCropList) {
     const cropYearlySales =
       ((totalExtent.value * crop.cropExtentRatio) / 100) * crop.sales;
     yearlySales.value += cropYearlySales;
     cropYearlySalesList.value.push(cropYearlySales);
-    // console.log(cropYearlySalesList.value)
-    // cropCalculateResultList.value.push({...crop, cropYearlySales})
-    // console.log("작물판매금액" + cropCalculateResultList.value[0].cropYearlySales)
   }
-  // return yearlySales;
 };
 
 const calculateYearlyEarnings = function () {
   yearlyEarnings.value = yearlySales.value - yearlyAdministrationFee.value;
-  // return yearlyEarnings
 };
 
 const calculateMonthlyEarnings = function () {
   monthlyEarnings.value = yearlyEarnings.value / 12;
 };
 
-// // 데이터 변경을 감지하고 배열을 업데이트하는 watchEffect 함수 사용
-// watchEffect(() => {
-//   // cropNameList.value = cropCalculateResultList.value.map(item => item.cropName);
-//   // cropYearlySalesList.value = cropCalculateResultList.value.map(item => item.cropYearlySales);
-//   // cropYearlyAdministrationCostList.value = cropCalculateResultList.value.map(item => item.cropYearlyAdministrationCost);
-//   // cropYearlyEarningsList.value = cropYearlySalesList.value.map((sales, index) => sales - cropYearlyAdministrationCostList.value[index]);
-// });
-// const yearlyEarnings = calculateYearlyEarnings();
-// const monthlyEarnings = calculateMonthlyEarnings();
-
 onMounted(() => {
   window.scrollTo(0, 0);
-  console.log(yearlyEarnings);
   calculateYearlyAdministrationFee();
   calculateYearlySales();
   calculateYearlyEarnings();
   calculateMonthlyEarnings();
-  console.log(yearlyEarnings);
 
   cropYearlyEarningsList.value = cropYearlySalesList.value.map(
     (sales, index) => sales - cropYearlyAdministrationFeeList.value[index]
   );
-  console.log(cropYearlyEarningsList.value);
 
   const cropExtentList = addedCropList.map((item) => item.cropExtentRatio);
 
@@ -286,26 +263,15 @@ onMounted(() => {
             },
           },
           titleFont: {
-            size: 25, // 툴팁 제목의 글자 크기 설정
+            size: 25, // 툴팁 제목의 글자 크기
           },
           bodyFont: {
-            size: 25, // 툴팁 내용의 글자 크기 설정
+            size: 25, // 툴팁 내용의 글자 크기
           },
         },
       },
     },
   });
-
-  // const cropNameList = cropCalculateResultList.value.map(item => item.cropName);
-  // console.log(cropNameList)
-
-  // // cropCalculateResultList 배열에서 cropYearlySales 값만 추출하여 새로운 배열 생성
-  // const cropYearlySalesList = cropCalculateResultList.value.map(item => item.cropYearlySales);
-
-  // // cropCalculateResultList 배열에서 cropYearlyAdministrationCost 값만 추출하여 새로운 배열 생성
-  // const cropYearlyAdministrationCostList = cropCalculateResultList.value.map(item => item.cropYearlyAdministrationCost);
-
-  // cropYearlySalesArray와 cropYearlyAdministrationCostArray를 사용하여 cropYearlyEarnings 배열 생성
 
   const chartData3 = ref({
     labels: cropNameList,
@@ -347,7 +313,7 @@ const options = {
     x: {
       ticks: {
         font: {
-          size: 25, // x축 값의 글자 크기 설정
+          size: 25, // x축 값의 글자 크기
         },
       },
     },
@@ -356,12 +322,12 @@ const options = {
         display: true,
         text: "금액 (원)", // y축 레이블에 표시할 단위
         font: {
-          size: 25, // y축 레이블의 글자 크기 설정
+          size: 25, // y축 레이블의 글자 크기
         },
       },
       ticks: {
         font: {
-          size: 25, // y축 값의 글자 크기 설정
+          size: 25, // y축 값의 글자 크기
         },
       },
     },
@@ -386,10 +352,10 @@ const options = {
         },
       },
       titleFont: {
-        size: 25, // 툴팁 제목 글자 크기를 3배로 설정
+        size: 25, // 툴팁 제목 글자 크기
       },
       bodyFont: {
-        size: 25, // 툴팁 내용 글자 크기를 3배로 설정
+        size: 25, // 툴팁 내용 글자 크기
       },
     },
   },
@@ -416,8 +382,8 @@ p {
 
 .calculator-result-container {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
   padding: 20px;
-  min-height: fit-content;
 }
 
 .earnings-container {
@@ -480,13 +446,10 @@ p {
 
 .extent-crop-list-wrapper {
   width: 30%;
-  /* height: calc(width * 2); */
 }
 
 .pie-graph-container-wrapper {
   width: 70%;
-  /* height: 300px; */
-  /* height: calc(width/2); */
 }
 
 .pie-graph-wrapper {
@@ -522,9 +485,6 @@ p {
 .bar-graph {
   flex: 1;
   height: 100%;
-  /* width: 1000px;
-  height: 720px;
-  margin: auto auto; */
 }
 
 canvas {
@@ -540,11 +500,6 @@ canvas {
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  /* 커서 포인터로 변경 */
-  /* transition: background-color 0.3s ease; */
-  /* 배경색 변화에 대한 전환 */
-  /* color: #000000; */
-  /* text-decoration: none; */
   text-align: center;
   line-height: 40px;
 }
