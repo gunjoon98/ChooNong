@@ -85,5 +85,37 @@
 
 ### 팀 역할
 
-![팀역할](image/팀원역할.PNG)
+<table>
+    <tr height="140px">
+        <td align="center" width="130px">
+            <img src="./image/정건준.jpg">팀장 정건준</img>
+        </td>
+        <td align="center" width="130px">
+            <a href="https://github.com/kang-seongbeom"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/56289258?v=4"/></a>
+            <br />
+            <a href="https://github.com/kang-seongbeom">강성범</a>
+        </td>
+        <td align="center" width="130px">
+            <a href="https://github.com/b9s2w6"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/48309725?v=4"/></a>
+            <br />
+            <a href="https://github.com/b9s2w6">백성욱</a>
+        </td>
+        <td align="center" width="130px">
+            <a href="https://github.com/godjuhyuk"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/59328108?v=4"/></a>
+            <br />
+            <a href="https://github.com/godjuhyuk">이주혁</a>
+        </td>
+        <td align="center" width="130px">
+            <a href="https://github.com/gunjoon98"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/48176143?v=4"/></a>
+            <br />
+            <a href="https://github.com/gunjoon98">정건준</a>
+        </td>
+    </tr>
+    <tr>
+        <td>API 개발, Infra, 분산 환경 구축</td>
+        
+    </tr>
+</table>
+
+<br>
 
