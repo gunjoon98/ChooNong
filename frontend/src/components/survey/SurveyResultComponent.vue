@@ -54,8 +54,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
+// 스와이퍼 import 지우면 실행 안된다
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { useRegionStore } from "@/stores/regionStore";
 import { useSurveyStore } from "@/stores/surveyStore";
 import { useRouter } from "vue-router";
 
@@ -64,7 +64,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 
-const regionStore = useRegionStore();
 const surveyStore = useSurveyStore();
 const modules = ref([Pagination, Navigation, Autoplay]);
 const router = useRouter();
@@ -74,12 +73,12 @@ const showNavigation = ref(false);
 const swiperInstance = ref();
 
 // Swiper 인스턴스를 저장하는 함수
-const onSwiper = (swiper) => {
+const onSwiper = function(swiper) {
   swiperInstance.value = swiper;
 };
 
 // 클릭 이벤트 핸들러
-const handleSlideClick = (index, regionId) => {
+const handleSlideClick = function(index, regionId) {
   // 현재 활성 슬라이드의 실제 인덱스 얻기
   let realIndex = swiperInstance.value.realIndex;
   if (realIndex === index) {
@@ -96,6 +95,7 @@ const autoplayOptions = {
 };
 
 const resultList = ref([]);
+
 onMounted(() => {
   window.scrollTo(0, 0);
   resultList.value = surveyStore.resultList;
@@ -134,32 +134,6 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   text-align: center;
-}
-
-.region-image-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 0px;
-  padding: 0px;
-}
-
-.region-image {
-  max-width: 100%;
-  height: 200px;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.region-info h3,
-.region-info h4 {
-  margin: 5px 0;
-}
-
-.region-additional-info {
-  font-size: 0.9rem;
-  margin-top: 10px;
 }
 
 .region-image-background {
@@ -215,11 +189,6 @@ onMounted(() => {
   left: 0px;
 }
 
-.arrow-up {
-  width: 25px;
-  height: auto;
-  margin-bottom: 3px;
-}
 
 ::v-deep(.swiper-button-next),
 ::v-deep(.swiper-button-prev) {

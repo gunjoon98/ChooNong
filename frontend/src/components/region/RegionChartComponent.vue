@@ -1,32 +1,43 @@
 <template>
-  <h2 class="chart-title">지역에서 가장 많이 재배되는 작물 목록입니다.</h2>
-  <div class="card">
-    <canvas id="cropPieChart" width="500px" height="500px"></canvas>
+  <div>
+    <h2 class="chart-title">지역에서 가장 많이 재배되는 작물 목록입니다.</h2>
+    <div class="card">
+      <canvas id="cropPieChart" width="500px" height="500px"></canvas>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import Chart from 'chart.js/auto';
 import { useRoute } from 'vue-router';
 import { useRegionStore } from '@/stores/regionStore';
 
 const route = useRoute();
 const regionStore = useRegionStore();
-const regionId = ref(route.params.id); // ref로 감싸서 반응성을 부여
+const regionId = ref(route.params.id); 
 const regionDetail = ref({});
 
-
+// 라우터의 params.id 변경시 업데이트
 watch(() => route.params.id, async (newId) => {
-  regionId.value = newId; // 새로운 ID로 업데이트
+  regionId.value = newId;
   await regionStore.getRegionDetail(regionId.value);
   regionDetail.value = regionStore.regionDetail;
 }, { immediate: true });
 
+// 지역 정보의 작물정보 업데이트
+watch(() => regionDetail.value, (newValue) => {
+  if (newValue && newValue.crop_list) {
+    initChart([...newValue.crop_list]);
+  }
+}, {
+  immediate: true
+});
 
 let myChart = null;
 
-const initChart = (cropList) => {
+// 차트 만들기
+const initChart = function(cropList) {
   const totalRate = cropList.reduce((acc, crop) => acc + crop.area_rate, 0);
   const otherRate = 100 - totalRate;
 
@@ -47,7 +58,6 @@ const initChart = (cropList) => {
           'rgba(75, 192, 192, 0.2)',
           'rgba(153, 102, 255, 0.2)',
           'rgba(255, 159, 64, 0.2)',
-          // Color for 'Others'
           'rgba(201, 203, 207, 0.2)'
         ],
         borderColor: [
@@ -57,63 +67,56 @@ const initChart = (cropList) => {
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
           'rgba(255, 159, 64, 1)',
-          // Border color for 'Others'
           'rgba(201, 203, 207, 1)'
         ],
         borderWidth: 1
       }]
     },
     options: {
-  plugins: {
-    tooltip: {
-      // 툴팁에 대한 콜백 함수 설정
-      callbacks: {
-        label: function(context) {
-          let label = context.label || '';
-          if (label) {
-            label += ': ';
+      plugins: {
+        tooltip: {
+          // 툴팁에 대한 콜백 함수 설정
+          callbacks: {
+            label: function (context) {
+              let label = context.label || '';
+              if (label) {
+                label += ': ';
+              }
+              if (context.parsed !== undefined) {
+                label += `${Math.ceil(context.parsed * 10) / 10}%`;
+              }
+              return label;
+            }
+          },
+          // 툴팁의 글꼴 설정
+          titleFont: {
+            size: 0,
+          },
+          bodyFont: {
+            size: 20,
+            weight: 'normal'
           }
-          if (context.parsed !== undefined) {
-            label += `${Math.ceil(context.parsed * 10) / 10}%`;
-          }
-          return label;
-        }
-      },
-      // 툴팁의 글꼴 설정
-      titleFont: {
-        size: 0, // 제목 글꼴 크기
-      },
-      bodyFont: {
-        size: 20, // 본문 글꼴 크기
-        weight: 'normal'
-      }
-    },
-    legend: {
-      labels: {
-        font: {
-          size: 20, // 범례 글꼴 크기
-          weight: 'bold'
         },
+        legend: {
+          labels: {
+            font: {
+              size: 20,
+              weight: 'bold'
+            },
+            padding: 20
+          }
+        },
+
+      },
+      layout: {
         padding: 20
       }
-    },
-    
-  },
-  layout: {
-            padding: 20
-        }
-}
+    }
 
   });
 };
 
-watch(() => regionDetail.value, (newValue) => {
-  if (newValue && newValue.crop_list) {
-    initChart([...newValue.crop_list]);  // Spread operator to create a shallow copy
-  }
-}, {
-  immediate: true
-});
+
 </script>
 
 <style scoped>

@@ -1,34 +1,31 @@
 <template>
-  <h2 class="survey-title">간단한 설문을 하면 적합한 귀농지를 추천해 드려요!</h2>
-  <div class="survey-container">
-    <div class="progress-bar-container">
-      <div class="progress-bar" :style="{ width: progress + '%' }"></div>
-    </div>
-    <h3 v-if="!(currentStep === surveyQuestions.length)">{{ currentStep + 1 }} / {{ surveyQuestions.length }}</h3>
-    <div v-if="currentStep < surveyQuestions.length" class="question-wrapper">
-      <div class="question">
-        <h2>{{ currentQuestion.question }}</h2>
-        <div>
-          <button
-            v-for="(option, index) in currentQuestion.options"
-            :key="index"
-            @click="handleAnswer(index)"
-            :class="{
-              'option-button': true,
-              selected: responses[currentQuestion.id] === index,
-            }"
-          >
-            {{ option }}
-          </button>
-        </div>
+  <div>
+    <h2 class="survey-title">간단한 설문을 하면 적합한 귀농지를 추천해 드려요!</h2>
+    <div class="survey-container">
+      <div class="progress-bar-container">
+        <div class="progress-bar" :style="{ width: progress + '%' }"></div>
       </div>
-      <button @click="nextStep" v-if="canProceed" class="next-button">
-        다음
-      </button>
-    </div>
-    <div v-if="currentStep === surveyQuestions.length" class="result-retry-buttons">
-      <button @click="showResults" class="nav-button">결과 보기</button>
-      <button @click="resetSurvey" class="nav-button">다시 시작하기</button>
+      <h3 v-if="!(currentStep === surveyQuestions.length)">{{ currentStep + 1 }} / {{ surveyQuestions.length }}</h3>
+      <div v-if="currentStep < surveyQuestions.length" class="question-wrapper">
+        <div class="question">
+          <h2>{{ currentQuestion.question }}</h2>
+          <div>
+            <button v-for="(option, index) in currentQuestion.options" :key="index" @click="handleAnswer(index)" :class="{
+          'option-button': true,
+          selected: responses[currentQuestion.id] === index,
+        }">
+              {{ option }}
+            </button>
+          </div>
+        </div>
+        <button @click="nextStep" v-if="canProceed" class="next-button">
+          다음
+        </button>
+      </div>
+      <div v-if="currentStep === surveyQuestions.length" class="result-retry-buttons">
+        <button @click="showResults" class="nav-button">결과 보기</button>
+        <button @click="resetSurvey" class="nav-button">다시 시작하기</button>
+      </div>
     </div>
   </div>
 </template>
@@ -41,6 +38,7 @@ import { useSurveyStore } from "@/stores/surveyStore";
 const router = useRouter();
 const surveyStore = useSurveyStore();
 
+// 설문 문항
 const surveyQuestions = ref([
   {
     id: "one",
@@ -120,23 +118,30 @@ const surveyQuestions = ref([
 const currentStep = ref(0);
 const canProceed = ref(false);
 
+// 현재 설문 문항 계산
 const currentQuestion = computed(
   () => surveyQuestions.value[currentStep.value]
 );
+
+// 함수에서 사용하는 답변 저장
 const responses = ref([]);
+// json으로 보내기 위해 사용하는 답변 저장
 const structuredResponses = ref({});
 
+// 설문 초기화, 사용자의 시점 맨 위로 변경
 onMounted(function () {
   window.scrollTo(0, 0);
   resetSurvey();
 });
 
+// 프로그래스 바 계산
 const progress = computed(() => {
   let progressPercentage =
     (currentStep.value / surveyQuestions.value.length) * 100;
   return Math.min(progressPercentage, 100);
 });
 
+// 답변선택시
 const handleAnswer = function (optionIndex) {
   let questionId = currentQuestion.value.id;
   responses.value[questionId] = optionIndex;
@@ -172,6 +177,7 @@ const handleAnswer = function (optionIndex) {
   canProceed.value = true;
 };
 
+// 다음 버튼 클릭시
 const nextStep = function () {
   if (canProceed.value) {
     // 첫 번째 문항에서 "네 있습니다." 선택 시, 순차적으로 다음 문항으로
@@ -189,11 +195,13 @@ const nextStep = function () {
   }
 };
 
+// 결과보기
 const showResults = async function () {
   await surveyStore.getSurveyResult(structuredResponses.value);
   router.push({ name: "surveyResult" });
 };
 
+// 설문 초기화
 const resetSurvey = function () {
   currentStep.value = 0;
   canProceed.value = false;
