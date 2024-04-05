@@ -8,7 +8,6 @@ import MainComponent from "../components/main/MainComponent.vue";
 import CalculatorComponent from "@/components/calculator/CalculatorComponent.vue";
 import CalculatorResultComponent from "../components/calculator/CalculatorResultComponent.vue";
 import CheckListComponent from "@/components/checklist/CheckListComponent.vue";
-import CheckListResultComponent from "../components/checklist/CheckListResultComponent.vue";
 import SurveyComponent from "@/components/survey/SurveyComponent.vue";
 import SurveyResultComponent from "@/components/survey/SurveyResultComponent.vue";
 import RegionDetailComponent from "@/components/region/RegionDetailComponent.vue";
@@ -95,11 +94,6 @@ const router = createRouter({
           path: "/checklist",
           name: "checklistComponent",
           component: CheckListComponent,
-        },
-        {
-          path: "/checklist/result",
-          name: "checklistResult",
-          component: CheckListResultComponent,
         },
       ]
     },
