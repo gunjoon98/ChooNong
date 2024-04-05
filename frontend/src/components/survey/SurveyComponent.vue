@@ -190,9 +190,6 @@ const nextStep = function () {
 };
 
 const showResults = async function () {
-  console.log("structuredResponses", structuredResponses.value);
-  console.log("responses", responses.value);
-  console.log("결과 보기");
   await surveyStore.getSurveyResult(structuredResponses.value);
   router.push({ name: "surveyResult" });
 };

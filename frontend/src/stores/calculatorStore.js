@@ -9,12 +9,10 @@ export const useCalculatorStore = defineStore("calculator", () => {
 
   const setTotalExtent = async function (extent) {
     totalExtent.value = extent;
-    // console.log(totalExtent.value)
   };
 
   const setAddedCropList = async function (cropList) {
     addedCropList.value = cropList;
-    // console.log(addedCropList.value)
   };
 
   const getCropList = async function () {
@@ -34,7 +32,6 @@ export const useCalculatorStore = defineStore("calculator", () => {
         };
         cropList.value.push(crop);
       }
-      console.log(cropList.value);
     });
   };
 

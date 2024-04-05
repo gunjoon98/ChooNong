@@ -65,7 +65,6 @@ const handleInput = (event) => {
 };
 
 const logSelection = (item) => {
-  console.log(item);
   searchQuery.value = item;
   dropdownVisible.value = false;
 };
@@ -73,7 +72,6 @@ const logSelection = (item) => {
 const searchRegion = () => {
   const index = data.findIndex(item => item === searchQuery.value);
   if (index === -1) {
-    console.log("정확히 일치하는 지역이 없습니다.");
     alert("정확히 일치하는 지역이 없어 검색을 수행할 수 없습니다.");
     return;
   }

@@ -25,7 +25,6 @@ export const useRegionStore = defineStore('region', () => {
 		})
 			.then((response) => {
 				regionDetail.value = response.data
-				console.log(response.data)
 			})
 			.catch(err => console.log("지역 조회 오류"))
 	}
@@ -36,7 +35,6 @@ export const useRegionStore = defineStore('region', () => {
 			for (const id of ids) {
 				const response = await axios.get(`https://choonong.store/api/region/${id}`);
 				if (response.data) {
-					console.log(response.data)
 					regionsDetailList.value.push(response.data);
 				}
 			}

@@ -402,7 +402,6 @@ const nextQuestion = () => {
     lastSelectedAnswerIndex.value = -1; // 마지막 선택한 답변 인덱스 초기화
   } else {
     // 마지막 문제를 완료한 후 처리할 로직 (예: 퀴즈 종료 메시지 표시 등)
-    console.log("퀴즈 완료");
   }
 };
 
