@@ -91,13 +91,13 @@
             <img src="./image/정건준.jpg">팀장 정건준</img>
         </td>
         <td align="center" width="150px">
-            <img src="./image/김용준.png">팀원 김용준</img>
+            <img src="./image/김용준.png" height="155">팀원 김용준</img>
         </td>
         <td align="center" width="150px">
             <img src="./image/김근형.jpg">팀원 김근형</img>
         </td>
         <td align="center" width="150px">
-            <img src="./image/김소연.png">팀원 김소연</img>
+            <img src="./image/김소연.png" height="155">팀원 김소연</img>
         </td>
         <td align="center" width="150px">
             <img src="./image/송의찬.jpg">팀원 송의찬</img>
